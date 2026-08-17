@@ -15,8 +15,45 @@ import { SideMenu } from "@/components/ui/side-menu";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionary";
 import { cn } from "@/lib/cn";
+import type { BreakpointName } from "@/settings/types";
 
 const stuckAfterPx = 8;
+
+const navFromClasses = {
+  xs: {
+    nav: "hidden min-w-0 flex-1 items-center justify-start gap-1 xs:flex",
+    tools: "ms-auto flex min-w-0 shrink-0 items-center gap-2 xs:ms-0",
+    cta: "hidden shrink-0 whitespace-nowrap xs:inline-flex",
+    menu: "xs:hidden",
+  },
+  sm: {
+    nav: "hidden min-w-0 flex-1 items-center justify-start gap-1 sm:flex",
+    tools: "ms-auto flex min-w-0 shrink-0 items-center gap-2 sm:ms-0",
+    cta: "hidden shrink-0 whitespace-nowrap sm:inline-flex",
+    menu: "sm:hidden",
+  },
+  md: {
+    nav: "hidden min-w-0 flex-1 items-center justify-start gap-1 md:flex",
+    tools: "ms-auto flex min-w-0 shrink-0 items-center gap-2 md:ms-0",
+    cta: "hidden shrink-0 whitespace-nowrap md:inline-flex",
+    menu: "md:hidden",
+  },
+  lg: {
+    nav: "hidden min-w-0 flex-1 items-center justify-start gap-1 lg:flex",
+    tools: "ms-auto flex min-w-0 shrink-0 items-center gap-2 lg:ms-0",
+    cta: "hidden shrink-0 whitespace-nowrap lg:inline-flex",
+    menu: "lg:hidden",
+  },
+  xl: {
+    nav: "hidden min-w-0 flex-1 items-center justify-start gap-1 xl:flex",
+    tools: "ms-auto flex min-w-0 shrink-0 items-center gap-2 xl:ms-0",
+    cta: "hidden shrink-0 whitespace-nowrap xl:inline-flex",
+    menu: "xl:hidden",
+  },
+} as const satisfies Record<
+  BreakpointName,
+  { nav: string; tools: string; cta: string; menu: string }
+>;
 
 const pageLinks = [
   { key: "home", path: "", color: "primary" },
@@ -36,6 +73,7 @@ export type SiteHeaderProps = {
   siteName: string;
   nav: Dictionary["nav"];
   currentLocale: Locale;
+  navFrom: BreakpointName;
   className?: string;
 };
 
@@ -102,11 +140,13 @@ export function SiteHeader({
   siteName,
   nav,
   currentLocale,
+  navFrom,
   className,
 }: SiteHeaderProps) {
   const pathname = usePathname() || `/${currentLocale}`;
   const [stuck, setStuck] = useState(false);
   const homeHref = hrefFor(currentLocale, "");
+  const layout = navFromClasses[navFrom];
 
   useEffect(() => {
     function onScroll() {
@@ -164,10 +204,7 @@ export function SiteHeader({
               unoptimized
             />
           </Link>
-          <nav
-            aria-label={nav.menu}
-            className="hidden min-w-0 flex-1 items-center justify-start gap-1 lg:flex"
-          >
+          <nav aria-label={nav.menu} className={layout.nav}>
             {links.map((item) => (
               <NavItem
                 key={item.href}
@@ -180,16 +217,16 @@ export function SiteHeader({
               />
             ))}
           </nav>
-          <div className="ms-auto flex min-w-0 shrink-0 items-center gap-2 lg:ms-0">
+          <div className={layout.tools}>
             <LanguageSwitcher
               currentLocale={currentLocale}
               label={nav.language}
             />
-            <Button className="hidden shrink-0 whitespace-nowrap lg:inline-flex">
+            <Button className={layout.cta}>
               {nav.getStarted}
             </Button>
             <SideMenu
-              className="lg:hidden"
+              className={layout.menu}
               icon="menu"
               label={nav.menu}
               closeLabel={nav.close}

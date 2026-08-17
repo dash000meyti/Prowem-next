@@ -56,6 +56,12 @@
   --theme-border-width-sm: 1px;
   --theme-border-width-md: 2px;
   --theme-border-width-lg: 4px;
+  --container-xs: 480px;
+  --container-sm: 720px;
+  --container-md: 980px;
+  --container-lg: 1200px;
+  --container-xl: 1440px;
+  --container-full: 100%;
 }
 
 @theme inline {
@@ -124,11 +130,18 @@
   --shadow-glow-success: 0 0 8px color-mix(in srgb, var(--success-glow) 35%, transparent), 0 0 24px color-mix(in srgb, var(--success-glow) 28%, transparent);
   --shadow-glow-warning: 0 0 8px color-mix(in srgb, var(--warning-glow) 35%, transparent), 0 0 24px color-mix(in srgb, var(--warning-glow) 28%, transparent);
   --shadow-glow-error: 0 0 8px color-mix(in srgb, var(--error-glow) 35%, transparent), 0 0 24px color-mix(in srgb, var(--error-glow) 28%, transparent);
-  --breakpoint-sm: 40rem;
-  --breakpoint-md: 48rem;
-  --breakpoint-lg: 64rem;
-  --breakpoint-xl: 80rem;
-  --breakpoint-2xl: 96rem;
+  --max-width-container-xs: var(--container-xs);
+  --max-width-container-sm: var(--container-sm);
+  --max-width-container-md: var(--container-md);
+  --max-width-container-lg: var(--container-lg);
+  --max-width-container-xl: var(--container-xl);
+  --max-width-container-full: var(--container-full);
+  --breakpoint-xs: 480px;
+  --breakpoint-sm: 720px;
+  --breakpoint-md: 980px;
+  --breakpoint-lg: 1200px;
+  --breakpoint-xl: 1440px;
+  --breakpoint-2xl: initial;
   --font-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 

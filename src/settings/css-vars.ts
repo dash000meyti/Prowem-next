@@ -39,5 +39,11 @@ export function toCssVars(theme: Theme): CSSProperties {
     "--theme-border-width-sm": theme.borderWidth.sm,
     "--theme-border-width-md": theme.borderWidth.md,
     "--theme-border-width-lg": theme.borderWidth.lg,
+    "--container-xs": theme.container.xs,
+    "--container-sm": theme.container.sm,
+    "--container-md": theme.container.md,
+    "--container-lg": theme.container.lg,
+    "--container-xl": theme.container.xl,
+    "--container-full": theme.container.full,
   } as CSSProperties;
 }

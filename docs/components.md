@@ -36,7 +36,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 4. No user-facing English (or any language) inside UI or templates. Parents pass strings.
 5. Prefer logical CSS utilities.
 6. Color, radius, and border width come from settings tokens. Use `rounded-sm|md|lg|xl|full`, `border-sm|md|lg`, `border-border`, `bg-background`, `bg-panel`, `bg-primary`, `bg-accent-1`…`4`, `bg-success`, `bg-warning`, `bg-error`, and `*-foreground` / `*-hover` / `*-glow` / `*-shadow` (glow and shadow on action colors only). No hex and no `rounded-[…]`. UI does not import `getSettings()`.
-7. Mobile-first. Base styles are the small screen. Scale up with `sm:` `md:` `lg:` from the theme breakpoints. Do not design desktop-only and patch later. Flex children that can shrink need `min-w-0`.
+7. Mobile-first. Base styles are the small screen. Scale up with `xs:` `sm:` `md:` `lg:` `xl:` from the theme breakpoints. Do not design desktop-only and patch later. Flex children that can shrink need `min-w-0`.
 
 ## UI inventory (phase 1)
 
@@ -48,7 +48,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 `radius`: `sm` | `md` | `lg` | `xl` | `full` (default `full`)  
 `icon?`: `IconName` from `@/components/icons`  
 `iconPosition?`: `start` (default) | `end`  
-Also: native `button` attributes (`disabled`, `type`, `onClick`, …). `color` tints `filled` / `outline` / `soft` / `ghost` / `subtle` / `link`. `outline` and `soft` draw `border-border` inside the box (`shadow-outline`) so they do not add width. `filled` and `outline` hover with a `*-glow` halo (`shadow-glow-*`, including `background` / `foreground`); `:active` has no glow. `soft` rest matches `outline`; hover tints with `color` like `secondary` (`*-hover/20`), with no glow. `secondary` rest is panel; hover tints with `color` like ghost (`*-hover/20`). `ghost` rest uses the `color` text. `subtle` rest uses `text-panel-foreground` like secondary, then hover tints and recolors like ghost.
+Also: native `button` attributes (`disabled`, `type`, `onClick`, …). `color` tints `filled` / `outline` / `soft` / `ghost` / `subtle` / `link`. `outline` and `soft` draw `border-border` inside the box (`shadow-outline`) so they do not add width. `filled` and `outline` hover with a `*-glow` halo (`shadow-glow-*`, including `background` / `foreground`); `:active` has no glow. `secondary` / `soft` / `ghost` / `subtle` use the same `shadow-glow-*` halo on `:active` and `aria-expanded` (Dropdown / SideMenu stay glowing while open). `soft` rest matches `outline`; hover tints with `color` like `secondary` (`*-hover/20`). `secondary` rest is panel; hover tints with `color` like ghost (`*-hover/20`). `ghost` rest uses the `color` text. `subtle` rest uses `text-panel-foreground` like secondary, then hover tints and recolors like ghost.
 
 Icon-only (`icon` and no label): equal padding, same height as `size` (`sm`: `size-8`; `md`: `size-9 md:size-10`; `lg`: `size-10 md:size-12`), with CVA compounds that zero `md:px-*`. Icon + text: normal button height, icon `size-4`, `gap-2`.
 
@@ -66,7 +66,7 @@ Client atom. No copy, no routing. Overlay, Escape, and the close control live he
 
 ### Container
 
-`width`: `sm` | `md` | `lg` | `full` (`full` is `max-w-none`)  
+`width`: `xs` | `sm` | `md` | `lg` | `xl` | `full` (`full` is `max-w-none`; others use `max-w-container-*` from `theme.container`)  
 `padding`: `none` | `sm` | `md` | `lg` (each step is already viewport-scaled, e.g. default `md` is `px-4 md:px-6 lg:px-8`)  
 Use as the page/section shell. Horizontal padding is symmetric (`px-*`), which is RTL-safe. `min-w-0` is on the root so flex layouts can shrink.
 
@@ -87,8 +87,8 @@ Client component. Trigger is a `soft` Dropdown with the current locale’s flag 
 
 ### SiteHeader
 
-Props: `siteName`, `nav` (`Dictionary["nav"]`), `currentLocale`, `className?`.  
-Composes `Container` + locale-prefixed nav links + `LanguageSwitcher` + filled Get Started `Button`. The home link shows the brand wordmark (`/logo.svg`, displayed at `h-[1.44rem]` / 0.72 of `h-8`) with `siteName` as the image `alt`. Destinations are `/`, `/my-event-app`, `/my-broadcast`, `/my-socialmedia`, `/my-club`, `/event-team`, `/login` under the current locale; pages can be added later on those routes. Each nav item is `variant="subtle"` with a fixed `color`: Home `primary`, My Event-App `accent-1`, My Broadcast `accent-4`, My Socialmedia `accent-3`, My Club `accent-2`, Prowem Event Team `primary`, Login `foreground` (last in the list). The current page is `disabled` (`aria-current="page"`). From `lg` the links follow the wordmark at the start of the bar and Get Started stays a filled primary CTA after the language switcher. Below `lg` a `secondary` `menu` SideMenu (`side="end"`) holds the same nav items at default Button size; Get Started leaves the bar and is pinned in the SideMenu `footer`. At the top of the page it is `h-20` with no background and a transparent bottom edge. After `8px` of scroll it sticks (`sticky top-0`) at `h-18` with `bg-panel/72 backdrop-blur-sm` and `border-border`. The bottom edge stays `border-b border-sm` in both states so the color can fade in over `300ms`; an `h-2` spacer keeps layout from jumping. It returns to the tall transparent bar when `scrollY` is `0`.
+Props: `siteName`, `nav` (`Dictionary["nav"]`), `currentLocale`, `navFrom` (named theme breakpoint from `settings.header.navFrom`), `className?`.  
+Composes `Container` + locale-prefixed nav links + `LanguageSwitcher` + filled Get Started `Button`. The home link shows the brand wordmark (`/logo.svg`, displayed at `h-[1.44rem]` / 0.72 of `h-8`) with `siteName` as the image `alt`. Destinations are `/`, `/my-event-app`, `/my-broadcast`, `/my-socialmedia`, `/my-club`, `/event-team`, `/login` under the current locale; pages can be added later on those routes. Each nav item is `variant="subtle"` with a fixed `color`: Home `primary`, My Event-App `accent-1`, My Broadcast `accent-4`, My Socialmedia `accent-3`, My Club `accent-2`, Prowem Event Team `primary`, Login `foreground` (last in the list). The current page is `disabled` (`aria-current="page"`). From `navFrom` the links follow the wordmark at the start of the bar and Get Started stays a filled primary CTA after the language switcher. Below that breakpoint a `secondary` `menu` SideMenu (`side="end"`) holds the same nav items at default Button size; Get Started leaves the bar and is pinned in the SideMenu `footer`. Default `navFrom` in settings is `xl` (1440px). At the top of the page it is `h-20` with no background and a transparent bottom edge. After `8px` of scroll it sticks (`sticky top-0`) at `h-18` with `bg-panel/72 backdrop-blur-sm` and `border-border`. The bottom edge stays `border-b border-sm` in both states so the color can fade in over `300ms`; an `h-2` spacer keeps layout from jumping. It returns to the tall transparent bar when `scrollY` is `0`.
 
 ## Checklist: add a UI component
 
@@ -116,16 +116,16 @@ Composes `Container` + locale-prefixed nav links + `LanguageSwitcher` + filled G
 
 ## Responsive (first layer)
 
-Every UI, template, and page is mobile-first. Breakpoints live in [`src/app/globals.css`](../src/app/globals.css) (`--breakpoint-sm` … `--breakpoint-2xl`). They stay in CSS, not settings/SQLite: media queries cannot take runtime CSS variables.
+Every UI, template, and page is mobile-first. Breakpoint **widths** live in [`src/app/globals.css`](../src/app/globals.css) (`--breakpoint-xs` … `--breakpoint-xl`). They stay in CSS, not settings/SQLite: media queries cannot take runtime CSS variables. Container **max-widths** (`theme.container`) live in settings and must use the same pixel values as those breakpoints (`full` is Container-only, `100%`). There is no `2xl`.
 
 | Prefix | Width |
 | --- | --- |
-| (base) | < 40rem |
-| `sm` | 40rem |
-| `md` | 48rem |
-| `lg` | 64rem |
-| `xl` | 80rem |
-| `2xl` | 96rem |
+| (base) | < 480px |
+| `xs` | 480px |
+| `sm` | 720px |
+| `md` | 980px |
+| `lg` | 1200px |
+| `xl` | 1440px |
 
 Write the small-screen layout first, then `md:` / `lg:`. Do not use `max-*` as the default approach. Do not assume a desktop header height or a single-line toolbar.
 

@@ -34,6 +34,6 @@ Permanent. The user will not repeat it.
 - Icons: `src/components/icons/` (`<Icon name="…" />`; Linear only)
 - Static assets: `public/` (`logo.svg` wordmark, `favicon/` PHP set)
 - Locales: `src/i18n/config.ts` + `src/i18n/messages/*.json` (copy via `getDictionary()`)
-- Settings: `src/settings/` (theme tokens via `getSettings()`; UI uses `rounded-*` / `border-*` classes)
+- Settings: `src/settings/` (theme tokens, `theme.container`, and `header.navFrom` via `getSettings()`; UI uses `rounded-*` / `border-*` / `max-w-container-*` classes)
 - Root `<html lang dir>` + theme CSS vars: `src/app/[lang]/layout.tsx` only
-- Mobile-first UI/templates/pages (`min-w-0`, wrap, `md:` type/spacing)
+- Mobile-first UI/templates/pages (`min-w-0`, wrap, `xs:`–`xl:` type/spacing)

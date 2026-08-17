@@ -71,6 +71,7 @@ export default async function RootLayout({
           siteName={dict.site.name}
           nav={dict.nav}
           currentLocale={lang}
+          navFrom={settings.header.navFrom}
         />
         {children}
       </body>

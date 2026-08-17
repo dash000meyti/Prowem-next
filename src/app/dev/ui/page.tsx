@@ -9,7 +9,7 @@ const buttonVariants = ["filled", "secondary", "outline", "soft", "ghost", "subt
 const buttonSizes = ["sm", "md", "lg"] as const;
 const buttonRadii = ["sm", "md", "lg", "xl", "full"] as const;
 const dropdownVariants = ["filled", "secondary", "outline", "soft", "link"] as const;
-const containerWidths = ["sm", "md", "lg", "full"] as const;
+const containerWidths = ["xs", "sm", "md", "lg", "xl", "full"] as const;
 const containerPaddings = ["none", "sm", "md", "lg"] as const;
 
 function DemoMenu() {

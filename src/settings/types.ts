@@ -42,14 +42,31 @@ export type ThemeBorderWidth = {
   lg: string;
 };
 
+export type ThemeContainer = {
+  xs: string;
+  sm: string;
+  md: string;
+  lg: string;
+  xl: string;
+  full: string;
+};
+
 export type Theme = {
   colors: ThemeColors;
   radius: ThemeRadius;
   borderWidth: ThemeBorderWidth;
+  container: ThemeContainer;
+};
+
+export type BreakpointName = "xs" | "sm" | "md" | "lg" | "xl";
+
+export type HeaderSettings = {
+  navFrom: BreakpointName;
 };
 
 export type Settings = {
   theme: Theme;
+  header: HeaderSettings;
 };
 
 export type DeepPartial<T> = {

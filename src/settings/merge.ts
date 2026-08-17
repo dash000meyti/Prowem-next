@@ -36,6 +36,11 @@ export function mergeSettings(
       },
       radius: { ...base.theme.radius, ...overlay.theme?.radius },
       borderWidth: { ...base.theme.borderWidth, ...overlay.theme?.borderWidth },
+      container: { ...base.theme.container, ...overlay.theme?.container },
+    },
+    header: {
+      ...base.header,
+      ...overlay.header,
     },
   };
 }

@@ -31,6 +31,19 @@ const glowByColor: Record<ButtonColor, string> = {
   error: "hover:shadow-glow-error active:shadow-none",
 };
 
+const pressGlowByColor: Record<ButtonColor, string> = {
+  background: "active:shadow-glow-background aria-expanded:shadow-glow-background",
+  foreground: "active:shadow-glow-foreground aria-expanded:shadow-glow-foreground",
+  primary: "active:shadow-glow-primary aria-expanded:shadow-glow-primary",
+  "accent-1": "active:shadow-glow-accent-1 aria-expanded:shadow-glow-accent-1",
+  "accent-2": "active:shadow-glow-accent-2 aria-expanded:shadow-glow-accent-2",
+  "accent-3": "active:shadow-glow-accent-3 aria-expanded:shadow-glow-accent-3",
+  "accent-4": "active:shadow-glow-accent-4 aria-expanded:shadow-glow-accent-4",
+  success: "active:shadow-glow-success aria-expanded:shadow-glow-success",
+  warning: "active:shadow-glow-warning aria-expanded:shadow-glow-warning",
+  error: "active:shadow-glow-error aria-expanded:shadow-glow-error",
+};
+
 const filledByColor: Record<ButtonColor, string> = {
   background: `bg-background text-foreground hover:bg-panel ${glowByColor.background}`,
   foreground: `bg-foreground text-background hover:bg-panel-foreground ${glowByColor.foreground}`,
@@ -58,55 +71,55 @@ const outlineByColor: Record<ButtonColor, string> = {
 };
 
 const ghostByColor: Record<ButtonColor, string> = {
-  background: "text-background hover:bg-background/20",
-  foreground: "text-foreground hover:bg-foreground/20",
-  primary: "text-primary hover:bg-primary-hover/20",
-  "accent-1": "text-accent-1 hover:bg-accent-1-hover/20",
-  "accent-2": "text-accent-2 hover:bg-accent-2-hover/20",
-  "accent-3": "text-accent-3 hover:bg-accent-3-hover/20",
-  "accent-4": "text-accent-4 hover:bg-accent-4-hover/20",
-  success: "text-success hover:bg-success-hover/20",
-  warning: "text-warning hover:bg-warning-hover/20",
-  error: "text-error hover:bg-error-hover/20",
+  background: `text-background hover:bg-background/20 ${pressGlowByColor.background}`,
+  foreground: `text-foreground hover:bg-foreground/20 ${pressGlowByColor.foreground}`,
+  primary: `text-primary hover:bg-primary-hover/20 ${pressGlowByColor.primary}`,
+  "accent-1": `text-accent-1 hover:bg-accent-1-hover/20 ${pressGlowByColor["accent-1"]}`,
+  "accent-2": `text-accent-2 hover:bg-accent-2-hover/20 ${pressGlowByColor["accent-2"]}`,
+  "accent-3": `text-accent-3 hover:bg-accent-3-hover/20 ${pressGlowByColor["accent-3"]}`,
+  "accent-4": `text-accent-4 hover:bg-accent-4-hover/20 ${pressGlowByColor["accent-4"]}`,
+  success: `text-success hover:bg-success-hover/20 ${pressGlowByColor.success}`,
+  warning: `text-warning hover:bg-warning-hover/20 ${pressGlowByColor.warning}`,
+  error: `text-error hover:bg-error-hover/20 ${pressGlowByColor.error}`,
 };
 
 const subtleByColor: Record<ButtonColor, string> = {
-  background: "text-panel-foreground hover:bg-background/20 hover:text-background",
-  foreground: "text-panel-foreground hover:bg-foreground/20 hover:text-foreground",
-  primary: "text-panel-foreground hover:bg-primary-hover/20 hover:text-primary",
-  "accent-1": "text-panel-foreground hover:bg-accent-1-hover/20 hover:text-accent-1",
-  "accent-2": "text-panel-foreground hover:bg-accent-2-hover/20 hover:text-accent-2",
-  "accent-3": "text-panel-foreground hover:bg-accent-3-hover/20 hover:text-accent-3",
-  "accent-4": "text-panel-foreground hover:bg-accent-4-hover/20 hover:text-accent-4",
-  success: "text-panel-foreground hover:bg-success-hover/20 hover:text-success",
-  warning: "text-panel-foreground hover:bg-warning-hover/20 hover:text-warning",
-  error: "text-panel-foreground hover:bg-error-hover/20 hover:text-error",
+  background: `text-panel-foreground hover:bg-background/20 hover:text-background ${pressGlowByColor.background}`,
+  foreground: `text-panel-foreground hover:bg-foreground/20 hover:text-foreground ${pressGlowByColor.foreground}`,
+  primary: `text-panel-foreground hover:bg-primary-hover/20 hover:text-primary ${pressGlowByColor.primary}`,
+  "accent-1": `text-panel-foreground hover:bg-accent-1-hover/20 hover:text-accent-1 ${pressGlowByColor["accent-1"]}`,
+  "accent-2": `text-panel-foreground hover:bg-accent-2-hover/20 hover:text-accent-2 ${pressGlowByColor["accent-2"]}`,
+  "accent-3": `text-panel-foreground hover:bg-accent-3-hover/20 hover:text-accent-3 ${pressGlowByColor["accent-3"]}`,
+  "accent-4": `text-panel-foreground hover:bg-accent-4-hover/20 hover:text-accent-4 ${pressGlowByColor["accent-4"]}`,
+  success: `text-panel-foreground hover:bg-success-hover/20 hover:text-success ${pressGlowByColor.success}`,
+  warning: `text-panel-foreground hover:bg-warning-hover/20 hover:text-warning ${pressGlowByColor.warning}`,
+  error: `text-panel-foreground hover:bg-error-hover/20 hover:text-error ${pressGlowByColor.error}`,
 };
 
 const secondaryByColor: Record<ButtonColor, string> = {
-  background: "hover:bg-background",
-  foreground: "hover:bg-foreground/20",
-  primary: "hover:bg-primary-hover/20",
-  "accent-1": "hover:bg-accent-1-hover/20",
-  "accent-2": "hover:bg-accent-2-hover/20",
-  "accent-3": "hover:bg-accent-3-hover/20",
-  "accent-4": "hover:bg-accent-4-hover/20",
-  success: "hover:bg-success-hover/20",
-  warning: "hover:bg-warning-hover/20",
-  error: "hover:bg-error-hover/20",
+  background: `hover:bg-background ${pressGlowByColor.background}`,
+  foreground: `hover:bg-foreground/20 ${pressGlowByColor.foreground}`,
+  primary: `hover:bg-primary-hover/20 ${pressGlowByColor.primary}`,
+  "accent-1": `hover:bg-accent-1-hover/20 ${pressGlowByColor["accent-1"]}`,
+  "accent-2": `hover:bg-accent-2-hover/20 ${pressGlowByColor["accent-2"]}`,
+  "accent-3": `hover:bg-accent-3-hover/20 ${pressGlowByColor["accent-3"]}`,
+  "accent-4": `hover:bg-accent-4-hover/20 ${pressGlowByColor["accent-4"]}`,
+  success: `hover:bg-success-hover/20 ${pressGlowByColor.success}`,
+  warning: `hover:bg-warning-hover/20 ${pressGlowByColor.warning}`,
+  error: `hover:bg-error-hover/20 ${pressGlowByColor.error}`,
 };
 
 const softByColor: Record<ButtonColor, string> = {
-  background: "text-background hover:bg-background",
-  foreground: "text-foreground hover:bg-foreground/20",
-  primary: "text-primary hover:bg-primary-hover/20",
-  "accent-1": "text-accent-1 hover:bg-accent-1-hover/20",
-  "accent-2": "text-accent-2 hover:bg-accent-2-hover/20",
-  "accent-3": "text-accent-3 hover:bg-accent-3-hover/20",
-  "accent-4": "text-accent-4 hover:bg-accent-4-hover/20",
-  success: "text-success hover:bg-success-hover/20",
-  warning: "text-warning hover:bg-warning-hover/20",
-  error: "text-error hover:bg-error-hover/20",
+  background: `text-background hover:bg-background ${pressGlowByColor.background}`,
+  foreground: `text-foreground hover:bg-foreground/20 ${pressGlowByColor.foreground}`,
+  primary: `text-primary hover:bg-primary-hover/20 ${pressGlowByColor.primary}`,
+  "accent-1": `text-accent-1 hover:bg-accent-1-hover/20 ${pressGlowByColor["accent-1"]}`,
+  "accent-2": `text-accent-2 hover:bg-accent-2-hover/20 ${pressGlowByColor["accent-2"]}`,
+  "accent-3": `text-accent-3 hover:bg-accent-3-hover/20 ${pressGlowByColor["accent-3"]}`,
+  "accent-4": `text-accent-4 hover:bg-accent-4-hover/20 ${pressGlowByColor["accent-4"]}`,
+  success: `text-success hover:bg-success-hover/20 ${pressGlowByColor.success}`,
+  warning: `text-warning hover:bg-warning-hover/20 ${pressGlowByColor.warning}`,
+  error: `text-error hover:bg-error-hover/20 ${pressGlowByColor.error}`,
 };
 
 const linkByColor: Record<ButtonColor, string> = {

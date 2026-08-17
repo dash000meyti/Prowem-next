@@ -1,3 +1,6 @@
+import { getSettings } from "@/settings/get-settings";
+import type { ThemeContainer } from "@/settings/types";
+
 const surfaceSwatches = [
   { label: "background", className: "bg-background" },
   { label: "foreground", className: "bg-foreground" },
@@ -98,6 +101,19 @@ const radiusSwatches = [
   { label: "full", className: "rounded-full" },
 ] as const;
 
+const layoutRows = [
+  { name: "xs", prefix: "xs:", className: "max-w-container-xs" },
+  { name: "sm", prefix: "sm:", className: "max-w-container-sm" },
+  { name: "md", prefix: "md:", className: "max-w-container-md" },
+  { name: "lg", prefix: "lg:", className: "max-w-container-lg" },
+  { name: "xl", prefix: "xl:", className: "max-w-container-xl" },
+  { name: "full", prefix: "—", className: "max-w-none" },
+] as const satisfies ReadonlyArray<{
+  name: keyof ThemeContainer;
+  prefix: string;
+  className: string;
+}>;
+
 function Swatch({ label, className }: { label: string; className: string }) {
   return (
     <div className="flex min-w-0 flex-col gap-1">
@@ -109,9 +125,32 @@ function Swatch({ label, className }: { label: string; className: string }) {
   );
 }
 
-export function TokenGallery() {
+export async function TokenGallery() {
+  const settings = await getSettings();
+
   return (
     <div className="flex min-w-0 flex-col gap-8">
+      <div className="flex min-w-0 flex-col gap-2">
+        <h3 className="text-sm font-medium text-foreground/70">layout</h3>
+        <p className="text-xs text-foreground/70">
+          Prefix widths live in globals.css. Container max-widths live in
+          theme.container. Keep the pixel values the same. full is Container
+          only.
+        </p>
+        <ul className="flex min-w-0 flex-col gap-2">
+          {layoutRows.map((row) => (
+            <li key={row.name} className="flex min-w-0 flex-col gap-1">
+              <span className="text-xs text-foreground/70">
+                {row.name} {row.prefix} {settings.theme.container[row.name]}
+              </span>
+              <div
+                className={`h-2 w-full bg-panel ${row.className} shadow-outline`}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <div className="flex min-w-0 flex-col gap-2">
         <h3 className="text-sm font-medium text-foreground/70">surface</h3>
         <div className="flex min-w-0 flex-wrap gap-3">

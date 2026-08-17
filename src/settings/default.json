@@ -79,6 +79,17 @@
       "sm": "1px",
       "md": "2px",
       "lg": "4px"
+    },
+    "container": {
+      "xs": "480px",
+      "sm": "720px",
+      "md": "980px",
+      "lg": "1200px",
+      "xl": "1440px",
+      "full": "100%"
     }
+  },
+  "header": {
+    "navFrom": "lg"
   }
 }

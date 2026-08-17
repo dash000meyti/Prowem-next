@@ -9,11 +9,11 @@ There is no SQLite, ORM, or admin UI in this phase.
 | Need | Call | Do not |
 | --- | --- | --- |
 | Page / chrome copy | `getDictionary()` / `getDictionaryByLocale()` from `@/i18n/get-dictionary` | Import `messages/*.json` in a page or component |
-| Theme (colors, radius, border width) | `getSettings()` from `@/settings/get-settings` | Put hex, `rounded-[…]`, or raw `1px` in UI or templates |
+| Theme (colors, radius, border width, container max-widths) and header layout (`header.navFrom`) | `getSettings()` from `@/settings/get-settings` | Put hex, `rounded-[…]`, or raw `1px` in UI or templates |
 
 `en.json` is still the compile-time `Dictionary` schema. JSON files are the current adapter, not a second public API.
 
-UI and templates do not call `getSettings()`. They use Tailwind classes wired to the injected CSS variables (`bg-background`, `rounded-md`, `border-sm`, `border-border`).
+UI and templates do not call `getSettings()`. They use Tailwind classes wired to the injected CSS variables (`bg-background`, `rounded-md`, `border-sm`, `border-border`, `max-w-container-xl`). The locale layout passes `settings.header.navFrom` into `SiteHeader` as `navFrom`.
 
 ## What stays in code
 
@@ -22,14 +22,14 @@ Even after a SQLite adapter exists:
 - Locale list, RTL, labels: [`src/i18n/config.ts`](../src/i18n/config.ts)
 - Locale prefixing: [`src/proxy.ts`](../src/proxy.ts)
 - Which variant a component uses by default (Button `radius` defaults to `full`)
-- Breakpoints: [`src/app/globals.css`](../src/app/globals.css) `@theme --breakpoint-*`
+- Breakpoint **widths**: [`src/app/globals.css`](../src/app/globals.css) `@theme --breakpoint-xs` … `--breakpoint-xl` (`2xl` is unset). `header.navFrom` only picks which named token SiteHeader uses (`xs`–`xl`); it does not change the pixel values. Keep those pixels the same as `theme.container` (`xs`–`xl`).
 
 Proxy must resolve a locale synchronously without a database. Do not move `locales` into settings or SQLite without a confirmed architecture change.
 
 ## What may move to SQLite later
 
 - Dictionary **values** (same `Dictionary` shape: `site`, `nav`, `home`, `notFound`, `metadata`, …)
-- Settings **values** (same `Settings` shape: `theme.colors`, `theme.radius`, `theme.borderWidth`)
+- Settings **values** (same `Settings` shape: `theme.colors`, `theme.radius`, `theme.borderWidth`, `theme.container`, `header.navFrom`)
 
 The swap points are `loadDictionaryFromJson` in [`src/i18n/get-dictionary.ts`](../src/i18n/get-dictionary.ts) and `loadSettingsFromJson` in [`src/settings/get-settings.ts`](../src/settings/get-settings.ts). Callers stay the same.
 
@@ -39,8 +39,8 @@ The swap points are `loadDictionaryFromJson` in [`src/i18n/get-dictionary.ts`](.
 
 | File | Role |
 | --- | --- |
-| `src/settings/types.ts` | `Settings` / `Theme` contract |
-| `src/settings/default.json` | Current theme values (merge base) |
+| `src/settings/types.ts` | `Settings` / `Theme` / `ThemeContainer` / `HeaderSettings` contract |
+| `src/settings/default.json` | Current theme and header values (merge base) |
 | `src/settings/merge.ts` | Deep-merge overlay onto defaults |
 | `src/settings/get-settings.ts` | Server loader |
 | `src/settings/css-vars.ts` | `toCssVars(theme)` for `<html style>` |
@@ -52,6 +52,7 @@ Token classes:
 - Color: `bg-background`, `text-foreground`, `bg-panel`, `text-panel-foreground`, `hover:bg-panel-hover`, `border-border`, `bg-primary`, `text-primary-foreground`, `hover:bg-primary-hover`, `bg-primary-glow`, `bg-primary-shadow`, `bg-accent-1` … `bg-accent-4` (each with `-foreground`, `-hover`, `-glow`, `-shadow`), `bg-success`, `bg-warning`, `bg-error` (same suffixes)
 - Radius: `rounded-sm` `rounded-md` `rounded-lg` `rounded-xl` `rounded-full`
 - Border width: `border-sm` `border-md` `border-lg`
+- Container: `max-w-container-xs` `max-w-container-sm` `max-w-container-md` `max-w-container-lg` `max-w-container-xl` (`full` on Container is `max-w-none`)
 
 ## Anti-patterns
 

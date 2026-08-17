@@ -30,8 +30,8 @@ src/
     pathname.ts        Locale-aware path helper
     messages/          One JSON file per locale
   settings/
-    types.ts           Settings / Theme contract
-    default.json       Current theme values
+    types.ts           Settings / Theme / ThemeContainer / HeaderSettings contract
+    default.json       Current theme and header values
     get-settings.ts    Server settings API (JSON adapter today)
     merge.ts           Deep-merge overlay onto default.json
     css-vars.ts        Theme → CSS variables for <html>
@@ -55,7 +55,7 @@ Copy and settings storage: [content.md](content.md).
 
 1. A request hits `src/proxy.ts`.
 2. If the first path segment is not a supported locale, Proxy redirects to `/{locale}{pathname}`. Locale comes from `Accept-Language`, falling back to `en`.
-3. `src/app/[lang]/layout.tsx` validates `lang`, sets `<html lang dir>`, injects theme CSS variables from `getSettings()`, and renders `SiteHeader`.
+3. `src/app/[lang]/layout.tsx` validates `lang`, sets `<html lang dir>`, injects theme CSS variables from `getSettings()`, and renders `SiteHeader` with `navFrom` from `settings.header`.
 4. Pages load copy with `getDictionary()` (`next/root-params` → `lang` → dictionary API).
 5. Templates receive copy and `currentLocale` as props. They compose UI primitives.
 
@@ -70,7 +70,7 @@ Request → proxy.ts → [lang]/layout.tsx → page
                          │    │    └─ Dropdown (UI) + Icon flags
                          │    │         └─ Button / buttonVariants
                          │    ├─ Button Get Started (UI)
-                         │    └─ SideMenu (UI, below lg)
+                         │    └─ SideMenu (UI, below header.navFrom)
                          └─ getDictionary() / getSettings()
 ```
 
@@ -82,11 +82,11 @@ Request → proxy.ts → [lang]/layout.tsx → page
 
 - Tailwind 4 via `@import "tailwindcss"` in `src/app/globals.css`
 - Design token **values** come from `getSettings()` (`src/settings/default.json` today), merged over defaults so a later SQLite overlay can omit keys
-- Shared scales: `theme.colors` (surface, panel, primary, accent 1–4, success, warning, error — action colors are `base` + `foreground` + `hover` + `glow` + `shadow`; panel is `base` + `foreground` + `hover`), `theme.radius` (`sm`–`full`), `theme.borderWidth` (`sm`–`lg`)
+- Shared scales: `theme.colors` (surface, panel, primary, accent 1–4, success, warning, error — action colors are `base` + `foreground` + `hover` + `glow` + `shadow`; panel is `base` + `foreground` + `hover`), `theme.radius` (`sm`–`full`), `theme.borderWidth` (`sm`–`lg`), `theme.container` (`xs`–`xl` plus `full`)
 - The locale layout sets those values as CSS variables on `<html>` via `toCssVars()`
 - `globals.css` owns variable **names**, `@theme inline` wiring, and fallbacks
-- UI and templates use Tailwind token classes only (`bg-primary`, `bg-panel`, `rounded-md`, `border-sm`, `border-border`). No hex, no `rounded-[…]`
-- Layout is mobile-first. Breakpoints (`sm`–`2xl`) are declared in `globals.css` `@theme`, not in settings (media queries cannot use runtime SQLite values)
+- UI and templates use Tailwind token classes only (`bg-primary`, `bg-panel`, `rounded-md`, `border-sm`, `border-border`, `max-w-container-xl`). No hex, no `rounded-[…]`
+- Layout is mobile-first. Breakpoint **widths** (`xs`–`xl`: 480 / 720 / 980 / 1200 / 1440px) are declared in `globals.css` `@theme`, not in settings (media queries cannot use runtime SQLite values). `2xl` is unset. `theme.container` in settings is the matching max-width scale (`full` = 100%). `header.navFrom` is which named breakpoint SiteHeader uses for desktop nav vs hamburger.
 - Color values live in settings. Do not scatter hex values in components
 - No dark mode until requested
 

@@ -5,9 +5,11 @@ import { cn } from "@/lib/cn";
 export const containerVariants = cva("mx-auto w-full min-w-0", {
   variants: {
     width: {
-      sm: "max-w-3xl",
-      md: "max-w-5xl",
-      lg: "max-w-7xl",
+      xs: "max-w-container-xs",
+      sm: "max-w-container-sm",
+      md: "max-w-container-md",
+      lg: "max-w-container-lg",
+      xl: "max-w-container-xl",
       full: "max-w-none",
     },
     padding: {
@@ -18,7 +20,7 @@ export const containerVariants = cva("mx-auto w-full min-w-0", {
     },
   },
   defaultVariants: {
-    width: "lg",
+    width: "xl",
     padding: "md",
   },
 });
