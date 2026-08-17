@@ -10,6 +10,10 @@ Changes to this tree, the UI / Templates / Icons contract, existing component pr
 src/
   app/
     globals.css
+    icon.png           Favicon 32×32
+    icon1.png          Favicon 150×150
+    icon2.png          Favicon 256×256
+    apple-icon.png     Apple touch icon 256×256
     [lang]/
       layout.tsx       Root layout: <html lang dir>, theme CSS vars, SiteHeader
       page.tsx         Locale home (foundation shell)

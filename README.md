@@ -6,7 +6,7 @@ The live Prowem site is the product reference. This repository is a new structur
 
 ## Current phase
 
-**Phase 1 — foundation.** Routing, translations, component conventions, and docs are in place. Brand tokens, logo, fonts, and page sections are not. Neutral placeholders are intentional.
+**Phase 1 — foundation.** Routing, translations, component conventions, and docs are in place. Favicons are in `src/app/`. Logo, fonts, and page sections are not.
 
 ## Stack
 

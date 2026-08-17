@@ -1,5 +1,6 @@
 import { Button, buttonColors } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { Dropdown } from "@/components/ui/dropdown";
 import { SideMenu } from "@/components/ui/side-menu";
 import { LabSection } from "../lab-section";
 import { TokenGallery } from "./tokens";
