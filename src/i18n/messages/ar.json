@@ -1,0 +1,20 @@
+{
+  "site": {
+    "name": "Prowem"
+  },
+  "nav": {
+    "language": "اللغة"
+  },
+  "home": {
+    "title": "الأساس جاهز",
+    "hint": "هذه هي القاعدة متعددة اللغات. سيتم إضافة رموز التصميم والأقسام والصفحات مرحلة بمرحلة."
+  },
+  "notFound": {
+    "title": "الصفحة غير موجودة",
+    "hint": "الصفحة التي تبحث عنها غير موجودة."
+  },
+  "metadata": {
+    "title": "Prowem",
+    "description": "Professional World Event Manager"
+  }
+}

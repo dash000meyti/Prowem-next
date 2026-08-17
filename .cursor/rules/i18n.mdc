@@ -1,0 +1,24 @@
+---
+description: Native i18n dictionaries, locale config, and no hardcoded copy.
+globs: src/i18n/**/*,src/proxy.ts
+alwaysApply: false
+---
+
+# i18n
+
+Single locale list: `src/i18n/config.ts`. Do not duplicate `locales` in Proxy, layouts, or the switcher.
+
+`en.json` is the schema. After adding keys, update every `messages/*.json` and keep `assert-complete.ts` compiling.
+
+```ts
+// BAD
+<h1>Foundation is ready</h1>
+
+// GOOD (Server Component)
+const dict = await getDictionary();
+<h1>{dict.home.title}</h1>
+```
+
+`getDictionary()` uses `next/root-params` and is server-only. Client Components take strings + `currentLocale` as props.
+
+Adding a language is a config + JSON + loader change. Follow [docs/i18n.md](docs/i18n.md). Changing `config.ts` shape or URL prefix rules needs user confirmation first. If this summary changes, update `CLAUDE.md` Layout in the same turn.

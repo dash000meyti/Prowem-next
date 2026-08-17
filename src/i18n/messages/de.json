@@ -1,0 +1,20 @@
+{
+  "site": {
+    "name": "Prowem"
+  },
+  "nav": {
+    "language": "Sprache"
+  },
+  "home": {
+    "title": "Das Fundament ist bereit",
+    "hint": "Dies ist die mehrsprachige Basis. Design-Tokens, Abschnitte und Seiten werden Phase für Phase ergänzt."
+  },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "hint": "Die gesuchte Seite existiert nicht."
+  },
+  "metadata": {
+    "title": "Prowem",
+    "description": "Professional World Event Manager"
+  }
+}

@@ -1,0 +1,21 @@
+---
+description: Locale App Router layout, Proxy, and document direction.
+globs: src/app/**/*
+alwaysApply: false
+---
+
+# App Router
+
+Every route sits under `src/app/[lang]/`. URLs are `/en`, `/de`, `/pt`, `/es`, `/ar`.
+
+`src/app/[lang]/layout.tsx` is the root layout: set `<html lang dir>`. Do not add `src/app/layout.tsx` with those tags.
+
+```tsx
+<html lang={localeMeta[lang].htmlLang} dir={getLocaleDirection(lang)}>
+```
+
+Use `LayoutProps<'/[lang]'>` and `PageProps<'/[lang]'>`. `generateStaticParams` must emit all `locales` from config.
+
+Locale prefixing is `src/proxy.ts` (Next.js 16 Proxy), not `middleware.ts`.
+
+Invalid `lang` → `notFound()`. Pass copy into templates as props; do not import JSON in Client Components. If this summary changes, update `CLAUDE.md` Layout in the same turn.

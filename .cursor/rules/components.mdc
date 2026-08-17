@@ -1,0 +1,27 @@
+---
+description: UI vs Templates folder contract, CVA, props, and className.
+globs: src/components/**/*
+alwaysApply: false
+---
+
+# Components
+
+UI (`src/components/ui/`) = atoms. No dictionaries, no routes, no locale.
+
+Templates (`src/components/templates/`) = compose UI. Copy and `currentLocale` arrive as props.
+
+Each component is a folder: `<name>.tsx` + `index.ts`. Export the component, props type, and `*Variants` when using `cva`.
+
+```tsx
+// BAD — copy inside UI, no className merge
+export function Button() {
+  return <button className="ml-2">Language</button>;
+}
+
+// GOOD — props, cn(), logical CSS, variants
+export function Button({ className, ...props }: ButtonProps) {
+  return <button className={cn(buttonVariants(), className)} {...props} />;
+}
+```
+
+Do not change existing prop APIs without user confirmation. Adding a new Card/Heading that follows this pattern does not need confirmation. Update [docs/components.md](docs/components.md) when the inventory changes; if the Layout summary in `CLAUDE.md` would be stale, update it in the same turn.
