@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/templates/site-header";
 import {
@@ -11,6 +11,11 @@ import { getDictionaryByLocale } from "@/i18n/get-dictionary";
 import { toCssVars } from "@/settings/css-vars";
 import { getSettings } from "@/settings/get-settings";
 import "../globals.css";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 export async function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -58,13 +63,14 @@ export default async function RootLayout({
     <html
       lang={localeMeta[lang].htmlLang}
       dir={dir}
-      className="h-full antialiased"
+      className="h-full min-w-0 overflow-x-clip antialiased"
       style={toCssVars(settings.theme)}
     >
-      <body className="flex min-h-full flex-col bg-background text-foreground">
+      <body className="flex min-h-full min-w-0 flex-col bg-background text-foreground">
         <SiteHeader
           siteName={dict.site.name}
           languageLabel={dict.nav.language}
+          getStartedLabel={dict.nav.getStarted}
           currentLocale={lang}
         />
         {children}

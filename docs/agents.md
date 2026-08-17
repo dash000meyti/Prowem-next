@@ -64,13 +64,14 @@ Wrong answers from older training data. Prefer `node_modules/next/dist/docs/`.
 
 Before finishing a task:
 
-1. No hardcoded user-facing copy. No hex theme values in UI or templates (`getSettings()`).
+1. No hardcoded user-facing copy. No hex or `rounded-[…]` in UI or templates (`getSettings()` / token classes).
 2. New UI lives under `src/components/ui/<name>/` with `index.ts`, exported props type, `className` + `cn()`, `cva` variants if it has variants.
 3. New chrome/sections live under `src/components/templates/<name>/` and compose UI.
 4. Every locale JSON still matches `en.json` (`assert-complete.ts`).
 5. Phase 1 does not add Prowem marketing sections, brand fonts, or unused placeholders.
-6. Docs updated only if the contract or inventory changed.
-7. Cursor and Claude surfaces still match (see lockstep table above). If you touched one, you touched the other.
+6. Layouts are mobile-first and do not assume a desktop width.
+7. Docs updated only if the contract or inventory changed.
+8. Cursor and Claude surfaces still match (see lockstep table above). If you touched one, you touched the other.
 
 ## Cursor rules map
 

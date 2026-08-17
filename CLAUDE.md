@@ -31,5 +31,6 @@ Permanent. The user will not repeat it.
 - UI atoms: `src/components/ui/<name>/`
 - Templates: `src/components/templates/<name>/`
 - Locales: `src/i18n/config.ts` + `src/i18n/messages/*.json` (copy via `getDictionary()`)
-- Settings: `src/settings/` (theme via `getSettings()`)
+- Settings: `src/settings/` (theme tokens via `getSettings()`; UI uses `rounded-*` / `border-*` classes)
 - Root `<html lang dir>` + theme CSS vars: `src/app/[lang]/layout.tsx` only
+- Mobile-first UI/templates/pages (`min-w-0`, wrap, `md:` type/spacing)

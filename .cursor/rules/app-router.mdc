@@ -22,4 +22,4 @@ Use `LayoutProps<'/[lang]'>` and `PageProps<'/[lang]'>`. `generateStaticParams` 
 
 Locale prefixing is `src/proxy.ts` (Next.js 16 Proxy), not `middleware.ts`.
 
-Invalid `lang` → `notFound()`. Pass copy into templates as props; do not import JSON in Client Components. Theme CSS vars come from `getSettings()` on `<html>`. If this summary changes, update `CLAUDE.md` Layout in the same turn.
+Invalid `lang` → `notFound()`. Pass copy into templates as props; do not import JSON in Client Components. Theme CSS vars come from `getSettings()` on `<html>`. Pages and chrome are mobile-first (`min-w-0`, wrap, `md:` type/spacing). If this summary changes, update `CLAUDE.md` Layout in the same turn.

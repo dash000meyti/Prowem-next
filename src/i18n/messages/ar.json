@@ -3,7 +3,8 @@
     "name": "Prowem"
   },
   "nav": {
-    "language": "اللغة"
+    "language": "اللغة",
+    "getStarted": "ابدأ"
   },
   "home": {
     "title": "الأساس جاهز",

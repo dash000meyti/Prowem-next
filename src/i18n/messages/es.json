@@ -3,7 +3,8 @@
     "name": "Prowem"
   },
   "nav": {
-    "language": "Idioma"
+    "language": "Idioma",
+    "getStarted": "Empezar"
   },
   "home": {
     "title": "La base está lista",

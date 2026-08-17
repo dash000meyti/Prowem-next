@@ -13,15 +13,15 @@ Templates (`src/components/templates/`) = compose UI. Copy and `currentLocale` a
 Each component is a folder: `<name>.tsx` + `index.ts`. Export the component, props type, and `*Variants` when using `cva`.
 
 ```tsx
-// BAD — copy inside UI, no className merge
+// BAD — copy inside UI, no className merge, hex / arbitrary radius
 export function Button() {
-  return <button className="ml-2">Language</button>;
+  return <button className="ml-2 rounded-[10px] bg-[#171717]">Language</button>;
 }
 
-// GOOD — props, cn(), logical CSS, variants
+// GOOD — props, cn(), logical CSS, token variants
 export function Button({ className, ...props }: ButtonProps) {
   return <button className={cn(buttonVariants(), className)} {...props} />;
 }
 ```
 
-Do not change existing prop APIs without user confirmation. Adding a new Card/Heading that follows this pattern does not need confirmation. Update [docs/components.md](docs/components.md) when the inventory changes; if the Layout summary in `CLAUDE.md` would be stale, update it in the same turn.
+Do not change existing prop APIs without user confirmation. Adding a new Card/Heading that follows this pattern does not need confirmation. Shared visual tokens: `rounded-sm|md|lg|xl|full`, `border-sm|md|lg`, `border-border`, `bg-panel`, `bg-primary`, `bg-accent-1`…`4`, `bg-success`, `bg-warning`, `bg-error` plus `*-foreground` / `*-hover` — no hex, no `rounded-[…]`, no `getSettings()` in UI. Mobile-first: base styles are the small screen; scale with `sm:` `md:` `lg:`; flex children that shrink need `min-w-0`. Update [docs/components.md](docs/components.md) when the inventory changes; if the Layout summary in `CLAUDE.md` would be stale, update it in the same turn.

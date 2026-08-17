@@ -3,7 +3,8 @@
     "name": "Prowem"
   },
   "nav": {
-    "language": "Sprache"
+    "language": "Sprache",
+    "getStarted": "Loslegen"
   },
   "home": {
     "title": "Das Fundament ist bereit",

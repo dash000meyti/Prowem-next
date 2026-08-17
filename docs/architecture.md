@@ -27,6 +27,7 @@ src/
     types.ts           Settings / Theme contract
     default.json       Current theme values
     get-settings.ts    Server settings API (JSON adapter today)
+    merge.ts           Deep-merge overlay onto default.json
     css-vars.ts        Theme → CSS variables for <html>
   lib/
     cn.ts              clsx + tailwind-merge
@@ -56,8 +57,10 @@ Request → proxy.ts → [lang]/layout.tsx → page
                          ├─ theme CSS vars (getSettings)
                          ├─ SiteHeader (template)
                          │    ├─ Container (UI)
-                         │    └─ LanguageSwitcher (template)
-                         │         └─ buttonVariants (UI)
+                         │    ├─ LanguageSwitcher (template)
+                         │    │    └─ Dropdown (UI)
+                         │    │         └─ Button / buttonVariants
+                         │    └─ Button Get Started (UI)
                          └─ getDictionary() / getSettings()
 ```
 
@@ -68,10 +71,13 @@ Request → proxy.ts → [lang]/layout.tsx → page
 ## Styling
 
 - Tailwind 4 via `@import "tailwindcss"` in `src/app/globals.css`
-- Design token **values** come from `getSettings()` (`src/settings/default.json` today)
+- Design token **values** come from `getSettings()` (`src/settings/default.json` today), merged over defaults so a later SQLite overlay can omit keys
+- Shared scales: `theme.colors` (surface, panel, primary, accent 1–4, success, warning, error — action colors are `base` + `foreground` + `hover`), `theme.radius` (`sm`–`full`), `theme.borderWidth` (`sm`–`lg`)
 - The locale layout sets those values as CSS variables on `<html>` via `toCssVars()`
-- `globals.css` owns variable **names**, `@theme inline` wiring, and hex fallbacks
-- Phase 1 tokens are neutral (`background`, `foreground`, `primary`). Replace values in settings in phase 2; do not scatter hex values in components
+- `globals.css` owns variable **names**, `@theme inline` wiring, and fallbacks
+- UI and templates use Tailwind token classes only (`bg-primary`, `bg-panel`, `rounded-md`, `border-sm`, `border-border`). No hex, no `rounded-[…]`
+- Layout is mobile-first. Breakpoints (`sm`–`2xl`) are declared in `globals.css` `@theme`, not in settings (media queries cannot use runtime SQLite values)
+- Color values live in settings. Do not scatter hex values in components
 - No dark mode until requested
 
 ## Routing rules

@@ -2,7 +2,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import type { HTMLAttributes } from "react";
 import { cn } from "@/lib/cn";
 
-export const containerVariants = cva("mx-auto w-full", {
+export const containerVariants = cva("mx-auto w-full min-w-0", {
   variants: {
     width: {
       sm: "max-w-3xl",
@@ -11,9 +11,9 @@ export const containerVariants = cva("mx-auto w-full", {
     },
     padding: {
       none: "",
-      sm: "px-4",
-      md: "px-6",
-      lg: "px-8",
+      sm: "px-4 md:px-5",
+      md: "px-4 md:px-6 lg:px-8",
+      lg: "px-4 md:px-8 lg:px-10",
     },
   },
   defaultVariants: {

@@ -55,7 +55,7 @@ Implement only after the user confirms.
 - UI primitives: `src/components/ui/<name>/`
 - Templates: `src/components/templates/<name>/`
 - Locale config is the single source of truth: `src/i18n/config.ts`
-- Theme / settings values: `src/settings/` (read with `getSettings()`). Do not scatter hex in components. See [docs/content.md](docs/content.md).
+- Theme / settings values: `src/settings/` (read with `getSettings()`). UI uses token classes (`rounded-md`, `border-sm`). Do not scatter hex in components. See [docs/content.md](docs/content.md).
 
 ## i18n and direction
 
@@ -71,6 +71,8 @@ Implement only after the user confirms.
 - **Templates** = compositions of UI for a layout role (SiteHeader, LanguageSwitcher).
 - Every public component accepts explicit props and `className`, merged with `cn()`.
 - Variants go through `class-variance-authority`. Export both the component and its `*Variants` helper.
+- Color, radius, and border width come from settings tokens (`rounded-md`, `border-sm`, `border-border`, `bg-panel`, `bg-accent-1`). No hex and no `rounded-[…]`.
+- Mobile-first: base styles are the small screen. Scale with `sm:` `md:` `lg:`. Flex children that shrink need `min-w-0`.
 - Do not hide important behavior behind magic defaults when a prop can express it.
 
 ## Next.js 16 notes

@@ -3,7 +3,8 @@
     "name": "Prowem"
   },
   "nav": {
-    "language": "Language"
+    "language": "Language",
+    "getStarted": "Get Started"
   },
   "home": {
     "title": "Foundation is ready",
