@@ -25,6 +25,7 @@ The team uses both tools. Agent guides must stay the same shape and move togethe
 | Scope, phase, Next.js 16 traps | `docs/agents.md`, `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/core.mdc` |
 | Component contract | `docs/components.md`, `.cursor/rules/components.mdc` (and `CLAUDE.md` Layout if the summary changed) |
 | i18n / locale config | `docs/i18n.md`, `.cursor/rules/i18n.mdc` (and `CLAUDE.md` Layout if the summary changed) |
+| Copy / settings loaders | `docs/content.md`, `.cursor/rules/settings.mdc` (and `CLAUDE.md` Layout if the summary changed) |
 | App Router / Proxy / `<html>` | `docs/architecture.md`, `.cursor/rules/app-router.mdc` (and `CLAUDE.md` Layout if the summary changed) |
 | This pairing map itself | `docs/agents.md`, `AGENTS.md`, `CLAUDE.md` |
 
@@ -35,7 +36,7 @@ Done means a developer on Claude Code and a developer on Cursor would read the s
 1. [AGENTS.md](../AGENTS.md) — workflow, scope, Next.js 16 notes
 2. This file
 3. [architecture.md](architecture.md) — folders and request flow
-4. Topic doc: [i18n.md](i18n.md), [components.md](components.md), or [phases.md](phases.md)
+4. Topic doc: [i18n.md](i18n.md), [content.md](content.md), [components.md](components.md), or [phases.md](phases.md)
 5. The matching guide under `node_modules/next/dist/docs/` for **this** Next.js version (not training data)
 
 Skip ahead only for a one-line typo with no structural effect.
@@ -53,7 +54,7 @@ Wrong answers from older training data. Prefer `node_modules/next/dist/docs/`.
 | Do not | Do |
 | --- | --- |
 | `middleware.ts` | [`src/proxy.ts`](../src/proxy.ts) |
-| `next-intl` / `next-i18next` | JSON dictionaries + `[lang]` |
+| `next-intl` / `next-i18next` | JSON dictionaries via `getDictionary()` + `[lang]` |
 | Root `src/app/layout.tsx` with `<html>` | [`src/app/[lang]/layout.tsx`](../src/app/[lang]/layout.tsx) owns `<html>` / `<body>` |
 | `getDictionary()` in a Client Component | Pass strings and `currentLocale` as props |
 | `PageProps` without the route | `LayoutProps<'/[lang]'>` / `PageProps<'/[lang]'>` |
@@ -63,7 +64,7 @@ Wrong answers from older training data. Prefer `node_modules/next/dist/docs/`.
 
 Before finishing a task:
 
-1. No hardcoded user-facing copy.
+1. No hardcoded user-facing copy. No hex theme values in UI or templates (`getSettings()`).
 2. New UI lives under `src/components/ui/<name>/` with `index.ts`, exported props type, `className` + `cn()`, `cva` variants if it has variants.
 3. New chrome/sections live under `src/components/templates/<name>/` and compose UI.
 4. Every locale JSON still matches `en.json` (`assert-complete.ts`).
@@ -79,4 +80,5 @@ Before finishing a task:
 | `core.mdc` | Always |
 | `components.mdc` | `src/components/**` |
 | `i18n.mdc` | `src/i18n/**` |
+| `settings.mdc` | `src/settings/**` |
 | `app-router.mdc` | `src/app/**` |

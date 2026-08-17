@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  /* Fallbacks if layout does not inject getSettings() */
   --background: #ffffff;
   --foreground: #171717;
   --primary: #171717;

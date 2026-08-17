@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Prowem core
 
-Read [docs/agents.md](docs/agents.md) before non-trivial work, then architecture / i18n / components / phases as needed. Prefer `node_modules/next/dist/docs/` over training data.
+Read [docs/agents.md](docs/agents.md) before non-trivial work, then architecture / i18n / content / components / phases as needed. Prefer `node_modules/next/dist/docs/` over training data.
 
 Agent rules for Cursor and Claude must stay in lockstep. If you change this file or any `.mdc`, update `CLAUDE.md` and `docs/agents.md` / `AGENTS.md` in the same turn when the meaning changed.
 
@@ -13,4 +13,4 @@ This is Next.js 16. Use `src/proxy.ts`, not `middleware.ts`. No `next-intl`. Roo
 
 Phase 1: no Prowem marketing sections, brand fonts, unused placeholders, or dark mode unless asked.
 
-Never hardcode user-facing copy. Use dictionary props. Use logical CSS (`ms-`, `pe-`, `text-start`), not `left` / `right`.
+Never hardcode user-facing copy. Use dictionary props. Theme values come from `getSettings()`, not hex in components. Use logical CSS (`ms-`, `pe-`, `text-start`), not `left` / `right`.

@@ -19,6 +19,6 @@ const dict = await getDictionary();
 <h1>{dict.home.title}</h1>
 ```
 
-`getDictionary()` uses `next/root-params` and is server-only. Client Components take strings + `currentLocale` as props.
+`getDictionary()` uses `next/root-params` and is server-only. Client Components take strings + `currentLocale` as props. Do not import `messages/*.json` from pages or components; JSON is the current adapter. See [docs/content.md](docs/content.md).
 
 Adding a language is a config + JSON + loader change. Follow [docs/i18n.md](docs/i18n.md). Changing `config.ts` shape or URL prefix rules needs user confirmation first. If this summary changes, update `CLAUDE.md` Layout in the same turn.

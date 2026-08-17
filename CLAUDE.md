@@ -12,7 +12,7 @@ Read, in order:
 
 1. [docs/agents.md](docs/agents.md) — Cursor vs Claude, traps, finish checklist
 2. [docs/architecture.md](docs/architecture.md)
-3. The topic file: [docs/i18n.md](docs/i18n.md), [docs/components.md](docs/components.md), [docs/phases.md](docs/phases.md)
+3. The topic file: [docs/i18n.md](docs/i18n.md), [docs/content.md](docs/content.md), [docs/components.md](docs/components.md), [docs/phases.md](docs/phases.md)
 4. The relevant guide in `node_modules/next/dist/docs/` for **this** Next.js version
 
 This app is Next.js 16 App Router. Proxy is `src/proxy.ts`. There is no `middleware.ts`. There is no `next-intl`.
@@ -30,5 +30,6 @@ Permanent. The user will not repeat it.
 - Routes: `src/app/[lang]/` — prefixes `/en` `/de` `/pt` `/es` `/ar`
 - UI atoms: `src/components/ui/<name>/`
 - Templates: `src/components/templates/<name>/`
-- Locales: `src/i18n/config.ts` + `src/i18n/messages/*.json`
-- Root `<html lang dir>`: `src/app/[lang]/layout.tsx` only
+- Locales: `src/i18n/config.ts` + `src/i18n/messages/*.json` (copy via `getDictionary()`)
+- Settings: `src/settings/` (theme via `getSettings()`)
+- Root `<html lang dir>` + theme CSS vars: `src/app/[lang]/layout.tsx` only

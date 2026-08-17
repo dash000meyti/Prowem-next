@@ -8,6 +8,8 @@ import {
   locales,
 } from "@/i18n/config";
 import { getDictionaryByLocale } from "@/i18n/get-dictionary";
+import { toCssVars } from "@/settings/css-vars";
+import { getSettings } from "@/settings/get-settings";
 import "../globals.css";
 
 export async function generateStaticParams() {
@@ -46,11 +48,19 @@ export default async function RootLayout({
     notFound();
   }
 
-  const dict = await getDictionaryByLocale(lang);
+  const [dict, settings] = await Promise.all([
+    getDictionaryByLocale(lang),
+    getSettings(),
+  ]);
   const dir = getLocaleDirection(lang);
 
   return (
-    <html lang={localeMeta[lang].htmlLang} dir={dir} className="h-full antialiased">
+    <html
+      lang={localeMeta[lang].htmlLang}
+      dir={dir}
+      className="h-full antialiased"
+      style={toCssVars(settings.theme)}
+    >
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <SiteHeader
           siteName={dict.site.name}

@@ -24,7 +24,7 @@ User supplies:
 - Favicon / app icons
 - Fonts
 
-Then replace the neutral CSS variables in `src/app/globals.css` and wire fonts in the locale layout. No new marketing sections.
+Then replace the neutral values in `src/settings/default.json` (CSS variable names stay in `src/app/globals.css`) and wire fonts in the locale layout. No new marketing sections.
 
 ## Phase 3 — UI primitives for the homepage
 

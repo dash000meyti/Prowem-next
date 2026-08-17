@@ -17,8 +17,9 @@ Read before changing structure, i18n, or components:
 1. [docs/agents.md](docs/agents.md)
 2. [docs/architecture.md](docs/architecture.md)
 3. [docs/i18n.md](docs/i18n.md)
-4. [docs/components.md](docs/components.md)
-5. [docs/phases.md](docs/phases.md)
+4. [docs/content.md](docs/content.md)
+5. [docs/components.md](docs/components.md)
+6. [docs/phases.md](docs/phases.md)
 
 Also read the relevant guide in `node_modules/next/dist/docs/` for this Next.js version. This app uses **Proxy** (`src/proxy.ts`), not deprecated `middleware.ts`. Do not invent APIs from older Next.js training data.
 
@@ -54,10 +55,11 @@ Implement only after the user confirms.
 - UI primitives: `src/components/ui/<name>/`
 - Templates: `src/components/templates/<name>/`
 - Locale config is the single source of truth: `src/i18n/config.ts`
+- Theme / settings values: `src/settings/` (read with `getSettings()`). Do not scatter hex in components. See [docs/content.md](docs/content.md).
 
 ## i18n and direction
 
-- Never hardcode user-facing copy. Put strings in `src/i18n/messages/*.json` and read them with `getDictionary()` or pass them as props.
+- Never hardcode user-facing copy. Read strings with `getDictionary()` (JSON files are the current adapter). Pass them as props to Client Components.
 - `en.json` is the schema. After adding keys, TypeScript must still accept every other locale file (`src/i18n/messages/assert-complete.ts`).
 - Set document language and direction on `<html>` (`lang` + `dir`). Do not assume LTR in CSS.
 - Use logical CSS (`ms-`, `me-`, `ps-`, `pe-`, `text-start`, `start-0`) instead of `left` / `right` / `ml-` / `pl-`.

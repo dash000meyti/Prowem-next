@@ -11,8 +11,13 @@ const dictionaries: Record<Locale, () => Promise<Dictionary>> = {
   ar: () => import("@/i18n/messages/ar.json").then((module) => module.default),
 };
 
-export async function getDictionaryByLocale(locale: Locale): Promise<Dictionary> {
+/** Current storage adapter. Swap this function to load from SQLite later. */
+async function loadDictionaryFromJson(locale: Locale): Promise<Dictionary> {
   return dictionaries[locale]();
+}
+
+export async function getDictionaryByLocale(locale: Locale): Promise<Dictionary> {
+  return loadDictionaryFromJson(locale);
 }
 
 export async function getDictionary(): Promise<Dictionary> {

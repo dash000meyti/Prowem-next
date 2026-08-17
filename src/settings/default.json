@@ -1,0 +1,10 @@
+{
+  "theme": {
+    "colors": {
+      "background": "#ffffff",
+      "foreground": "#171717",
+      "primary": "#171717",
+      "primaryForeground": "#ffffff"
+    }
+  }
+}

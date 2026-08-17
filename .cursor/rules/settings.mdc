@@ -1,0 +1,15 @@
+---
+description: Theme and settings load through getSettings; JSON is the current adapter.
+globs: src/settings/**/*
+alwaysApply: false
+---
+
+# Settings
+
+Read theme and app settings with `getSettings()`. Do not import `default.json` from a page or component.
+
+Token **values** live in `src/settings/default.json`. CSS variable **names** and fallbacks live in `src/app/globals.css`. The locale layout injects `toCssVars(settings.theme)` on `<html>`.
+
+Do not scatter hex in UI or templates. Do not add unused settings keys. Locale list and routing stay in `src/i18n/config.ts` — not here.
+
+Storage swap is `loadSettingsFromJson` in `get-settings.ts`. Follow [docs/content.md](docs/content.md). If this summary changes, update `CLAUDE.md` Layout in the same turn.
