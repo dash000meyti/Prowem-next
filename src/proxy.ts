@@ -31,6 +31,10 @@ function getPreferredLocale(request: NextRequest): Locale {
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  if (pathname === "/dev" || pathname.startsWith("/dev/")) {
+    return NextResponse.next();
+  }
+
   if (pathnameHasLocale(pathname)) {
     return NextResponse.next();
   }
