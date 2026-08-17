@@ -59,6 +59,11 @@ Icon-only (`icon` and no label): equal padding, same height as `size` (`sm`: `si
 Props: `icon?` (`IconName`), `trigger?` (text or node), `children`, `label`, `variant?` (`filled` | `secondary` | `outline` | `soft` | `link`, default `outline`), `color?` (same as Button, default `primary`), `align?` (`start` | `end`, default `end`), `className?`.  
 Client atom. No copy, no routing. Closed/open, click-outside, and Escape live here. The trigger is a Button: `icon` alone uses icon-only square padding; `trigger` alone keeps normal button height; both render icon + text. Panel uses `bg-panel border-sm border-border rounded-lg` and fades open/closed in `300ms` (`duration-300`).
 
+### SideMenu
+
+Props: `icon?` (`IconName`), `trigger?` (text or node), `children`, `label`, `closeLabel`, `footer?`, `variant?` (`filled` | `secondary` | `outline` | `soft` | `link`, default `outline`), `color?` (same as Button, default `primary`), `side?` (`start` | `end`, default `end`), `className?`.  
+Client atom. No copy, no routing. Overlay, Escape, and the close control live here. The trigger is a Button like Dropdown. The panel is `fixed` `bg-panel` from `start` or `end` (logical, RTL-safe), `w-80 max-w-full`, with a `close` icon button. Optional `footer` stays pinned to the bottom of the panel. Overlay and panel fade/slide in `300ms` (`duration-300`). Portal to `document.body` so sticky headers do not clip it.
+
 ### Container
 
 `width`: `sm` | `md` | `lg` | `full` (`full` is `max-w-none`)  
@@ -83,7 +88,7 @@ Client component. Trigger is a `soft` Dropdown with the current locale’s flag 
 ### SiteHeader
 
 Props: `siteName`, `nav` (`Dictionary["nav"]`), `currentLocale`, `className?`.  
-Composes `Container` + locale-prefixed nav links + `LanguageSwitcher` + filled Get Started `Button`. Destinations are `/`, `/my-event-app`, `/my-broadcast`, `/my-socialmedia`, `/my-club`, `/event-team`, `/login` under the current locale; pages can be added later on those routes. Each nav item is `variant="subtle"` with a fixed `color`: Home `primary`, My Event-App `accent-1`, My Broadcast `accent-4`, My Socialmedia `accent-3`, My Club `accent-2`, Prowem Event Team `primary`, Login `foreground` (last in the list). The current page is `disabled` (`aria-current="page"`). Get Started stays a filled primary CTA after the language switcher. From `lg` the links follow the site name at the start of the bar. Below `lg` a `secondary` `menu` Dropdown holds the same items. At the top of the page it is `h-20` with no background and a transparent bottom edge. After `8px` of scroll it sticks (`sticky top-0`) at `h-18` with `bg-panel` and `border-border`. The bottom edge stays `border-b border-sm` in both states so the color can fade in over `300ms`; an `h-2` spacer keeps layout from jumping. It returns to the tall transparent bar when `scrollY` is `0`.
+Composes `Container` + locale-prefixed nav links + `LanguageSwitcher` + filled Get Started `Button`. Destinations are `/`, `/my-event-app`, `/my-broadcast`, `/my-socialmedia`, `/my-club`, `/event-team`, `/login` under the current locale; pages can be added later on those routes. Each nav item is `variant="subtle"` with a fixed `color`: Home `primary`, My Event-App `accent-1`, My Broadcast `accent-4`, My Socialmedia `accent-3`, My Club `accent-2`, Prowem Event Team `primary`, Login `foreground` (last in the list). The current page is `disabled` (`aria-current="page"`). From `lg` the links follow the site name at the start of the bar and Get Started stays a filled primary CTA after the language switcher. Below `lg` a `secondary` `menu` SideMenu (`side="end"`) holds the same nav items at default Button size; Get Started leaves the bar and is pinned in the SideMenu `footer`. At the top of the page it is `h-20` with no background and a transparent bottom edge. After `8px` of scroll it sticks (`sticky top-0`) at `h-18` with `bg-panel` and `border-border`. The bottom edge stays `border-b border-sm` in both states so the color can fade in over `300ms`; an `h-2` spacer keeps layout from jumping. It returns to the tall transparent bar when `scrollY` is `0`.
 
 ## Checklist: add a UI component
 

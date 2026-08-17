@@ -1,6 +1,6 @@
 import { Button, buttonColors } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { Dropdown } from "@/components/ui/dropdown";
+import { SideMenu } from "@/components/ui/side-menu";
 import { LabSection } from "../lab-section";
 import { TokenGallery } from "./tokens";
 
@@ -132,6 +132,42 @@ export default function DevUiPage() {
                 <DemoMenu />
               </Dropdown>
             </div>
+          </div>
+        </LabSection>
+
+        <LabSection
+          title="SideMenu"
+          hint="src/components/ui/side-menu — slides in from start or end over 300ms"
+        >
+          <div className="flex min-w-0 flex-wrap items-center gap-2">
+            <SideMenu
+              icon="menu"
+              label="Menu"
+              closeLabel="Close"
+              variant="secondary"
+            >
+              <DemoMenu />
+            </SideMenu>
+            <SideMenu
+              icon="menu"
+              trigger="Start"
+              label="Start"
+              closeLabel="Close"
+              side="start"
+            >
+              <DemoMenu />
+            </SideMenu>
+            <SideMenu
+              icon="menu"
+              trigger="End"
+              label="End"
+              closeLabel="Close"
+              side="end"
+              variant="soft"
+              footer={<Button className="w-full">Get Started</Button>}
+            >
+              <DemoMenu />
+            </SideMenu>
           </div>
         </LabSection>
 

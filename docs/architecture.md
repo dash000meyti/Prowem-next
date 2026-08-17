@@ -61,7 +61,8 @@ Request → proxy.ts → [lang]/layout.tsx → page
                          │    ├─ LanguageSwitcher (template)
                          │    │    └─ Dropdown (UI) + Icon flags
                          │    │         └─ Button / buttonVariants
-                         │    └─ Button Get Started (UI)
+                         │    ├─ Button Get Started (UI)
+                         │    └─ SideMenu (UI, below lg)
                          └─ getDictionary() / getSettings()
 ```
 

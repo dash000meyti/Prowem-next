@@ -20,7 +20,7 @@ export default function DevTemplatesPage() {
 
         <LabSection
           title="SiteHeader"
-          hint="src/components/templates/site-header — rest is 80px with no chrome; after 8px of window scroll it sticks at 72px and restores at 0. Narrow the viewport for the menu button."
+          hint="src/components/templates/site-header — rest is 80px with no chrome; after 8px of window scroll it sticks at 72px and restores at 0. Narrow the viewport for the side menu."
         >
           <div className="overflow-visible rounded-lg border-sm border-border">
             <SiteHeader
@@ -28,6 +28,7 @@ export default function DevTemplatesPage() {
               nav={{
                 language: "Language",
                 menu: "Menu",
+                close: "Close",
                 home: "Home",
                 myEventApp: "My Event-App",
                 myBroadcast: "My Broadcast",

@@ -10,7 +10,7 @@ import {
   type ButtonColor,
 } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { Dropdown } from "@/components/ui/dropdown";
+import { SideMenu } from "@/components/ui/side-menu";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionary";
 import { cn } from "@/lib/cn";
@@ -49,6 +49,7 @@ function NavItem({
   current,
   className,
   radius,
+  size,
   role,
 }: {
   href: string;
@@ -57,6 +58,7 @@ function NavItem({
   current: boolean;
   className?: string;
   radius?: "md" | "full";
+  size?: "sm" | "md";
   role?: "menuitem";
 }) {
   if (current) {
@@ -64,7 +66,7 @@ function NavItem({
       <Button
         variant="subtle"
         color={color}
-        size="sm"
+        size={size}
         radius={radius}
         disabled
         aria-current="page"
@@ -84,7 +86,7 @@ function NavItem({
         buttonVariants({
           variant: "subtle",
           color,
-          size: "sm",
+          size,
           radius,
         }),
         className,
@@ -164,6 +166,7 @@ export function SiteHeader({
                 label={item.label}
                 color={item.color}
                 current={item.current}
+                size="sm"
                 className="shrink-0 whitespace-nowrap"
               />
             ))}
@@ -173,13 +176,17 @@ export function SiteHeader({
               currentLocale={currentLocale}
               label={nav.language}
             />
-            <Button className="shrink-0 whitespace-nowrap">{nav.getStarted}</Button>
-            <Dropdown
+            <Button className="hidden shrink-0 whitespace-nowrap lg:inline-flex">
+              {nav.getStarted}
+            </Button>
+            <SideMenu
               className="lg:hidden"
               icon="menu"
               label={nav.menu}
+              closeLabel={nav.close}
               variant="secondary"
-              align="end"
+              side="end"
+              footer={<Button className="w-full">{nav.getStarted}</Button>}
             >
               <ul className="flex min-w-0 flex-col">
                 {links.map((item) => (
@@ -189,14 +196,13 @@ export function SiteHeader({
                       label={item.label}
                       color={item.color}
                       current={item.current}
-                      radius="md"
                       role="menuitem"
                       className="w-full justify-start"
                     />
                   </li>
                 ))}
               </ul>
-            </Dropdown>
+            </SideMenu>
           </div>
         </Container>
       </header>

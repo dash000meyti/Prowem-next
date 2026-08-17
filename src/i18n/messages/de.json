@@ -5,6 +5,7 @@
   "nav": {
     "language": "Sprache",
     "menu": "Menü",
+    "close": "Schließen",
     "home": "Startseite",
     "myEventApp": "Meine Event-App",
     "myBroadcast": "Mein Broadcast",
