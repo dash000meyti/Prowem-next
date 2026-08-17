@@ -4,6 +4,8 @@ import { Icon, type IconName } from "@/components/icons";
 import { cn } from "@/lib/cn";
 
 export const buttonColors = [
+  "background",
+  "foreground",
   "primary",
   "accent-1",
   "accent-2",
@@ -16,37 +18,88 @@ export const buttonColors = [
 
 export type ButtonColor = (typeof buttonColors)[number];
 
+const glowByColor: Record<ButtonColor, string> = {
+  background: "hover:shadow-glow-background active:shadow-none",
+  foreground: "hover:shadow-glow-foreground active:shadow-none",
+  primary: "hover:shadow-glow-primary active:shadow-none",
+  "accent-1": "hover:shadow-glow-accent-1 active:shadow-none",
+  "accent-2": "hover:shadow-glow-accent-2 active:shadow-none",
+  "accent-3": "hover:shadow-glow-accent-3 active:shadow-none",
+  "accent-4": "hover:shadow-glow-accent-4 active:shadow-none",
+  success: "hover:shadow-glow-success active:shadow-none",
+  warning: "hover:shadow-glow-warning active:shadow-none",
+  error: "hover:shadow-glow-error active:shadow-none",
+};
+
 const filledByColor: Record<ButtonColor, string> = {
-  primary: "bg-primary text-primary-foreground hover:bg-primary-hover",
-  "accent-1": "bg-accent-1 text-accent-1-foreground hover:bg-accent-1-hover",
-  "accent-2": "bg-accent-2 text-accent-2-foreground hover:bg-accent-2-hover",
-  "accent-3": "bg-accent-3 text-accent-3-foreground hover:bg-accent-3-hover",
-  "accent-4": "bg-accent-4 text-accent-4-foreground hover:bg-accent-4-hover",
-  success: "bg-success text-success-foreground hover:bg-success-hover",
-  warning: "bg-warning text-warning-foreground hover:bg-warning-hover",
-  error: "bg-error text-error-foreground hover:bg-error-hover",
+  background: `bg-background text-foreground hover:bg-panel ${glowByColor.background}`,
+  foreground: `bg-foreground text-background hover:bg-panel-foreground ${glowByColor.foreground}`,
+  primary: `bg-primary text-primary-foreground hover:bg-primary-hover ${glowByColor.primary}`,
+  "accent-1": `bg-accent-1 text-accent-1-foreground hover:bg-accent-1-hover ${glowByColor["accent-1"]}`,
+  "accent-2": `bg-accent-2 text-accent-2-foreground hover:bg-accent-2-hover ${glowByColor["accent-2"]}`,
+  "accent-3": `bg-accent-3 text-accent-3-foreground hover:bg-accent-3-hover ${glowByColor["accent-3"]}`,
+  "accent-4": `bg-accent-4 text-accent-4-foreground hover:bg-accent-4-hover ${glowByColor["accent-4"]}`,
+  success: `bg-success text-success-foreground hover:bg-success-hover ${glowByColor.success}`,
+  warning: `bg-warning text-warning-foreground hover:bg-warning-hover ${glowByColor.warning}`,
+  error: `bg-error text-error-foreground hover:bg-error-hover ${glowByColor.error}`,
 };
 
 const outlineByColor: Record<ButtonColor, string> = {
-  primary:
-    "border-primary text-primary hover:bg-primary hover:text-primary-foreground",
-  "accent-1":
-    "border-accent-1 text-accent-1 hover:bg-accent-1 hover:text-accent-1-foreground",
-  "accent-2":
-    "border-accent-2 text-accent-2 hover:bg-accent-2 hover:text-accent-2-foreground",
-  "accent-3":
-    "border-accent-3 text-accent-3 hover:bg-accent-3 hover:text-accent-3-foreground",
-  "accent-4":
-    "border-accent-4 text-accent-4 hover:bg-accent-4 hover:text-accent-4-foreground",
-  success:
-    "border-success text-success hover:bg-success hover:text-success-foreground",
-  warning:
-    "border-warning text-warning hover:bg-warning hover:text-warning-foreground",
-  error: "border-error text-error hover:bg-error hover:text-error-foreground",
+  background: `text-background hover:bg-background hover:text-foreground ${glowByColor.background} active:shadow-outline`,
+  foreground: `text-foreground hover:bg-foreground hover:text-background ${glowByColor.foreground} active:shadow-outline`,
+  primary: `text-primary hover:bg-primary hover:text-primary-foreground ${glowByColor.primary} active:shadow-outline`,
+  "accent-1": `text-accent-1 hover:bg-accent-1 hover:text-accent-1-foreground ${glowByColor["accent-1"]} active:shadow-outline`,
+  "accent-2": `text-accent-2 hover:bg-accent-2 hover:text-accent-2-foreground ${glowByColor["accent-2"]} active:shadow-outline`,
+  "accent-3": `text-accent-3 hover:bg-accent-3 hover:text-accent-3-foreground ${glowByColor["accent-3"]} active:shadow-outline`,
+  "accent-4": `text-accent-4 hover:bg-accent-4 hover:text-accent-4-foreground ${glowByColor["accent-4"]} active:shadow-outline`,
+  success: `text-success hover:bg-success hover:text-success-foreground ${glowByColor.success} active:shadow-outline`,
+  warning: `text-warning hover:bg-warning hover:text-warning-foreground ${glowByColor.warning} active:shadow-outline`,
+  error: `text-error hover:bg-error hover:text-error-foreground ${glowByColor.error} active:shadow-outline`,
 };
 
 const ghostByColor: Record<ButtonColor, string> = {
-  primary: "text-foreground hover:bg-panel",
+  background: "text-background hover:bg-background/20",
+  foreground: "text-foreground hover:bg-foreground/20",
+  primary: "text-primary hover:bg-primary-hover/20",
+  "accent-1": "text-accent-1 hover:bg-accent-1-hover/20",
+  "accent-2": "text-accent-2 hover:bg-accent-2-hover/20",
+  "accent-3": "text-accent-3 hover:bg-accent-3-hover/20",
+  "accent-4": "text-accent-4 hover:bg-accent-4-hover/20",
+  success: "text-success hover:bg-success-hover/20",
+  warning: "text-warning hover:bg-warning-hover/20",
+  error: "text-error hover:bg-error-hover/20",
+};
+
+const subtleByColor: Record<ButtonColor, string> = {
+  background: "text-panel-foreground hover:bg-background/20 hover:text-background",
+  foreground: "text-panel-foreground hover:bg-foreground/20 hover:text-foreground",
+  primary: "text-panel-foreground hover:bg-primary-hover/20 hover:text-primary",
+  "accent-1": "text-panel-foreground hover:bg-accent-1-hover/20 hover:text-accent-1",
+  "accent-2": "text-panel-foreground hover:bg-accent-2-hover/20 hover:text-accent-2",
+  "accent-3": "text-panel-foreground hover:bg-accent-3-hover/20 hover:text-accent-3",
+  "accent-4": "text-panel-foreground hover:bg-accent-4-hover/20 hover:text-accent-4",
+  success: "text-panel-foreground hover:bg-success-hover/20 hover:text-success",
+  warning: "text-panel-foreground hover:bg-warning-hover/20 hover:text-warning",
+  error: "text-panel-foreground hover:bg-error-hover/20 hover:text-error",
+};
+
+const secondaryByColor: Record<ButtonColor, string> = {
+  background: "hover:bg-background",
+  foreground: "hover:bg-foreground/20",
+  primary: "hover:bg-primary-hover/20",
+  "accent-1": "hover:bg-accent-1-hover/20",
+  "accent-2": "hover:bg-accent-2-hover/20",
+  "accent-3": "hover:bg-accent-3-hover/20",
+  "accent-4": "hover:bg-accent-4-hover/20",
+  success: "hover:bg-success-hover/20",
+  warning: "hover:bg-warning-hover/20",
+  error: "hover:bg-error-hover/20",
+};
+
+const softByColor: Record<ButtonColor, string> = {
+  background: "text-background hover:bg-background",
+  foreground: "text-foreground hover:bg-foreground/20",
+  primary: "text-primary hover:bg-primary-hover/20",
   "accent-1": "text-accent-1 hover:bg-accent-1-hover/20",
   "accent-2": "text-accent-2 hover:bg-accent-2-hover/20",
   "accent-3": "text-accent-3 hover:bg-accent-3-hover/20",
@@ -57,6 +110,8 @@ const ghostByColor: Record<ButtonColor, string> = {
 };
 
 const linkByColor: Record<ButtonColor, string> = {
+  background: "text-background hover:text-panel",
+  foreground: "text-foreground hover:text-panel-foreground",
   primary: "text-primary hover:text-primary-hover",
   "accent-1": "text-accent-1 hover:text-accent-1-hover",
   "accent-2": "text-accent-2 hover:text-accent-2-hover",
@@ -72,14 +127,16 @@ const colorVariants = Object.fromEntries(
 ) as Record<ButtonColor, string>;
 
 export const buttonVariants = cva(
-  "inline-flex max-w-full items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex max-w-full items-center justify-center font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        primary: "",
-        secondary: "bg-panel text-panel-foreground hover:bg-panel-hover",
-        outline: "border-sm bg-transparent",
+        filled: "",
+        secondary: "bg-panel text-panel-foreground",
+        outline: "bg-transparent shadow-outline",
+        soft: "bg-transparent shadow-outline",
         ghost: "bg-transparent",
+        subtle: "bg-transparent",
         link: "bg-transparent underline-offset-4 hover:underline",
       },
       color: colorVariants,
@@ -101,7 +158,7 @@ export const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: "primary",
+      variant: "filled",
       color: "primary",
       size: "md",
       radius: "full",
@@ -124,9 +181,14 @@ export const buttonVariants = cva(
         class: "size-10 px-0 md:size-12 md:px-0",
       },
       ...buttonColors.map((color) => ({
-        variant: "primary" as const,
+        variant: "filled" as const,
         color,
         class: filledByColor[color],
+      })),
+      ...buttonColors.map((color) => ({
+        variant: "secondary" as const,
+        color,
+        class: secondaryByColor[color],
       })),
       ...buttonColors.map((color) => ({
         variant: "outline" as const,
@@ -134,9 +196,19 @@ export const buttonVariants = cva(
         class: outlineByColor[color],
       })),
       ...buttonColors.map((color) => ({
+        variant: "soft" as const,
+        color,
+        class: softByColor[color],
+      })),
+      ...buttonColors.map((color) => ({
         variant: "ghost" as const,
         color,
         class: ghostByColor[color],
+      })),
+      ...buttonColors.map((color) => ({
+        variant: "subtle" as const,
+        color,
+        class: subtleByColor[color],
       })),
       ...buttonColors.map((color) => ({
         variant: "link" as const,
@@ -145,7 +217,7 @@ export const buttonVariants = cva(
       })),
       {
         variant: "link",
-        class: "h-auto min-h-0 px-0 py-0 md:h-auto md:px-0",
+        class: "h-auto min-h-0 py-0 md:h-auto",
       },
     ],
   },

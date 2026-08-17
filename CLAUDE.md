@@ -24,6 +24,7 @@ Permanent. The user will not repeat it.
 - Changing folder tree, UI / Templates / Icons, existing prop APIs, locale config, or routing: stop, explain recommendation / advantages / risks / alternatives, wait for confirmation.
 - Filling tokens, adding message keys, adding a glyph to the icons pack, or adding a component that follows `docs/components.md`: implement.
 - If the change alters behavior, folders, components, phase, or i18n rules: update `docs/` (and `AGENTS.md` if needed) in the same turn. Also update the matching `.cursor/rules/*.mdc` so Cursor stays in lockstep. If nothing changed, leave docs alone.
+- Same turn: if UI / Templates / Icons / tokens / config changed, update `src/app/dev` galleries (`/dev/ui`, `/dev/templates`, `/dev/icons`).
 
 ## Layout
 

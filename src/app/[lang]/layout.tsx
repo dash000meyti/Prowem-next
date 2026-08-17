@@ -69,8 +69,7 @@ export default async function RootLayout({
       <body className="flex min-h-full min-w-0 flex-col bg-background text-foreground">
         <SiteHeader
           siteName={dict.site.name}
-          languageLabel={dict.nav.language}
-          getStartedLabel={dict.nav.getStarted}
+          nav={dict.nav}
           currentLocale={lang}
         />
         {children}

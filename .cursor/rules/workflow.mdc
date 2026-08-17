@@ -22,3 +22,7 @@ Filling design tokens, adding dictionary keys with the same schema, adding a gly
 ## Update docs after the prompt when needed
 
 If behavior, folders, components, phase status, or i18n rules changed, update `docs/` and `AGENTS.md` if needed. Also update `CLAUDE.md` in the same turn so Claude Code stays in lockstep. If nothing changed, do not touch docs. Pairing: [docs/agents.md](docs/agents.md#keep-cursor-and-claude-in-lockstep).
+
+## Keep `/dev` in sync
+
+The component lab is `src/app/dev`. Same turn as UI / Templates / Icons / token / config changes: update `/dev/ui`, `/dev/templates`, or `/dev/icons` so the gallery still shows every permutation. Do not leave it stale.

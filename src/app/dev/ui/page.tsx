@@ -2,12 +2,13 @@ import { Button, buttonColors } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Dropdown } from "@/components/ui/dropdown";
 import { LabSection } from "../lab-section";
+import { TokenGallery } from "./tokens";
 
-const buttonVariants = ["primary", "secondary", "outline", "ghost", "link"] as const;
+const buttonVariants = ["filled", "secondary", "outline", "soft", "ghost", "subtle", "link"] as const;
 const buttonSizes = ["sm", "md", "lg"] as const;
 const buttonRadii = ["sm", "md", "lg", "xl", "full"] as const;
-const dropdownVariants = ["primary", "outline", "link"] as const;
-const containerWidths = ["sm", "md", "lg"] as const;
+const dropdownVariants = ["filled", "secondary", "outline", "soft", "link"] as const;
+const containerWidths = ["sm", "md", "lg", "full"] as const;
 const containerPaddings = ["none", "sm", "md", "lg"] as const;
 
 function DemoMenu() {
@@ -26,6 +27,10 @@ export default function DevUiPage() {
         <h1 className="text-2xl font-semibold tracking-tight text-start md:text-3xl">
           UI
         </h1>
+
+        <LabSection title="Tokens" hint="src/settings/default.json">
+          <TokenGallery />
+        </LabSection>
 
         <LabSection title="Button" hint="src/components/ui/button">
           <div className="flex min-w-0 flex-col gap-8">
@@ -84,7 +89,10 @@ export default function DevUiPage() {
           </div>
         </LabSection>
 
-        <LabSection title="Dropdown" hint="src/components/ui/dropdown">
+        <LabSection
+          title="Dropdown"
+          hint="src/components/ui/dropdown — panel fades in and out over 300ms"
+        >
           <div className="flex min-w-0 flex-col gap-6">
             <div className="flex min-w-0 flex-wrap items-center gap-2">
               {dropdownVariants.map((variant) => (
@@ -93,6 +101,18 @@ export default function DevUiPage() {
                   variant={variant}
                   trigger={variant}
                   label={variant}
+                >
+                  <DemoMenu />
+                </Dropdown>
+              ))}
+            </div>
+            <div className="flex min-w-0 flex-wrap items-center gap-2">
+              {buttonColors.map((color) => (
+                <Dropdown
+                  key={color}
+                  color={color}
+                  trigger={color}
+                  label={color}
                 >
                   <DemoMenu />
                 </Dropdown>

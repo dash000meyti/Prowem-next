@@ -4,6 +4,14 @@
   },
   "nav": {
     "language": "اللغة",
+    "menu": "القائمة",
+    "home": "الرئيسية",
+    "myEventApp": "تطبيقي للفعاليات",
+    "myBroadcast": "البث الخاص بي",
+    "mySocialmedia": "تواصلي الاجتماعي",
+    "myClub": "ناديي",
+    "eventTeam": "فريق فعاليات Prowem",
+    "login": "تسجيل الدخول",
     "getStarted": "ابدأ"
   },
   "home": {

@@ -36,6 +36,7 @@ export function LanguageSwitcher({
       <Dropdown
         label={`${label}: ${currentLabel}`}
         icon={localeFlagIcons[currentLocale]}
+        variant="soft"
       >
         <ul className="flex min-w-0 flex-col">
           {locales.map((locale) => {
@@ -51,7 +52,7 @@ export function LanguageSwitcher({
                   aria-current={isCurrent ? "true" : undefined}
                   className={cn(
                     buttonVariants({
-                      variant: isCurrent ? "primary" : "ghost",
+                      variant: isCurrent ? "filled" : "ghost",
                       size: "sm",
                       radius: "md",
                     }),

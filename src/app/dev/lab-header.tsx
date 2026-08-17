@@ -35,7 +35,7 @@ export function LabHeader() {
                     aria-current={current ? "page" : undefined}
                     className={cn(
                       buttonVariants({
-                        variant: current ? "primary" : "ghost",
+                        variant: current ? "filled" : "ghost",
                         size: "sm",
                         radius: "md",
                       }),

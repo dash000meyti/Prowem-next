@@ -40,6 +40,8 @@ Implement only after the user confirms.
 
 **Update docs when the work changes them.** If behavior, folders, components, phase status, or i18n rules changed, reflect that in `docs/` and in this file if needed. If nothing changed, leave docs alone.
 
+**Keep `/dev` in sync.** The component lab is `src/app/dev` (manual URL, not the site header). Same turn as UI / Templates / Icons / token / config changes: update `/dev/ui`, `/dev/templates`, or `/dev/icons` so every permutation is still visible.
+
 **Cursor and Claude stay in lockstep.** The team uses both. Never update only `CLAUDE.md` or only `.cursor/rules/`. Shared truth is `docs/` + this file; both tool entries are summaries and must be updated together, with the same sections and meaning. Pairing table: [docs/agents.md](docs/agents.md#keep-cursor-and-claude-in-lockstep).
 
 ## Scope

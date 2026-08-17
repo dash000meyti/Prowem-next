@@ -1,0 +1,16 @@
+---
+description: Keep src/app/dev galleries in sync with UI, templates, icons, and tokens.
+alwaysApply: true
+---
+
+# Component lab (`/dev`)
+
+`src/app/dev` is the visual inventory. It is not the product site. Entry is a manual URL (`/dev/ui`, `/dev/templates`, `/dev/icons`).
+
+In the **same turn** as any change to UI, Templates, Icons, theme tokens (`src/settings`, `globals.css`), or component config, update the matching gallery so permutations stay complete:
+
+- UI / tokens / Button–Dropdown–Container config → `src/app/dev/ui`
+- Templates → `src/app/dev/templates`
+- Icons / registry → `src/app/dev/icons`
+
+Do not finish a component or token change while `/dev` is stale. Do not put lab chrome in `SiteHeader` or dictionaries.

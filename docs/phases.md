@@ -43,3 +43,5 @@ Each section should:
 - Live as a template (or a page that composes templates)
 - Take content through props / dictionaries
 - Stay locale- and direction-aware
+
+Header nav already points at `/my-event-app`, `/my-broadcast`, `/my-socialmedia`, `/my-club`, `/event-team`, and `/login` (plus Home). Add those routes in this phase, one at a time.

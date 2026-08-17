@@ -8,6 +8,7 @@ export const containerVariants = cva("mx-auto w-full min-w-0", {
       sm: "max-w-3xl",
       md: "max-w-5xl",
       lg: "max-w-7xl",
+      full: "max-w-none",
     },
     padding: {
       none: "",

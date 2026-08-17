@@ -4,6 +4,14 @@
   },
   "nav": {
     "language": "Idioma",
+    "menu": "Menú",
+    "home": "Inicio",
+    "myEventApp": "Mi Event-App",
+    "myBroadcast": "Mi transmisión",
+    "mySocialmedia": "Mis redes sociales",
+    "myClub": "Mi Club",
+    "eventTeam": "Equipo Prowem Event",
+    "login": "Iniciar sesión",
     "getStarted": "Empezar"
   },
   "home": {

@@ -20,13 +20,23 @@ export default function DevTemplatesPage() {
 
         <LabSection
           title="SiteHeader"
-          hint="src/components/templates/site-header — preview frame, not the site chrome"
+          hint="src/components/templates/site-header — rest is 80px with no chrome; after 8px of window scroll it sticks at 72px and restores at 0. Narrow the viewport for the menu button."
         >
-          <div className="overflow-hidden rounded-lg border-sm border-border">
+          <div className="overflow-visible rounded-lg border-sm border-border">
             <SiteHeader
               siteName="Prowem"
-              languageLabel="Language"
-              getStartedLabel="Get Started"
+              nav={{
+                language: "Language",
+                menu: "Menu",
+                home: "Home",
+                myEventApp: "My Event-App",
+                myBroadcast: "My Broadcast",
+                mySocialmedia: "My Socialmedia",
+                myClub: "My Club",
+                eventTeam: "Prowem Event Team",
+                login: "Login",
+                getStarted: "Get Started",
+              }}
               currentLocale="en"
             />
           </div>

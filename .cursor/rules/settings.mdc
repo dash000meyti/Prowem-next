@@ -12,4 +12,4 @@ Token **values** live in `src/settings/default.json`. `getSettings()` merges any
 
 Scales: `theme.colors` (background, foreground, border, panel, primary, accent 1–4, success, warning, error). Action colors are `{ base, foreground, hover, glow, shadow }` (`glow` lighter, `shadow` darker). Panel is `{ base, foreground, hover }`. `theme.radius` (`sm`–`full`), `theme.borderWidth` (`sm`–`lg`). Breakpoints stay in `globals.css`, not here. Do not scatter hex in UI or templates. Do not add unused settings keys. Locale list and routing stay in `src/i18n/config.ts` — not here.
 
-Storage swap is `loadSettingsFromJson` in `get-settings.ts`. Follow [docs/content.md](docs/content.md). If this summary changes, update `CLAUDE.md` Layout in the same turn.
+Storage swap is `loadSettingsFromJson` in `get-settings.ts`. Follow [docs/content.md](docs/content.md). New or changed tokens must also appear in `src/app/dev/ui` in the same turn. If this summary changes, update `CLAUDE.md` Layout in the same turn.

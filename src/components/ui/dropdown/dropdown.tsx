@@ -7,7 +7,7 @@ import { Button, type ButtonColor } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 
 export const dropdownPanelVariants = cva(
-  "absolute top-full z-50 mt-1 min-w-48 rounded-lg border border-sm border-border bg-panel p-1",
+  "absolute top-full z-50 mt-1 min-w-48 rounded-lg border border-sm border-border bg-panel p-1 transition-opacity duration-300 motion-reduce:transition-none",
   {
     variants: {
       align: {
@@ -21,7 +21,7 @@ export const dropdownPanelVariants = cva(
   },
 );
 
-export type DropdownVariant = "primary" | "outline" | "link";
+export type DropdownVariant = "filled" | "secondary" | "outline" | "soft" | "link";
 
 export type DropdownProps = {
   trigger?: ReactNode;
@@ -89,16 +89,19 @@ export function Dropdown({
       >
         {trigger}
       </Button>
-      {open ? (
-        <div
-          id={panelId}
-          role="menu"
-          className={dropdownPanelVariants({ align })}
-          onClick={() => setOpen(false)}
-        >
-          {children}
-        </div>
-      ) : null}
+      <div
+        id={panelId}
+        role="menu"
+        aria-hidden={!open}
+        inert={!open}
+        className={cn(
+          dropdownPanelVariants({ align }),
+          open ? "opacity-100" : "pointer-events-none opacity-0",
+        )}
+        onClick={() => setOpen(false)}
+      >
+        {children}
+      </div>
     </div>
   );
 }
