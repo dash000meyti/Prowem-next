@@ -1,6 +1,6 @@
 import type { ColorTone, DeepPartial, Settings, ThemeAccent } from "@/settings/types";
 
-function mergeTone(base: ColorTone, overlay?: DeepPartial<ColorTone>): ColorTone {
+function mergeTone<T extends ColorTone>(base: T, overlay?: DeepPartial<T>): T {
   return { ...base, ...overlay };
 }
 

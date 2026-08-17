@@ -9,7 +9,7 @@ This contract is permanent. Do not wait for the user to repeat it. Map: [docs/ag
 
 ## Confirm before structural change
 
-Stop and ask before changing: folder tree, UI vs Templates contract, existing component prop APIs, `src/i18n/config.ts`, locale routing, or new architectural dependencies.
+Stop and ask before changing: folder tree, UI / Templates / Icons contract, existing component prop APIs, `src/i18n/config.ts`, locale routing, or new architectural dependencies.
 
 Present recommendation, advantages, disadvantages/risks, and alternatives. Implement only after confirmation.
 
@@ -17,7 +17,7 @@ Example: renaming `components/ui` or changing `Button` props needs confirmation.
 
 ## Stay inside the contract without asking
 
-Filling design tokens, adding dictionary keys with the same schema, or adding a UI/Template per `docs/components.md` does not need this stop.
+Filling design tokens, adding dictionary keys with the same schema, adding a glyph to `src/components/icons/`, or adding a UI/Template per `docs/components.md` does not need this stop.
 
 ## Update docs after the prompt when needed
 

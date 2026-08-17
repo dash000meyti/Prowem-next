@@ -21,8 +21,8 @@ This app is Next.js 16 App Router. Proxy is `src/proxy.ts`. There is no `middlew
 
 Permanent. The user will not repeat it.
 
-- Changing folder tree, UI vs Templates, existing prop APIs, locale config, or routing: stop, explain recommendation / advantages / risks / alternatives, wait for confirmation.
-- Filling tokens, adding message keys, or adding a component that follows `docs/components.md`: implement.
+- Changing folder tree, UI / Templates / Icons, existing prop APIs, locale config, or routing: stop, explain recommendation / advantages / risks / alternatives, wait for confirmation.
+- Filling tokens, adding message keys, adding a glyph to the icons pack, or adding a component that follows `docs/components.md`: implement.
 - If the change alters behavior, folders, components, phase, or i18n rules: update `docs/` (and `AGENTS.md` if needed) in the same turn. Also update the matching `.cursor/rules/*.mdc` so Cursor stays in lockstep. If nothing changed, leave docs alone.
 
 ## Layout
@@ -30,6 +30,7 @@ Permanent. The user will not repeat it.
 - Routes: `src/app/[lang]/` — prefixes `/en` `/de` `/pt` `/es` `/ar`
 - UI atoms: `src/components/ui/<name>/`
 - Templates: `src/components/templates/<name>/`
+- Icons: `src/components/icons/` (`<Icon name="…" />`; Linear only)
 - Locales: `src/i18n/config.ts` + `src/i18n/messages/*.json` (copy via `getDictionary()`)
 - Settings: `src/settings/` (theme tokens via `getSettings()`; UI uses `rounded-*` / `border-*` classes)
 - Root `<html lang dir>` + theme CSS vars: `src/app/[lang]/layout.tsx` only

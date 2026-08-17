@@ -2,7 +2,7 @@
 
 Prowem is a Next.js 16 App Router site. All product code lives under `src/`. Config, docs, and tooling stay at the repo root.
 
-Changes to this tree, the UI vs Templates contract, existing component prop APIs, locale config, or routing need user confirmation first (recommendation, advantages, risks). After a change lands, keep `docs/` in sync **and** keep Cursor (`.cursor/rules/`) and Claude (`CLAUDE.md`) summaries aligned in the same change. Map: [docs/agents.md](agents.md). Workflow: [AGENTS.md](../AGENTS.md#workflow).
+Changes to this tree, the UI / Templates / Icons contract, existing component prop APIs, locale config, or routing need user confirmation first (recommendation, advantages, risks). After a change lands, keep `docs/` in sync **and** keep Cursor (`.cursor/rules/`) and Claude (`CLAUDE.md`) summaries aligned in the same change. Map: [docs/agents.md](agents.md). Workflow: [AGENTS.md](../AGENTS.md#workflow).
 
 ## Tree
 
@@ -17,6 +17,7 @@ src/
   components/
     ui/                Atoms. No routes, no copy.
     templates/         Layout compositions built from UI.
+    icons/             SVG pack (glyphs + flags). Shared by UI and Templates.
   i18n/
     config.ts          Locales, default, RTL, labels (stays in code).
     dictionary.ts      Dictionary type from en.json
@@ -58,7 +59,7 @@ Request → proxy.ts → [lang]/layout.tsx → page
                          ├─ SiteHeader (template)
                          │    ├─ Container (UI)
                          │    ├─ LanguageSwitcher (template)
-                         │    │    └─ Dropdown (UI)
+                         │    │    └─ Dropdown (UI) + Icon flags
                          │    │         └─ Button / buttonVariants
                          │    └─ Button Get Started (UI)
                          └─ getDictionary() / getSettings()
@@ -72,7 +73,7 @@ Request → proxy.ts → [lang]/layout.tsx → page
 
 - Tailwind 4 via `@import "tailwindcss"` in `src/app/globals.css`
 - Design token **values** come from `getSettings()` (`src/settings/default.json` today), merged over defaults so a later SQLite overlay can omit keys
-- Shared scales: `theme.colors` (surface, panel, primary, accent 1–4, success, warning, error — action colors are `base` + `foreground` + `hover`), `theme.radius` (`sm`–`full`), `theme.borderWidth` (`sm`–`lg`)
+- Shared scales: `theme.colors` (surface, panel, primary, accent 1–4, success, warning, error — action colors are `base` + `foreground` + `hover` + `glow` + `shadow`; panel is `base` + `foreground` + `hover`), `theme.radius` (`sm`–`full`), `theme.borderWidth` (`sm`–`lg`)
 - The locale layout sets those values as CSS variables on `<html>` via `toCssVars()`
 - `globals.css` owns variable **names**, `@theme inline` wiring, and fallbacks
 - UI and templates use Tailwind token classes only (`bg-primary`, `bg-panel`, `rounded-md`, `border-sm`, `border-border`). No hex, no `rounded-[…]`
@@ -93,6 +94,7 @@ Request → proxy.ts → [lang]/layout.tsx → page
 | --- | --- |
 | Page / route | `src/app/[lang]/...` |
 | Atom (button, card, input) | `src/components/ui/<name>/` |
+| SVG icon / flag | `src/components/icons/` (`glyphs/` or `flags/`, then `registry.ts`) |
 | Section or chrome (hero, header, footer) | `src/components/templates/<name>/` |
 | User-facing string | `src/i18n/messages/*.json` (read via `getDictionary()`) |
 | Locale list / direction | `src/i18n/config.ts` |

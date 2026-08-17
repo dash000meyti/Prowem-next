@@ -2,7 +2,8 @@
 
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { Button } from "@/components/ui/button";
+import type { IconName } from "@/components/icons";
+import { Button, type ButtonColor } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 
 export const dropdownPanelVariants = cva(
@@ -20,18 +21,26 @@ export const dropdownPanelVariants = cva(
   },
 );
 
+export type DropdownVariant = "primary" | "outline" | "link";
+
 export type DropdownProps = {
-  trigger: ReactNode;
+  trigger?: ReactNode;
+  icon?: IconName;
   children: ReactNode;
   label: string;
+  variant?: DropdownVariant;
+  color?: ButtonColor;
   align?: VariantProps<typeof dropdownPanelVariants>["align"];
   className?: string;
 };
 
 export function Dropdown({
   trigger,
+  icon,
   children,
   label,
+  variant = "outline",
+  color = "primary",
   align = "end",
   className,
 }: DropdownProps) {
@@ -69,12 +78,13 @@ export function Dropdown({
     <div ref={rootRef} className={cn("relative", className)}>
       <Button
         type="button"
-        variant="ghost"
+        variant={variant}
+        color={color}
+        icon={icon}
         aria-haspopup="menu"
         aria-expanded={open}
         aria-controls={panelId}
         aria-label={label}
-        className="aspect-square p-0 border-sm border-border"
         onClick={() => setOpen((value) => !value)}
       >
         {trigger}

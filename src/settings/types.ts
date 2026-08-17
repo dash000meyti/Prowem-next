@@ -4,11 +4,16 @@ export type ColorTone = {
   hover: string;
 };
 
+export type ActionColorTone = ColorTone & {
+  glow: string;
+  shadow: string;
+};
+
 export type ThemeAccent = {
-  "1": ColorTone;
-  "2": ColorTone;
-  "3": ColorTone;
-  "4": ColorTone;
+  "1": ActionColorTone;
+  "2": ActionColorTone;
+  "3": ActionColorTone;
+  "4": ActionColorTone;
 };
 
 export type ThemeColors = {
@@ -16,11 +21,11 @@ export type ThemeColors = {
   foreground: string;
   border: string;
   panel: ColorTone;
-  primary: ColorTone;
+  primary: ActionColorTone;
   accent: ThemeAccent;
-  success: ColorTone;
-  warning: ColorTone;
-  error: ColorTone;
+  success: ActionColorTone;
+  warning: ActionColorTone;
+  error: ActionColorTone;
 };
 
 export type ThemeRadius = {

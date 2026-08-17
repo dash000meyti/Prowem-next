@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import type { ColorTone, Theme } from "@/settings/types";
+import type { ActionColorTone, ColorTone, Theme } from "@/settings/types";
 
 function toneVars(prefix: string, tone: ColorTone): Record<string, string> {
   return {
@@ -9,20 +9,28 @@ function toneVars(prefix: string, tone: ColorTone): Record<string, string> {
   };
 }
 
+function actionToneVars(prefix: string, tone: ActionColorTone): Record<string, string> {
+  return {
+    ...toneVars(prefix, tone),
+    [`--${prefix}-glow`]: tone.glow,
+    [`--${prefix}-shadow`]: tone.shadow,
+  };
+}
+
 export function toCssVars(theme: Theme): CSSProperties {
   return {
     "--background": theme.colors.background,
     "--foreground": theme.colors.foreground,
     "--border": theme.colors.border,
     ...toneVars("panel", theme.colors.panel),
-    ...toneVars("primary", theme.colors.primary),
-    ...toneVars("accent-1", theme.colors.accent["1"]),
-    ...toneVars("accent-2", theme.colors.accent["2"]),
-    ...toneVars("accent-3", theme.colors.accent["3"]),
-    ...toneVars("accent-4", theme.colors.accent["4"]),
-    ...toneVars("success", theme.colors.success),
-    ...toneVars("warning", theme.colors.warning),
-    ...toneVars("error", theme.colors.error),
+    ...actionToneVars("primary", theme.colors.primary),
+    ...actionToneVars("accent-1", theme.colors.accent["1"]),
+    ...actionToneVars("accent-2", theme.colors.accent["2"]),
+    ...actionToneVars("accent-3", theme.colors.accent["3"]),
+    ...actionToneVars("accent-4", theme.colors.accent["4"]),
+    ...actionToneVars("success", theme.colors.success),
+    ...actionToneVars("warning", theme.colors.warning),
+    ...actionToneVars("error", theme.colors.error),
     "--theme-radius-sm": theme.radius.sm,
     "--theme-radius-md": theme.radius.md,
     "--theme-radius-lg": theme.radius.lg,

@@ -1,5 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import type { ButtonHTMLAttributes } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
+import { Icon, type IconName } from "@/components/icons";
 import { cn } from "@/lib/cn";
 
 export const buttonColors = [
@@ -87,6 +88,10 @@ export const buttonVariants = cva(
         md: "h-9 px-3.5 text-sm md:h-10 md:px-4",
         lg: "h-10 px-4 text-sm md:h-12 md:px-6 md:text-base",
       },
+      iconOnly: {
+        true: "shrink-0 gap-0",
+        false: "",
+      },
       radius: {
         sm: "rounded-sm",
         md: "rounded-md",
@@ -100,8 +105,24 @@ export const buttonVariants = cva(
       color: "primary",
       size: "md",
       radius: "full",
+      iconOnly: false,
     },
     compoundVariants: [
+      {
+        iconOnly: true,
+        size: "sm",
+        class: "size-8 px-0",
+      },
+      {
+        iconOnly: true,
+        size: "md",
+        class: "size-9 px-0 md:size-10 md:px-0",
+      },
+      {
+        iconOnly: true,
+        size: "lg",
+        class: "size-10 px-0 md:size-12 md:px-0",
+      },
       ...buttonColors.map((color) => ({
         variant: "primary" as const,
         color,
@@ -131,7 +152,22 @@ export const buttonVariants = cva(
 );
 
 export type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "color"> &
-  VariantProps<typeof buttonVariants>;
+  Omit<VariantProps<typeof buttonVariants>, "iconOnly"> & {
+    icon?: IconName;
+    iconPosition?: "start" | "end";
+  };
+
+function hasButtonLabel(children: ReactNode): boolean {
+  if (children === undefined || children === null || children === false || children === true) {
+    return false;
+  }
+
+  if (typeof children === "string" && children.trim() === "") {
+    return false;
+  }
+
+  return true;
+}
 
 export function Button({
   className,
@@ -139,14 +175,38 @@ export function Button({
   color,
   size,
   radius,
+  icon,
+  iconPosition = "start",
   type = "button",
+  children,
   ...props
 }: ButtonProps) {
+  const iconOnly = Boolean(icon) && !hasButtonLabel(children);
+  const iconNode = icon ? (
+    <Icon name={icon} className={iconOnly ? "size-5" : "size-4"} />
+  ) : null;
+
   return (
     <button
       type={type}
-      className={cn(buttonVariants({ variant, color, size, radius }), className)}
+      className={cn(
+        buttonVariants({ variant, color, size, radius, iconOnly }),
+        icon && !iconOnly && "gap-2",
+        className,
+      )}
       {...props}
-    />
+    >
+      {iconPosition === "end" ? (
+        <>
+          {children}
+          {iconNode}
+        </>
+      ) : (
+        <>
+          {iconNode}
+          {children}
+        </>
+      )}
+    </button>
   );
 }

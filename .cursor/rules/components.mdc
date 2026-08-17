@@ -1,5 +1,5 @@
 ---
-description: UI vs Templates folder contract, CVA, props, and className.
+description: UI vs Templates vs Icons folder contract, CVA, props, and className.
 globs: src/components/**/*
 alwaysApply: false
 ---
@@ -10,7 +10,9 @@ UI (`src/components/ui/`) = atoms. No dictionaries, no routes, no locale.
 
 Templates (`src/components/templates/`) = compose UI. Copy and `currentLocale` arrive as props.
 
-Each component is a folder: `<name>.tsx` + `index.ts`. Export the component, props type, and `*Variants` when using `cva`.
+Icons (`src/components/icons/`) = SVG glyphs and flags. Import `@/components/icons`. Do not put glyphs in `ui/` or `templates/`. Linear only (`viewBox="0 0 24 24"`, `stroke="currentColor"`, width 1.5). Register names in `registry.ts`.
+
+Each UI/template is a folder: `<name>.tsx` + `index.ts`. Export the component, props type, and `*Variants` when using `cva`. Button `icon` is an `IconName`; icon-only uses equal padding (CVA `iconOnly` compounds that override `md:px-*`).
 
 ```tsx
 // BAD — copy inside UI, no className merge, hex / arbitrary radius
@@ -24,4 +26,4 @@ export function Button({ className, ...props }: ButtonProps) {
 }
 ```
 
-Do not change existing prop APIs without user confirmation. Adding a new Card/Heading that follows this pattern does not need confirmation. Shared visual tokens: `rounded-sm|md|lg|xl|full`, `border-sm|md|lg`, `border-border`, `bg-panel`, `bg-primary`, `bg-accent-1`…`4`, `bg-success`, `bg-warning`, `bg-error` plus `*-foreground` / `*-hover` — no hex, no `rounded-[…]`, no `getSettings()` in UI. Mobile-first: base styles are the small screen; scale with `sm:` `md:` `lg:`; flex children that shrink need `min-w-0`. Update [docs/components.md](docs/components.md) when the inventory changes; if the Layout summary in `CLAUDE.md` would be stale, update it in the same turn.
+Do not change existing prop APIs without user confirmation. Adding a new Card/Heading that follows this pattern does not need confirmation. Shared visual tokens: `rounded-sm|md|lg|xl|full`, `border-sm|md|lg`, `border-border`, `bg-panel`, `bg-primary`, `bg-accent-1`…`4`, `bg-success`, `bg-warning`, `bg-error` plus `*-foreground` / `*-hover` / `*-glow` / `*-shadow` (glow and shadow on action colors) — no hex, no `rounded-[…]`, no `getSettings()` in UI. Mobile-first: base styles are the small screen; scale with `sm:` `md:` `lg:`; flex children that shrink need `min-w-0`. Update [docs/components.md](docs/components.md) when the inventory changes; if the Layout summary in `CLAUDE.md` would be stale, update it in the same turn.

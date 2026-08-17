@@ -49,7 +49,7 @@ The locale layout injects CSS variables from `getSettings()`. [`src/app/globals.
 
 Token classes:
 
-- Color: `bg-background`, `text-foreground`, `bg-panel`, `text-panel-foreground`, `hover:bg-panel-hover`, `border-border`, `bg-primary`, `text-primary-foreground`, `hover:bg-primary-hover`, `bg-accent-1` … `bg-accent-4` (each with `-foreground` and `-hover`), `bg-success`, `bg-warning`, `bg-error`
+- Color: `bg-background`, `text-foreground`, `bg-panel`, `text-panel-foreground`, `hover:bg-panel-hover`, `border-border`, `bg-primary`, `text-primary-foreground`, `hover:bg-primary-hover`, `bg-primary-glow`, `bg-primary-shadow`, `bg-accent-1` … `bg-accent-4` (each with `-foreground`, `-hover`, `-glow`, `-shadow`), `bg-success`, `bg-warning`, `bg-error` (same suffixes)
 - Radius: `rounded-sm` `rounded-md` `rounded-lg` `rounded-xl` `rounded-full`
 - Border width: `border-sm` `border-md` `border-lg`
 

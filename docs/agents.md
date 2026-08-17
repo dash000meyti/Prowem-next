@@ -23,7 +23,7 @@ The team uses both tools. Agent guides must stay the same shape and move togethe
 | --- | --- |
 | Workflow / confirmation / docs-after-change | `AGENTS.md`, `CLAUDE.md` Workflow, `.cursor/rules/workflow.mdc` |
 | Scope, phase, Next.js 16 traps | `docs/agents.md`, `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/core.mdc` |
-| Component contract | `docs/components.md`, `.cursor/rules/components.mdc` (and `CLAUDE.md` Layout if the summary changed) |
+| Component / Icons contract | `docs/components.md`, `.cursor/rules/components.mdc` (and `CLAUDE.md` Layout if the summary changed) |
 | i18n / locale config | `docs/i18n.md`, `.cursor/rules/i18n.mdc` (and `CLAUDE.md` Layout if the summary changed) |
 | Copy / settings loaders | `docs/content.md`, `.cursor/rules/settings.mdc` (and `CLAUDE.md` Layout if the summary changed) |
 | App Router / Proxy / `<html>` | `docs/architecture.md`, `.cursor/rules/app-router.mdc` (and `CLAUDE.md` Layout if the summary changed) |
@@ -43,8 +43,8 @@ Skip ahead only for a one-line typo with no structural effect.
 
 ## Workflow (do not wait for the user to repeat this)
 
-- **Confirm first** if the change touches: folder tree, UI vs Templates split, existing component prop APIs, `src/i18n/config.ts`, locale routing, or new architectural dependencies. Present recommendation, advantages, risks, alternatives. Implement only after yes.
-- **Just do it** if the work stays inside the contract: tokens, dictionary keys with the same schema, a new UI/Template that follows [components.md](components.md).
+- **Confirm first** if the change touches: folder tree, UI / Templates / Icons split, existing component prop APIs, `src/i18n/config.ts`, locale routing, or new architectural dependencies. Present recommendation, advantages, risks, alternatives. Implement only after yes.
+- **Just do it** if the work stays inside the contract: tokens, dictionary keys with the same schema, a new glyph in `src/components/icons/`, a new UI/Template that follows [components.md](components.md).
 - **Update docs** in the same change when behavior, folders, components, phase, or i18n rules changed. Update Cursor and Claude summaries together. If nothing changed, do not touch docs.
 
 ## Next.js 16 traps (this repo)
@@ -65,7 +65,7 @@ Wrong answers from older training data. Prefer `node_modules/next/dist/docs/`.
 Before finishing a task:
 
 1. No hardcoded user-facing copy. No hex or `rounded-[…]` in UI or templates (`getSettings()` / token classes).
-2. New UI lives under `src/components/ui/<name>/` with `index.ts`, exported props type, `className` + `cn()`, `cva` variants if it has variants.
+2. New UI lives under `src/components/ui/<name>/` with `index.ts`, exported props type, `className` + `cn()`, `cva` variants if it has variants. New glyphs/flags live under `src/components/icons/` and are registered in `registry.ts`.
 3. New chrome/sections live under `src/components/templates/<name>/` and compose UI.
 4. Every locale JSON still matches `en.json` (`assert-complete.ts`).
 5. Phase 1 does not add Prowem marketing sections, brand fonts, or unused placeholders.

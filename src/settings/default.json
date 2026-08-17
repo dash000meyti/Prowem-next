@@ -12,44 +12,60 @@
       "primary": {
         "base": "#FF6249",
         "foreground": "#091017",
-        "hover": "#FF7D68"
+        "hover": "#FF7D68",
+        "glow": "#FFB1A4",
+        "shadow": "#993B2C"
       },
       "accent": {
         "1": {
           "base": "#FF6250",
           "foreground": "#091017",
-          "hover": "#FF7C6E"
+          "hover": "#FF7C6E",
+          "glow": "#FFB1A8",
+          "shadow": "#993B30"
         },
         "2": {
           "base": "#02ABFF",
           "foreground": "#091017",
-          "hover": "#3BBCFF"
+          "hover": "#3BBCFF",
+          "glow": "#81D5FF",
+          "shadow": "#016799"
         },
         "3": {
           "base": "#9F46FF",
           "foreground": "#F4F4F5",
-          "hover": "#B366FF"
+          "hover": "#B366FF",
+          "glow": "#CFA3FF",
+          "shadow": "#5F2A99"
         },
         "4": {
           "base": "#18D96B",
           "foreground": "#091017",
-          "hover": "#3EE485"
+          "hover": "#3EE485",
+          "glow": "#8CECB5",
+          "shadow": "#0E8240"
         }
       },
       "success": {
         "base": "#12C46A",
         "foreground": "#091017",
-        "hover": "#2DD67E"
+        "hover": "#2DD67E",
+        "glow": "#89E2B5",
+        "shadow": "#0B7640"
       },
       "warning": {
         "base": "#FFB020",
         "foreground": "#091017",
-        "hover": "#FFC34A"
+        "hover": "#FFC34A",
+        "glow": "#FFD890",
+        "shadow": "#996A13"
       },
       "error": {
         "base": "#FF3355",
         "foreground": "#FFFFFF",
-        "hover": "#FF5570"
+        "hover": "#FF5570",
+        "glow": "#FF99AA",
+        "shadow": "#991F33"
       }
     },
     "radius": {

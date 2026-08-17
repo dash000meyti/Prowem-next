@@ -27,7 +27,7 @@ Also read the relevant guide in `node_modules/next/dist/docs/` for this Next.js 
 
 This contract is permanent. The user does not need to repeat it in later prompts.
 
-**Stop and get confirmation** before changing architecture or the component system: folder tree, UI vs Templates contract, existing component prop APIs, `src/i18n/config.ts`, locale routing, or new architectural dependencies. Do not implement yet. First present:
+**Stop and get confirmation** before changing architecture or the component system: folder tree, UI / Templates / Icons contract, existing component prop APIs, `src/i18n/config.ts`, locale routing, or new architectural dependencies. Do not implement yet. First present:
 
 - recommendation
 - advantages
@@ -36,7 +36,7 @@ This contract is permanent. The user does not need to repeat it in later prompts
 
 Implement only after the user confirms.
 
-**No confirmation needed** for work that stays inside the current contract: filling design tokens, adding dictionary keys with the same schema, or adding a UI/Template that follows [docs/components.md](docs/components.md).
+**No confirmation needed** for work that stays inside the current contract: filling design tokens, adding dictionary keys with the same schema, adding a glyph to `src/components/icons/`, or adding a UI/Template that follows [docs/components.md](docs/components.md).
 
 **Update docs when the work changes them.** If behavior, folders, components, phase status, or i18n rules changed, reflect that in `docs/` and in this file if needed. If nothing changed, leave docs alone.
 
@@ -54,6 +54,7 @@ Implement only after the user confirms.
 - Routes live in `src/app/[lang]/`. Every page is locale-prefixed: `/en`, `/de`, `/pt`, `/es`, `/ar`.
 - UI primitives: `src/components/ui/<name>/`
 - Templates: `src/components/templates/<name>/`
+- Icons: `src/components/icons/` (glyphs + flags; import `@/components/icons`)
 - Locale config is the single source of truth: `src/i18n/config.ts`
 - Theme / settings values: `src/settings/` (read with `getSettings()`). UI uses token classes (`rounded-md`, `border-sm`). Do not scatter hex in components. See [docs/content.md](docs/content.md).
 
@@ -69,6 +70,7 @@ Implement only after the user confirms.
 
 - **UI** = reusable atoms (Button, Container). No page-specific copy or routing.
 - **Templates** = compositions of UI for a layout role (SiteHeader, LanguageSwitcher).
+- **Icons** = SVG pack (`<Icon name="close" />`). Linear glyphs and flags. Not UI atoms; do not put glyphs in `ui/` or `templates/`.
 - Every public component accepts explicit props and `className`, merged with `cn()`.
 - Variants go through `class-variance-authority`. Export both the component and its `*Variants` helper.
 - Color, radius, and border width come from settings tokens (`rounded-md`, `border-sm`, `border-border`, `bg-panel`, `bg-accent-1`). No hex and no `rounded-[…]`.
