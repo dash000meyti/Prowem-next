@@ -20,7 +20,7 @@ export default function DevTemplatesPage() {
 
         <LabSection
           title="SiteHeader"
-          hint="src/components/templates/site-header — rest is 80px with no chrome; after 8px of window scroll it sticks at 72px and restores at 0. Narrow the viewport for the side menu."
+          hint="src/components/templates/site-header — rest is 80px with no chrome; after 8px of window scroll it sticks at 72px with bg-panel/72 and backdrop blur, and restores at 0. Narrow the viewport for the side menu."
         >
           <div className="overflow-visible rounded-lg border-sm border-border">
             <SiteHeader
