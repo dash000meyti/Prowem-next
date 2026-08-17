@@ -6,7 +6,7 @@ The live Prowem site is the product reference. This repository is a new structur
 
 ## Current phase
 
-**Phase 1 — foundation.** Routing, translations, component conventions, and docs are in place. Favicons are in `src/app/`. Logo, fonts, and page sections are not.
+**Phase 1 — foundation.** Routing, translations, component conventions, and docs are in place. The wordmark is `public/logo.svg`. Favicons are the PHP set in `public/favicon/`, served from `src/app/`. Fonts and page sections are not.
 
 ## Stack
 

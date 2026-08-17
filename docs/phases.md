@@ -13,18 +13,15 @@ Done in this repository:
 - Skeleton home that proves i18n and direction
 - Docs for humans and agents ([docs/agents.md](agents.md) is the Cursor/Claude map)
 
-Not in this phase: logo, fonts, Prowem page sections. Favicon files live in `src/app/` (`icon.png`, `icon1.png`, `icon2.png`, `apple-icon.png`). Brand color values live in `src/settings/default.json`.
+Not in this phase: fonts, Prowem page sections. The site wordmark lives in `public/logo.svg` and is used by `SiteHeader`. The PHP favicon set is in `public/favicon/`; Next.js serves the same files from `src/app/` (`favicon.ico`, `icon.svg`, `icon.png`, `icon1.png`, `apple-icon.png`). Brand color values live in `src/settings/default.json`.
 
 ## Phase 2 — Design tokens and brand assets
 
 User supplies:
 
-- Color palette
-- Logo
-- Favicon / app icons
 - Fonts
 
-Then replace remaining brand assets (logo, fonts). Favicon / app icons are already in `src/app/` (`icon.png`, `icon1.png`, `icon2.png`, `apple-icon.png`). Color values are already in `src/settings/default.json`; CSS variable names stay in `src/app/globals.css`. Wire fonts in the locale layout. No new marketing sections.
+Color palette, logo, and favicon / app icons are already in. Then wire fonts in the locale layout. The PHP favicon set is in `public/favicon/`; Next.js serves the same files from `src/app/` (`favicon.ico`, `icon.svg`, `icon.png`, `icon1.png`, `apple-icon.png`). The wordmark is `public/logo.svg` (`SiteHeader` home link). Color values are already in `src/settings/default.json`; CSS variable names stay in `src/app/globals.css`. No new marketing sections.
 
 ## Phase 3 — UI primitives for the homepage
 

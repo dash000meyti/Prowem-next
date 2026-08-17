@@ -32,6 +32,7 @@ Permanent. The user will not repeat it.
 - UI atoms: `src/components/ui/<name>/`
 - Templates: `src/components/templates/<name>/`
 - Icons: `src/components/icons/` (`<Icon name="…" />`; Linear only)
+- Static assets: `public/` (`logo.svg` wordmark, `favicon/` PHP set)
 - Locales: `src/i18n/config.ts` + `src/i18n/messages/*.json` (copy via `getDictionary()`)
 - Settings: `src/settings/` (theme tokens via `getSettings()`; UI uses `rounded-*` / `border-*` classes)
 - Root `<html lang dir>` + theme CSS vars: `src/app/[lang]/layout.tsx` only

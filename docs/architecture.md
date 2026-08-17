@@ -10,10 +10,11 @@ Changes to this tree, the UI / Templates / Icons contract, existing component pr
 src/
   app/
     globals.css
-    icon.png           Favicon 32×32
-    icon1.png          Favicon 150×150
-    icon2.png          Favicon 256×256
-    apple-icon.png     Apple touch icon 256×256
+    favicon.ico        Favicon 16×16 (from PHP favicon.ico)
+    icon.svg           Favicon SVG mark (from PHP favicon.svg)
+    icon.png           Favicon 32×32 (from PHP favicon-32.png)
+    icon1.png          Favicon 256×256 (from PHP favicon-256.png)
+    apple-icon.png     Apple touch icon (from PHP apple-touch-icon.png)
     [lang]/
       layout.tsx       Root layout: <html lang dir>, theme CSS vars, SiteHeader
       page.tsx         Locale home (foundation shell)
@@ -37,6 +38,9 @@ src/
   lib/
     cn.ts              clsx + tailwind-merge
   proxy.ts             Locale prefix redirect
+public/
+  logo.svg             Site wordmark (exact PHP logo.svg; SiteHeader home link)
+  favicon/             Original PHP favicon set (svg, ico, 32, 256, apple-touch)
 docs/                  Human and AI guides (start at agents.md)
 .cursor/rules/         Cursor: workflow, core, components, i18n, app-router, settings
 AGENTS.md              Shared Cursor + Claude rules

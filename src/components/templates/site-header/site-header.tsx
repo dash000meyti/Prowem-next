@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -151,9 +152,17 @@ export function SiteHeader({
         <Container className="flex h-full min-w-0 items-center gap-x-3 md:gap-x-4">
           <Link
             href={homeHref}
-            className="min-w-0 shrink-0 truncate text-sm font-semibold tracking-tight"
+            className="inline-flex min-w-0 shrink-0 items-center"
           >
-            {siteName}
+            <Image
+              src="/logo.svg"
+              alt={siteName}
+              width={972}
+              height={177}
+              className="h-[1.44rem] w-auto"
+              priority
+              unoptimized
+            />
           </Link>
           <nav
             aria-label={nav.menu}

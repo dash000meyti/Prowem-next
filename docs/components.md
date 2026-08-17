@@ -88,7 +88,7 @@ Client component. Trigger is a `soft` Dropdown with the current locale’s flag 
 ### SiteHeader
 
 Props: `siteName`, `nav` (`Dictionary["nav"]`), `currentLocale`, `className?`.  
-Composes `Container` + locale-prefixed nav links + `LanguageSwitcher` + filled Get Started `Button`. Destinations are `/`, `/my-event-app`, `/my-broadcast`, `/my-socialmedia`, `/my-club`, `/event-team`, `/login` under the current locale; pages can be added later on those routes. Each nav item is `variant="subtle"` with a fixed `color`: Home `primary`, My Event-App `accent-1`, My Broadcast `accent-4`, My Socialmedia `accent-3`, My Club `accent-2`, Prowem Event Team `primary`, Login `foreground` (last in the list). The current page is `disabled` (`aria-current="page"`). From `lg` the links follow the site name at the start of the bar and Get Started stays a filled primary CTA after the language switcher. Below `lg` a `secondary` `menu` SideMenu (`side="end"`) holds the same nav items at default Button size; Get Started leaves the bar and is pinned in the SideMenu `footer`. At the top of the page it is `h-20` with no background and a transparent bottom edge. After `8px` of scroll it sticks (`sticky top-0`) at `h-18` with `bg-panel/72 backdrop-blur-sm` and `border-border`. The bottom edge stays `border-b border-sm` in both states so the color can fade in over `300ms`; an `h-2` spacer keeps layout from jumping. It returns to the tall transparent bar when `scrollY` is `0`.
+Composes `Container` + locale-prefixed nav links + `LanguageSwitcher` + filled Get Started `Button`. The home link shows the brand wordmark (`/logo.svg`, displayed at `h-[1.44rem]` / 0.72 of `h-8`) with `siteName` as the image `alt`. Destinations are `/`, `/my-event-app`, `/my-broadcast`, `/my-socialmedia`, `/my-club`, `/event-team`, `/login` under the current locale; pages can be added later on those routes. Each nav item is `variant="subtle"` with a fixed `color`: Home `primary`, My Event-App `accent-1`, My Broadcast `accent-4`, My Socialmedia `accent-3`, My Club `accent-2`, Prowem Event Team `primary`, Login `foreground` (last in the list). The current page is `disabled` (`aria-current="page"`). From `lg` the links follow the wordmark at the start of the bar and Get Started stays a filled primary CTA after the language switcher. Below `lg` a `secondary` `menu` SideMenu (`side="end"`) holds the same nav items at default Button size; Get Started leaves the bar and is pinned in the SideMenu `footer`. At the top of the page it is `h-20` with no background and a transparent bottom edge. After `8px` of scroll it sticks (`sticky top-0`) at `h-18` with `bg-panel/72 backdrop-blur-sm` and `border-border`. The bottom edge stays `border-b border-sm` in both states so the color can fade in over `300ms`; an `h-2` spacer keeps layout from jumping. It returns to the tall transparent bar when `scrollY` is `0`.
 
 ## Checklist: add a UI component
 
@@ -163,7 +163,9 @@ export function SiteHeader() {
 export function SiteHeader({ siteName, nav, currentLocale }: SiteHeaderProps) {
   return (
     <header>
-      <p>{siteName}</p>
+      <Link href={`/${currentLocale}`}>
+        <Image src="/logo.svg" alt={siteName} width={972} height={177} unoptimized />
+      </Link>
       <LanguageSwitcher currentLocale={currentLocale} label={nav.language} />
       <Button>{nav.getStarted}</Button>
     </header>
