@@ -37,7 +37,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 3. Variants via `cva` from `class-variance-authority`. Export `*Variants` so templates can reuse styles on `Link` or other tags.
 4. No user-facing English (or any language) inside UI or templates. Parents pass strings.
 5. Prefer logical CSS utilities.
-6. Color, radius, and border width come from settings tokens. Use `rounded-sm|md|lg|xl|full`, `border-sm|md|lg`, `border-border`, `bg-background`, `bg-panel`, `bg-primary`, `bg-accent-1`…`4`, `bg-success`, `bg-warning`, `bg-error`, and `*-foreground` / `*-hover` / `*-glow` / `*-shadow` (glow and shadow on action colors only). No hex and no `rounded-[…]`. UI does not import `getSettings()`.
+6. Color, radius, and border width come from settings tokens. Use `rounded-none|sm|md|lg|full`, `border-sm|md|lg`, `border-border`, `bg-background`, `bg-panel`, `bg-primary`, `bg-accent-1`…`4`, `bg-success`, `bg-warning`, `bg-error`, and `*-foreground` / `*-hover` / `*-glow` / `*-shadow` (glow and shadow on action colors only). No hex and no `rounded-[…]`. UI does not import `getSettings()`.
 7. Mobile-first. Base styles are the small screen. Scale up with `xs:` `sm:` `md:` `lg:` `xl:` from the theme breakpoints. Do not design desktop-only and patch later. Flex children that can shrink need `min-w-0`.
 
 ## UI inventory (phase 1)
@@ -47,14 +47,14 @@ import { Button, buttonVariants } from "@/components/ui/button";
 `variant`: `filled` | `secondary` | `outline` | `soft` | `ghost` | `subtle` | `link` | `muted`  
 `color`: `primary` (default) | `background` | `foreground` | `accent-1` | `accent-2` | `accent-3` | `accent-4` | `success` | `warning` | `error`  
 `size`: `sm` | `md` | `lg`  
-`radius`: `sm` | `md` | `lg` | `xl` | `full` (default `full`)  
+`radius`: `none` | `sm` | `md` | `lg` | `full` (default `full`)  
 `icon?`: `IconName` from `@/components/icons`  
 `iconPosition?`: `start` (default) | `end`  
 Also: native `button` attributes (`disabled`, `type`, `onClick`, …). `color` tints `filled` / `outline` / `soft` / `ghost` / `subtle` / `link` / `muted`. `outline` and `soft` draw `border-border` inside the box (`shadow-outline`) so they do not add width. `filled` and `outline` hover with a `*-glow` halo (`shadow-glow-*`, including `background` / `foreground`); `:active` has no glow. `secondary` / `soft` / `ghost` / `subtle` use a quieter `shadow-glow-sm-*` halo (18% / 14% mix vs filled’s 35% / 28%) on `:active` and `aria-expanded` (Dropdown / SideMenu stay glowing while open). `soft` rest matches `outline`; hover tints with `color` like `secondary` (`*-hover/20`). `secondary` rest is panel; hover tints with `color` like ghost (`*-hover/20`). `ghost` rest uses the `color` text. `subtle` rest uses `text-panel-foreground` like secondary, then hover tints and recolors like ghost. `link` tints the text on hover and uses `*-hover/20` (or `background` / `foreground` at `/20`) on `:active` and `aria-expanded`. `muted` matches `link` but rest text is `text-panel-foreground` like subtle.
 
 Icon-only (`icon` and no label): equal padding, same height as `size` (`sm`: `size-8`; `md`: `size-9 md:size-10`; `lg`: `size-10 md:size-12`), with CVA compounds that zero `md:px-*`. Icon + text: normal button height, icon `size-4`, `gap-2`.
 
-`buttonVariants()` is exported for non-button elements (language menu rows). Card `radius` is `none` | `sm` | `md` | `lg` | `full` (not Button’s `xl`): `none` is 0; `sm` is 2× theme `sm`; `md` is midway between 2× theme `md` and 2× theme `lg`; `lg` is 2× theme `xl`; `full` is `rounded-full`.
+`buttonVariants()` is exported for non-button elements (language menu rows). Button and Card share `theme.radius`: `none` | `sm` | `md` | `lg` | `full` (`rounded-none` … `rounded-full`).
 
 ### Card
 

@@ -15,8 +15,7 @@ import { TokenGallery } from "./tokens";
 
 const buttonVariants = ["filled", "secondary", "outline", "soft", "ghost", "subtle", "link", "muted"] as const;
 const buttonSizes = ["sm", "md", "lg"] as const;
-const buttonRadii = ["sm", "md", "lg", "xl", "full"] as const;
-const cardRadii = ["none", "sm", "md", "lg", "full"] as const;
+const radii = ["none", "sm", "md", "lg", "full"] as const;
 const cardSurfaces = ["panel", "glass", "light", "glass-light", "light-dual", "glass-light-dual"] as const;
 const cardSlotVariants = ["none", "filled", "border", "divider"] as const;
 const cardPaddings = ["none", "sm", "md", "lg"] as const;
@@ -94,7 +93,7 @@ export default function DevUiPage() {
             <div className="flex min-w-0 flex-col gap-2">
               <LabPropHeading label="radius" defaults="full" />
               <div className="flex min-w-0 flex-wrap items-center gap-2">
-                {buttonRadii.map((radius) => (
+                {radii.map((radius) => (
                   <Button key={radius} radius={radius}>
                     {radius}
                   </Button>
@@ -120,6 +119,7 @@ export default function DevUiPage() {
         <LabSection
           title="Card"
           hint="src/components/ui/card — empty Card chrome; Header / Content / Footer carry padding"
+          className="rounded-md bg-[repeating-linear-gradient(-45deg,transparent_0_40px,color-mix(in_srgb,var(--foreground)_14%,transparent)_40px_80px)] p-4 md:p-6"
         >
           <div className="flex min-w-0 flex-col gap-8">
             <div className="flex min-w-0 flex-col gap-2">
@@ -229,7 +229,7 @@ export default function DevUiPage() {
             <div className="flex min-w-0 flex-col gap-2">
               <LabPropHeading label="radius" defaults="md" />
               <div className="flex min-w-0 flex-wrap items-stretch gap-2">
-                {cardRadii.map((radius) => (
+                {radii.map((radius) => (
                   <Card key={radius} radius={radius} padding="md" className={cardLabPreview}>
                     <p className="text-sm">{radius}</p>
                   </Card>

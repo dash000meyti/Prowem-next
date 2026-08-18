@@ -29,10 +29,10 @@ export type ThemeColors = {
 };
 
 export type ThemeRadius = {
+  none: string;
   sm: string;
   md: string;
   lg: string;
-  xl: string;
   full: string;
 };
 

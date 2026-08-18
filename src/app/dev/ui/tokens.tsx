@@ -95,23 +95,22 @@ const actionSwatches = [
 ] as const;
 
 const radiusSwatches = [
+  { label: "none", className: "rounded-none" },
   { label: "sm", className: "rounded-sm" },
   { label: "md", className: "rounded-md" },
   { label: "lg", className: "rounded-lg" },
-  { label: "xl", className: "rounded-xl" },
   { label: "full", className: "rounded-full" },
 ] as const;
 
 const layoutRows = [
-  { name: "xs", prefix: "xs:", className: "max-w-container-xs" },
-  { name: "sm", prefix: "sm:", className: "max-w-container-sm" },
-  { name: "md", prefix: "md:", className: "max-w-container-md" },
-  { name: "lg", prefix: "lg:", className: "max-w-container-lg" },
-  { name: "xl", prefix: "xl:", className: "max-w-container-xl" },
-  { name: "full", prefix: "—", className: "max-w-none" },
+  { name: "xs", className: "max-w-container-xs" },
+  { name: "sm", className: "max-w-container-sm" },
+  { name: "md", className: "max-w-container-md" },
+  { name: "lg", className: "max-w-container-lg" },
+  { name: "xl", className: "max-w-container-xl" },
+  { name: "full", className: "max-w-none" },
 ] as const satisfies ReadonlyArray<{
   name: keyof ThemeContainer;
-  prefix: string;
   className: string;
 }>;
 
@@ -142,7 +141,7 @@ export async function TokenGallery() {
           {layoutRows.map((row) => (
             <li key={row.name} className="flex min-w-0 flex-col gap-1">
               <span className="text-xs text-foreground/70">
-                {row.name} {row.prefix} {settings.theme.container[row.name]}
+                {row.name}: {settings.theme.container[row.name]}
               </span>
               <div
                 className={`h-2 w-full bg-panel ${row.className} shadow-outline`}
