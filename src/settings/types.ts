@@ -37,6 +37,7 @@ export type ThemeRadius = {
 };
 
 export type ThemeBorderWidth = {
+  none: string;
   sm: string;
   md: string;
   lg: string;

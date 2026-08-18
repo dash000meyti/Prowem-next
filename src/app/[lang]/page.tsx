@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { getDictionary } from "@/i18n/get-dictionary";
 
@@ -14,7 +16,11 @@ export default async function HomePage() {
           {dict.home.hint}
         </p>
       </Container>
-      <div className="h-[2000px]"></div>
+      <div className="flex h-[1000px] flex-col items-center justify-center">
+        <Link href="/dev/ui" className={buttonVariants()}>
+          {dict.home.ui}
+        </Link>
+      </div>
     </main>
   );
 }

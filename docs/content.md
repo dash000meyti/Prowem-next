@@ -13,7 +13,7 @@ There is no SQLite, ORM, or admin UI in this phase.
 
 `en.json` is still the compile-time `Dictionary` schema. JSON files are the current adapter, not a second public API.
 
-UI and templates do not call `getSettings()`. They use Tailwind classes wired to the injected CSS variables (`bg-background`, `rounded-md`, `border-sm`, `border-border`, `max-w-container-xl`). The locale layout passes `settings.header.navFrom` into `SiteHeader` as `navFrom`.
+UI and templates do not call `getSettings()`. They use Tailwind classes wired to the injected CSS variables (`bg-background`, `rounded-md`, `border-md`, `border-border`, `max-w-container-xl`). The locale layout passes `settings.header.navFrom` into `SiteHeader` as `navFrom`.
 
 ## What stays in code
 
@@ -51,7 +51,7 @@ Token classes:
 
 - Color: `bg-primary`, `text-primary-foreground`, `hover:bg-primary-hover`, `bg-primary-glow`, `bg-primary-shadow`, `bg-background`, `text-foreground`, `bg-panel`, `text-panel-foreground`, `hover:bg-panel-hover`, `border-border`, `bg-accent-1` … `bg-accent-4` (each with `-foreground`, `-hover`, `-glow`, `-shadow`), `bg-success`, `bg-warning`, `bg-error` (same suffixes)
 - Radius: `rounded-none` `rounded-sm` `rounded-md` `rounded-lg` `rounded-full`
-- Border width: `border-sm` `border-md` `border-lg`
+- Border width: `border-none` `border-sm` `border-md` `border-lg` (default chrome `border-md`)
 - Container: `max-w-container-xs` `max-w-container-sm` `max-w-container-md` `max-w-container-lg` `max-w-container-xl` (`full` on Container is `max-w-none`)
 
 ## Anti-patterns

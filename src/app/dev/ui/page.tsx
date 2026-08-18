@@ -342,9 +342,9 @@ export default function DevUiPage() {
                   key={`${width}-${padding}`}
                   width={width}
                   padding={padding}
-                  className="border-sm border-border bg-panel"
+                  className="border-md border-border bg-panel"
                 >
-                  <p className="border-sm border-dashed border-border py-3 text-sm">
+                  <p className="border-md border-dashed border-border py-3 text-sm">
                     width={width} padding={padding}
                   </p>
                 </Container>

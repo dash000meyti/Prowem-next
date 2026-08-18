@@ -17,7 +17,7 @@ export function Icon({ name, className }: IconProps) {
       className={cn(
         "inline-flex shrink-0 items-center justify-center",
         flag
-          ? "size-5 overflow-hidden rounded-full border border-sm border-border"
+          ? "size-5 overflow-hidden rounded-full border border-md border-border"
           : "size-5",
         className,
       )}

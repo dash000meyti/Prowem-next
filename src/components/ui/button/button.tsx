@@ -172,8 +172,8 @@ export const buttonVariants = cva(
       variant: {
         filled: "",
         secondary: "bg-panel text-panel-foreground",
-        outline: "bg-transparent shadow-outline",
-        soft: "bg-transparent shadow-outline",
+        outline: "bg-transparent shadow-outline-sm",
+        soft: "bg-transparent shadow-outline-sm",
         ghost: "bg-transparent",
         subtle: "bg-transparent",
         link: "bg-transparent underline-offset-4 hover:underline",

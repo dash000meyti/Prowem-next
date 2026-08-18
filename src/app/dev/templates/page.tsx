@@ -27,7 +27,7 @@ export default async function DevTemplatesPage() {
           title="SiteHeader"
           hint="src/components/templates/site-header — home link is the wordmark (/logo.svg at 0.72 of h-8, alt from siteName). Rest is 80px with no chrome; after 8px of window scroll it sticks at 72px with bg-panel/72 and backdrop blur, and restores at 0. Desktop nav starts at header.navFrom (settings; default lg). Narrow below that for the side menu."
         >
-          <div className="overflow-visible rounded-lg border-sm border-border">
+          <div className="overflow-visible rounded-lg border-md border-border">
             <SiteHeader
               siteName="Prowem"
               nav={{

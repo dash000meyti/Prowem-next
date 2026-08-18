@@ -74,7 +74,7 @@ const colorVariants = Object.fromEntries(
 ) as Record<ButtonColor, string>;
 
 export const cardVariants = cva(
-  "flex min-w-0 flex-col overflow-hidden border border-sm border-border text-panel-foreground text-start",
+  "flex min-w-0 flex-col overflow-hidden border border-md border-border text-panel-foreground text-start",
   {
     variants: {
       surface: {

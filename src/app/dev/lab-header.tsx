@@ -17,14 +17,14 @@ export function LabHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="border-b border-sm border-border bg-panel">
+    <header className="border-b border-md border-border bg-panel">
       <Container
         width="full"
         className="flex min-h-14 flex-wrap items-center justify-between gap-x-4 gap-y-3 py-3 md:h-16 md:flex-nowrap md:py-0"
       >
-        <p className="min-w-0 text-sm font-semibold tracking-tight">
+        <Link href="/" className={cn(buttonVariants({ size: "sm" }), "min-w-0")}>
           Component lab
-        </p>
+        </Link>
         <Dropdown trigger="Components" label="Components" align="end">
           <ul className="flex min-w-0 flex-col">
             {items.map((item) => {

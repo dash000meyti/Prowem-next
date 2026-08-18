@@ -102,6 +102,13 @@ const radiusSwatches = [
   { label: "full", className: "rounded-full" },
 ] as const;
 
+const borderSwatches = [
+  { label: "none", className: "border-none" },
+  { label: "sm", className: "border-sm" },
+  { label: "md", className: "border-md" },
+  { label: "lg", className: "border-lg" },
+] as const;
+
 const layoutRows = [
   { name: "xs", className: "max-w-container-xs" },
   { name: "sm", className: "max-w-container-sm" },
@@ -114,11 +121,13 @@ const layoutRows = [
   className: string;
 }>;
 
+const tokenSwatch = "size-20";
+
 function Swatch({ label, className }: { label: string; className: string }) {
   return (
     <div className="flex min-w-0 flex-col gap-1">
       <div
-        className={`size-10 shrink-0 border-sm border-border ${className}`}
+        className={`shrink-0 border-md border-border ${tokenSwatch} ${className}`}
       />
       <span className="min-w-0 truncate text-xs text-foreground/70">{label}</span>
     </div>
@@ -186,7 +195,21 @@ export async function TokenGallery() {
           {radiusSwatches.map((swatch) => (
             <div key={swatch.label} className="flex min-w-0 flex-col items-center gap-1">
               <div
-                className={`size-10 bg-panel ${swatch.className} shadow-outline`}
+                className={`bg-panel ${tokenSwatch} ${swatch.className} shadow-outline`}
+              />
+              <span className="text-xs text-foreground/70">{swatch.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex min-w-0 flex-col gap-2">
+        <h3 className="text-sm font-medium text-foreground/70">border - Default: md</h3>
+        <div className="flex min-w-0 flex-wrap items-center gap-3">
+          {borderSwatches.map((swatch) => (
+            <div key={swatch.label} className="flex min-w-0 flex-col items-center gap-1">
+              <div
+                className={`border bg-panel border-border ${tokenSwatch} ${swatch.className}`}
               />
               <span className="text-xs text-foreground/70">{swatch.label}</span>
             </div>

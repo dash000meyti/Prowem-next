@@ -13,4 +13,4 @@ This is Next.js 16. Use `src/proxy.ts`, not `middleware.ts`. No `next-intl`. Roo
 
 Phase 1: no Prowem marketing sections, brand fonts, unused placeholders, or dark mode unless asked.
 
-Never hardcode user-facing copy. Use dictionary props. Theme and header values come from `getSettings()`, not hex in components. Use token classes (`rounded-md`, `border-sm`, `border-border`), not `rounded-[…]`. Mobile-first (`xs:` `sm:` `md:` `lg:` `xl:`). Use logical CSS (`ms-`, `pe-`, `text-start`), not `left` / `right`. SVG icons live in `src/components/icons/`, not in `ui/` or `templates/`.
+Never hardcode user-facing copy. Use dictionary props. Theme and header values come from `getSettings()`, not hex in components. Use token classes (`rounded-md`, `border-md`, `border-border`), not `rounded-[…]`. Mobile-first (`xs:` `sm:` `md:` `lg:` `xl:`). Use logical CSS (`ms-`, `pe-`, `text-start`), not `left` / `right`. SVG icons live in `src/components/icons/`, not in `ui/` or `templates/`.

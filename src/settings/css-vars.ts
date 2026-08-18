@@ -36,6 +36,7 @@ export function toCssVars(theme: Theme): CSSProperties {
     "--theme-radius-md": theme.radius.md,
     "--theme-radius-lg": theme.radius.lg,
     "--theme-radius-full": theme.radius.full,
+    "--theme-border-width-none": theme.borderWidth.none,
     "--theme-border-width-sm": theme.borderWidth.sm,
     "--theme-border-width-md": theme.borderWidth.md,
     "--theme-border-width-lg": theme.borderWidth.lg,

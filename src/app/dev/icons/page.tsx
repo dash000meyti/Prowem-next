@@ -20,7 +20,7 @@ export default function DevIconsPage() {
             {names.map((name) => (
               <li
                 key={name}
-                className="flex min-w-0 flex-col items-center gap-2 rounded-lg border-sm border-border bg-panel px-3 py-4"
+                className="flex min-w-0 flex-col items-center gap-2 rounded-lg border-md border-border bg-panel px-3 py-4"
               >
                 <Icon name={name} />
                 <span className="min-w-0 truncate text-xs text-foreground/70">

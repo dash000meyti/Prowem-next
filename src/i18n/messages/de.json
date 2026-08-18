@@ -17,7 +17,8 @@
   },
   "home": {
     "title": "Das Fundament ist bereit",
-    "hint": "Dies ist die mehrsprachige Basis. Design-Tokens, Abschnitte und Seiten werden Phase für Phase ergänzt."
+    "hint": "Dies ist die mehrsprachige Basis. Design-Tokens, Abschnitte und Seiten werden Phase für Phase ergänzt.",
+    "ui": "UI"
   },
   "notFound": {
     "title": "Seite nicht gefunden",

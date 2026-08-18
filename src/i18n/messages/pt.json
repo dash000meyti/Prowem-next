@@ -17,7 +17,8 @@
   },
   "home": {
     "title": "A base está pronta",
-    "hint": "Esta é a base multilíngue. Tokens de design, secções e páginas serão adicionados fase a fase."
+    "hint": "Esta é a base multilíngue. Tokens de design, secções e páginas serão adicionados fase a fase.",
+    "ui": "UI"
   },
   "notFound": {
     "title": "Página não encontrada",

@@ -182,7 +182,7 @@ export function SiteHeader({
     <>
       <header
         className={cn(
-          "sticky top-0 z-50 w-full min-w-0 border-b border-sm transition-colors duration-300",
+          "sticky top-0 z-50 w-full min-w-0 border-b border-md transition-colors duration-300",
           stuck
             ? "h-18 border-border bg-panel/72 backdrop-blur-sm"
             : "h-20 border-transparent bg-transparent backdrop-blur-none",

@@ -59,7 +59,7 @@ Implement only after the user confirms.
 - Icons: `src/components/icons/` (glyphs + flags; import `@/components/icons`)
 - Static assets: `public/` (site wordmark: `public/logo.svg`; PHP favicon set: `public/favicon/`)
 - Locale config is the single source of truth: `src/i18n/config.ts`
-- Theme / settings values: `src/settings/` (read with `getSettings()`). UI uses token classes (`rounded-md`, `border-sm`, `max-w-container-xl`). Header hamburger vs desktop nav uses `header.navFrom`. Do not scatter hex in components. See [docs/content.md](docs/content.md).
+- Theme / settings values: `src/settings/` (read with `getSettings()`). UI uses token classes (`rounded-md`, `border-md`, `max-w-container-xl`). Header hamburger vs desktop nav uses `header.navFrom`. Do not scatter hex in components. See [docs/content.md](docs/content.md).
 
 ## i18n and direction
 
@@ -76,7 +76,7 @@ Implement only after the user confirms.
 - **Icons** = SVG pack (`<Icon name="close" />`). Linear glyphs and flags. Not UI atoms; do not put glyphs in `ui/` or `templates/`.
 - Every public component accepts explicit props and `className`, merged with `cn()`.
 - Variants go through `class-variance-authority`. Export both the component and its `*Variants` helper.
-- Color, radius, and border width come from settings tokens (`rounded-md`, `border-sm`, `border-border`, `bg-panel`, `bg-accent-1`). No hex and no `rounded-[…]`.
+- Color, radius, and border width come from settings tokens (`rounded-md`, `border-md`, `border-border`, `bg-panel`, `bg-accent-1`). No hex and no `rounded-[…]`.
 - Mobile-first: base styles are the small screen. Scale with `xs:` `sm:` `md:` `lg:` `xl:`. Flex children that shrink need `min-w-0`.
 - Do not hide important behavior behind magic defaults when a prop can express it.
 

@@ -17,7 +17,8 @@
   },
   "home": {
     "title": "Foundation is ready",
-    "hint": "This is the multilingual base. Design tokens, sections, and pages will be added phase by phase."
+    "hint": "This is the multilingual base. Design tokens, sections, and pages will be added phase by phase.",
+    "ui": "UI"
   },
   "notFound": {
     "title": "Page not found",

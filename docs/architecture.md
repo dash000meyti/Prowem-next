@@ -82,10 +82,10 @@ Request → proxy.ts → [lang]/layout.tsx → page
 
 - Tailwind 4 via `@import "tailwindcss"` in `src/app/globals.css`
 - Design token **values** come from `getSettings()` (`src/settings/default.json` today), merged over defaults so a later SQLite overlay can omit keys
-- Shared scales: `theme.colors` (primary, surface, panel, accent 1–4, success, warning, error — action colors are `base` + `foreground` + `hover` + `glow` + `shadow`; panel is `base` + `foreground` + `hover`), `theme.radius` (`none`–`full`), `theme.borderWidth` (`sm`–`lg`), `theme.container` (`xs`–`xl` plus `full`)
+- Shared scales: `theme.colors` (primary, surface, panel, accent 1–4, success, warning, error — action colors are `base` + `foreground` + `hover` + `glow` + `shadow`; panel is `base` + `foreground` + `hover`), `theme.radius` (`none`–`full`), `theme.borderWidth` (`none`–`lg`), `theme.container` (`xs`–`xl` plus `full`)
 - The locale layout sets those values as CSS variables on `<html>` via `toCssVars()`
 - `globals.css` owns variable **names**, `@theme inline` wiring, and fallbacks
-- UI and templates use Tailwind token classes only (`bg-primary`, `bg-panel`, `rounded-md`, `border-sm`, `border-border`, `max-w-container-xl`). No hex, no `rounded-[…]`
+- UI and templates use Tailwind token classes only (`bg-primary`, `bg-panel`, `rounded-md`, `border-md`, `border-border`, `max-w-container-xl`). No hex, no `rounded-[…]`
 - Layout is mobile-first. Breakpoint **widths** (`xs`–`xl`: 480 / 720 / 980 / 1200 / 1440px) are declared in `globals.css` `@theme`, not in settings (media queries cannot use runtime SQLite values). `2xl` is unset. `theme.container` in settings is the matching max-width scale (`full` = 100%). `header.navFrom` is which named breakpoint SiteHeader uses for desktop nav vs hamburger.
 - Color values live in settings. Do not scatter hex values in components
 - No dark mode until requested
