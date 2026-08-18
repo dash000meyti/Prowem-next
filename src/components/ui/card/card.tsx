@@ -10,6 +10,13 @@ const cardPadding = {
   lg: "p-6",
 } as const;
 
+const cardSlotPadding = {
+  none: "[--card-edge-inset:0px]",
+  sm: "p-2 [--card-edge-inset:calc(var(--spacing)_*_2)]",
+  md: "p-4 [--card-edge-inset:calc(var(--spacing)_*_4)]",
+  lg: "p-6 [--card-edge-inset:calc(var(--spacing)_*_6)]",
+} as const;
+
 const cssVarByColor: Record<ButtonColor, string> = {
   background: "--background",
   foreground: "--foreground",
@@ -213,10 +220,10 @@ export const cardHeaderVariants = cva(
       variant: {
         none: "",
         filled: "bg-panel-hover/50",
-        border: "shadow-edge-bottom",
-        divider: "shadow-edge-bottom bg-panel-hover/50",
+        border: "card-edge-bottom",
+        divider: "card-edge-bottom bg-panel-hover/50",
       },
-      padding: cardPadding,
+      padding: cardSlotPadding,
     },
     defaultVariants: {
       variant: "border",
@@ -302,10 +309,10 @@ export const cardFooterVariants = cva(
       variant: {
         none: "",
         filled: "bg-panel-hover/50",
-        border: "shadow-edge-top",
-        divider: "shadow-edge-top bg-panel-hover/50",
+        border: "card-edge-top",
+        divider: "card-edge-top bg-panel-hover/50",
       },
-      padding: cardPadding,
+      padding: cardSlotPadding,
     },
     defaultVariants: {
       variant: "border",

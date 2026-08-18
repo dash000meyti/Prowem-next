@@ -122,7 +122,10 @@ export function CardGallery() {
       </div>
 
       <div className="flex min-w-0 flex-col gap-2">
-        <GalleryHeading label="padding (slots)" defaults="md" />
+        <GalleryHeading
+          label="padding (slots)"
+          defaults="md; border inset matches slot padding"
+        />
         <div className="flex min-w-0 flex-wrap items-stretch gap-2">
           {paddingValues.map((padding) => (
             <Card key={padding} className={cardLabPreview}>

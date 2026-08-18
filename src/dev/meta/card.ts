@@ -22,7 +22,7 @@ export const cardMeta = {
     "Compose the slots. Do not invent a second card chrome on templates.",
     "surface is only the fill (panel or glass). Lights are independent ellipse glows.",
     "lightStart / lightEnd follow dir — not left/right.",
-    "Header and Footer variant border|divider inherit the parent Card border width and borderColor.",
+    "Header and Footer variant border|divider inherit the parent Card border width and borderColor. The line is inset by that slot’s padding (none is full width).",
     "CardContent fills leftover space (flex-1 min-h-0). Header and Footer stay shrink-0.",
   ],
   props: [
@@ -140,7 +140,7 @@ export const cardMeta = {
       type: "enum",
       values: [...paddingValues],
       default: "md",
-      description: "CardHeader padding.",
+      description: "CardHeader padding. border|divider inset matches this on both inline sides.",
       playground: true,
     },
     {
@@ -156,7 +156,7 @@ export const cardMeta = {
       type: "enum",
       values: [...paddingValues],
       default: "md",
-      description: "CardFooter padding.",
+      description: "CardFooter padding. border|divider inset matches this on both inline sides.",
       playground: true,
     },
     {
