@@ -67,40 +67,51 @@ export function PlaygroundBySlug({
       return (
         <Playground
           meta={meta}
-          render={(values: PlaygroundValues) => (
-            <Card
-              surface={values.surface as CardProps["surface"]}
-              lightBottom={values.lightBottom as CardProps["lightBottom"]}
-              lightTop={values.lightTop as CardProps["lightTop"]}
-              lightStart={values.lightStart as CardProps["lightStart"]}
-              lightEnd={values.lightEnd as CardProps["lightEnd"]}
-              padding={values.padding as CardProps["padding"]}
-              radius={values.radius as CardProps["radius"]}
-              border={values.border as CardProps["border"]}
-              borderColor={values.borderColor as CardProps["borderColor"]}
-              className={cardPreview}
-            >
-              <CardHeader
-                variant={values.headerVariant as CardHeaderProps["variant"]}
-                padding={values.headerPadding as CardHeaderProps["padding"]}
-              >
-                <CardTitle>{String(values.title)}</CardTitle>
-                <CardDescription>{String(values.description)}</CardDescription>
-              </CardHeader>
-              <CardContent
-                padding={values.contentPadding as CardContentProps["padding"]}
-              >
-                <p className="text-sm">{String(values.content)}</p>
-              </CardContent>
-              <CardFooter
-                variant={values.footerVariant as CardFooterProps["variant"]}
-                padding={values.footerPadding as CardFooterProps["padding"]}
-              >
-                <Button variant="subtle">{copy.demo.cancel}</Button>
-                <Button>{copy.demo.confirm}</Button>
-              </CardFooter>
-            </Card>
-          )}
+          render={(values: PlaygroundValues) => {
+            const cardProps = {
+              surface: values.surface as CardProps["surface"],
+              lightBottom: values.lightBottom as CardProps["lightBottom"],
+              lightTop: values.lightTop as CardProps["lightTop"],
+              lightStart: values.lightStart as CardProps["lightStart"],
+              lightEnd: values.lightEnd as CardProps["lightEnd"],
+              padding: values.padding as CardProps["padding"],
+              radius: values.radius as CardProps["radius"],
+              border: values.border as CardProps["border"],
+              borderColor: values.borderColor as CardProps["borderColor"],
+            };
+
+            return (
+              <div className="flex min-w-0 flex-wrap items-stretch gap-4">
+                <Card {...cardProps} className={cardPreview}>
+                  <CardHeader
+                    variant={values.headerVariant as CardHeaderProps["variant"]}
+                    padding={values.headerPadding as CardHeaderProps["padding"]}
+                  >
+                    <CardTitle>{String(values.title)}</CardTitle>
+                    <CardDescription>{String(values.description)}</CardDescription>
+                  </CardHeader>
+                  <CardContent
+                    padding={values.contentPadding as CardContentProps["padding"]}
+                  >
+                    <p className="text-sm">{String(values.content)}</p>
+                  </CardContent>
+                  <CardFooter
+                    variant={values.footerVariant as CardFooterProps["variant"]}
+                    padding={values.footerPadding as CardFooterProps["padding"]}
+                  >
+                    <Button variant="subtle">{copy.demo.cancel}</Button>
+                    <Button>{copy.demo.confirm}</Button>
+                  </CardFooter>
+                </Card>
+                <Card
+                  {...cardProps}
+                  className={`${cardPreview} items-center justify-center`}
+                >
+                  <p className="text-sm">{String(values.content)}</p>
+                </Card>
+              </div>
+            );
+          }}
         />
       );
     case "dropdown":

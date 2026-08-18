@@ -139,10 +139,10 @@ export const cardVariants = cva(
         full: "rounded-full",
       },
       border: {
-        none: "border-none",
-        sm: "border border-sm",
-        md: "border border-md",
-        lg: "border border-lg",
+        none: "",
+        sm: "",
+        md: "",
+        lg: "",
       },
       borderColor: borderColorVariants,
     },
@@ -195,6 +195,9 @@ export function Card({
       )}
       style={{
         ...borderVars(border, borderColor),
+        borderStyle: "solid",
+        borderWidth: "var(--card-border-width)",
+        borderColor: "var(--card-border-color)",
         ...lightVars(surface, lightBottom, lightTop, lightStart, lightEnd),
         ...style,
       }}
@@ -216,7 +219,7 @@ export const cardHeaderVariants = cva(
       padding: cardPadding,
     },
     defaultVariants: {
-      variant: "none",
+      variant: "border",
       padding: "md",
     },
   },
@@ -305,7 +308,7 @@ export const cardFooterVariants = cva(
       padding: cardPadding,
     },
     defaultVariants: {
-      variant: "none",
+      variant: "border",
       padding: "md",
     },
   },

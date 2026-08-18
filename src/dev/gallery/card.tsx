@@ -90,7 +90,7 @@ export function CardGallery() {
       </div>
 
       <div className="flex min-w-0 flex-col gap-2">
-        <GalleryHeading label="header / footer" defaults="none" />
+        <GalleryHeading label="header / footer" defaults="border" />
         <div className="flex min-w-0 flex-wrap items-stretch gap-2">
           {cardSlotVariantValues.map((variant) => (
             <Card key={variant} className={cardLabPreview}>
