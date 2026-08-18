@@ -1,11 +1,15 @@
 "use client";
 
-import { useEffect, useId, useState, type ReactNode } from "react";
+import { useEffect, useId, useState, useSyncExternalStore, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { cva, type VariantProps } from "class-variance-authority";
 import type { IconName } from "@/components/icons";
 import { Button, type ButtonColor } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
+
+const subscribeIsClient = () => () => {};
+const getIsClientSnapshot = () => true;
+const getIsServerSnapshot = () => false;
 
 export const sideMenuPanelVariants = cva(
   "fixed inset-y-0 z-50 flex w-80 max-w-full min-w-0 flex-col bg-panel transition-transform duration-300 motion-reduce:transition-none",
@@ -55,16 +59,16 @@ export function SideMenu({
   className,
 }: SideMenuProps) {
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    subscribeIsClient,
+    getIsClientSnapshot,
+    getIsServerSnapshot,
+  );
   const panelId = useId();
   const titleId = useId();
   const closeId = useId();
   const triggerId = useId();
   const resolvedSide = side ?? "end";
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     if (!open) {

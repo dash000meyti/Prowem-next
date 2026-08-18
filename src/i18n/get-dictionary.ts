@@ -23,7 +23,7 @@ export async function getDictionaryByLocale(locale: Locale): Promise<Dictionary>
 export async function getDictionary(): Promise<Dictionary> {
   const locale = await lang();
 
-  if (!hasLocale(locale)) {
+  if (typeof locale !== "string" || !hasLocale(locale)) {
     notFound();
   }
 
