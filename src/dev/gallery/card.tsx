@@ -8,20 +8,34 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { copy } from "@/dev/copy";
-import { cardLabPreview, GalleryHeading, labHatchClass } from "@/dev/gallery/shared";
+import { cardLabPreview, GalleryHeading } from "@/dev/gallery/shared";
 import {
   borderValues,
   cardBorderColorValues,
-  cardLightValues,
   cardSlotVariantValues,
   cardSurfaceValues,
   paddingValues,
   radiusValues,
 } from "@/dev/values";
 
+const lightDirs = ["bottom", "top", "start", "end"] as const;
+
+const lightCombos = Array.from({ length: 16 }, (_, mask) => {
+  const on = lightDirs.filter((_, index) => Boolean(mask & (1 << index)));
+
+  return {
+    key: String(mask),
+    label: on.length === 0 ? "none" : on.join(" + "),
+    lightBottom: on.includes("bottom") ? ("primary" as const) : undefined,
+    lightTop: on.includes("top") ? ("primary" as const) : undefined,
+    lightStart: on.includes("start") ? ("primary" as const) : undefined,
+    lightEnd: on.includes("end") ? ("primary" as const) : undefined,
+  };
+});
+
 export function CardGallery() {
   return (
-    <div className={`flex min-w-0 flex-col gap-8 rounded-md ${labHatchClass} p-4 md:p-6`}>
+    <div className="flex min-w-0 flex-col gap-8">
       <div className="flex min-w-0 flex-col gap-2">
         <GalleryHeading
           label="compound"
@@ -55,43 +69,20 @@ export function CardGallery() {
         </div>
       </div>
 
-      {(["lightBottom", "lightTop", "lightStart", "lightEnd"] as const).map(
-        (lightProp) => (
-          <div key={lightProp} className="flex min-w-0 flex-col gap-2">
-            <GalleryHeading label={lightProp} defaults="none" />
-            <div className="flex min-w-0 flex-wrap items-stretch gap-2">
-              {cardLightValues.map((light) => (
-                <Card
-                  key={light}
-                  lightBottom={lightProp === "lightBottom" ? light : undefined}
-                  lightTop={lightProp === "lightTop" ? light : undefined}
-                  lightStart={lightProp === "lightStart" ? light : undefined}
-                  lightEnd={lightProp === "lightEnd" ? light : undefined}
-                  className={cardLabPreview}
-                >
-                  <CardContent>
-                    <p className="text-sm">{light}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        ),
-      )}
-
       <div className="flex min-w-0 flex-col gap-2">
-        <GalleryHeading label="lightBottom × lightTop" defaults="none" />
+        <GalleryHeading label="lights" defaults="none" />
         <div className="flex min-w-0 flex-wrap items-stretch gap-2">
-          {cardSurfaceValues.map((surface) => (
+          {lightCombos.map((combo) => (
             <Card
-              key={surface}
-              surface={surface}
-              lightBottom="primary"
-              lightTop="foreground"
+              key={combo.key}
+              lightBottom={combo.lightBottom}
+              lightTop={combo.lightTop}
+              lightStart={combo.lightStart}
+              lightEnd={combo.lightEnd}
               className={cardLabPreview}
             >
               <CardContent>
-                <p className="text-sm">{surface} dual</p>
+                <p className="text-sm">{combo.label}</p>
               </CardContent>
             </Card>
           ))}

@@ -11,6 +11,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  type CardContentProps,
+  type CardFooterProps,
+  type CardHeaderProps,
   type CardProps,
 } from "@/components/ui/card";
 import { Container, type ContainerProps } from "@/components/ui/container";
@@ -68,20 +71,31 @@ export function PlaygroundBySlug({
             <Card
               surface={values.surface as CardProps["surface"]}
               lightBottom={values.lightBottom as CardProps["lightBottom"]}
+              lightTop={values.lightTop as CardProps["lightTop"]}
+              lightStart={values.lightStart as CardProps["lightStart"]}
+              lightEnd={values.lightEnd as CardProps["lightEnd"]}
               padding={values.padding as CardProps["padding"]}
               radius={values.radius as CardProps["radius"]}
               border={values.border as CardProps["border"]}
               borderColor={values.borderColor as CardProps["borderColor"]}
               className={cardPreview}
             >
-              <CardHeader variant="divider">
+              <CardHeader
+                variant={values.headerVariant as CardHeaderProps["variant"]}
+                padding={values.headerPadding as CardHeaderProps["padding"]}
+              >
                 <CardTitle>{String(values.title)}</CardTitle>
                 <CardDescription>{String(values.description)}</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent
+                padding={values.contentPadding as CardContentProps["padding"]}
+              >
                 <p className="text-sm">{String(values.content)}</p>
               </CardContent>
-              <CardFooter variant="divider">
+              <CardFooter
+                variant={values.footerVariant as CardFooterProps["variant"]}
+                padding={values.footerPadding as CardFooterProps["padding"]}
+              >
                 <Button variant="subtle">{copy.demo.cancel}</Button>
                 <Button>{copy.demo.confirm}</Button>
               </CardFooter>
