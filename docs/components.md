@@ -42,13 +42,13 @@ import { Button, buttonVariants } from "@/components/ui/button";
 
 ### Button
 
-`variant`: `filled` | `secondary` | `outline` | `soft` | `ghost` | `subtle` | `link`  
-`color`: `background` | `foreground` | `primary` (default) | `accent-1` | `accent-2` | `accent-3` | `accent-4` | `success` | `warning` | `error`  
-`size`: `sm` | `md` | `lg` (`link` drops the box height, keeps the same horizontal padding)  
+`variant`: `filled` | `secondary` | `outline` | `soft` | `ghost` | `subtle` | `link` | `muted`  
+`color`: `primary` (default) | `background` | `foreground` | `accent-1` | `accent-2` | `accent-3` | `accent-4` | `success` | `warning` | `error`  
+`size`: `sm` | `md` | `lg`  
 `radius`: `sm` | `md` | `lg` | `xl` | `full` (default `full`)  
 `icon?`: `IconName` from `@/components/icons`  
 `iconPosition?`: `start` (default) | `end`  
-Also: native `button` attributes (`disabled`, `type`, `onClick`, …). `color` tints `filled` / `outline` / `soft` / `ghost` / `subtle` / `link`. `outline` and `soft` draw `border-border` inside the box (`shadow-outline`) so they do not add width. `filled` and `outline` hover with a `*-glow` halo (`shadow-glow-*`, including `background` / `foreground`); `:active` has no glow. `secondary` / `soft` / `ghost` / `subtle` use the same `shadow-glow-*` halo on `:active` and `aria-expanded` (Dropdown / SideMenu stay glowing while open). `soft` rest matches `outline`; hover tints with `color` like `secondary` (`*-hover/20`). `secondary` rest is panel; hover tints with `color` like ghost (`*-hover/20`). `ghost` rest uses the `color` text. `subtle` rest uses `text-panel-foreground` like secondary, then hover tints and recolors like ghost.
+Also: native `button` attributes (`disabled`, `type`, `onClick`, …). `color` tints `filled` / `outline` / `soft` / `ghost` / `subtle` / `link` / `muted`. `outline` and `soft` draw `border-border` inside the box (`shadow-outline`) so they do not add width. `filled` and `outline` hover with a `*-glow` halo (`shadow-glow-*`, including `background` / `foreground`); `:active` has no glow. `secondary` / `soft` / `ghost` / `subtle` use a quieter `shadow-glow-sm-*` halo (18% / 14% mix vs filled’s 35% / 28%) on `:active` and `aria-expanded` (Dropdown / SideMenu stay glowing while open). `soft` rest matches `outline`; hover tints with `color` like `secondary` (`*-hover/20`). `secondary` rest is panel; hover tints with `color` like ghost (`*-hover/20`). `ghost` rest uses the `color` text. `subtle` rest uses `text-panel-foreground` like secondary, then hover tints and recolors like ghost. `link` tints the text on hover and uses `*-hover/20` (or `background` / `foreground` at `/20`) on `:active` and `aria-expanded`. `muted` matches `link` but rest text is `text-panel-foreground` like subtle.
 
 Icon-only (`icon` and no label): equal padding, same height as `size` (`sm`: `size-8`; `md`: `size-9 md:size-10`; `lg`: `size-10 md:size-12`), with CVA compounds that zero `md:px-*`. Icon + text: normal button height, icon `size-4`, `gap-2`.
 
@@ -56,12 +56,12 @@ Icon-only (`icon` and no label): equal padding, same height as `size` (`sm`: `si
 
 ### Dropdown
 
-Props: `icon?` (`IconName`), `trigger?` (text or node), `children`, `label`, `variant?` (`filled` | `secondary` | `outline` | `soft` | `link`, default `outline`), `color?` (same as Button, default `primary`), `align?` (`start` | `end`, default `end`), `className?`.  
+Props: `icon?` (`IconName`), `trigger?` (text or node), `children`, `label`, `variant?` (`filled` | `secondary` | `outline` | `soft` | `link` | `muted`, default `outline`), `color?` (same as Button, default `primary`), `align?` (`start` | `end`, default `end`), `className?`.  
 Client atom. No copy, no routing. Closed/open, click-outside, and Escape live here. The trigger is a Button: `icon` alone uses icon-only square padding; `trigger` alone keeps normal button height; both render icon + text. Panel uses `bg-panel border-sm border-border rounded-lg` and fades open/closed in `300ms` (`duration-300`).
 
 ### SideMenu
 
-Props: `icon?` (`IconName`), `trigger?` (text or node), `children`, `label`, `closeLabel`, `footer?`, `variant?` (`filled` | `secondary` | `outline` | `soft` | `link`, default `outline`), `color?` (same as Button, default `primary`), `side?` (`start` | `end`, default `end`), `className?`.  
+Props: `icon?` (`IconName`), `trigger?` (text or node), `children`, `label`, `closeLabel`, `footer?`, `variant?` (`filled` | `secondary` | `outline` | `soft` | `link` | `muted`, default `outline`), `color?` (same as Button, default `primary`), `side?` (`start` | `end`, default `end`), `className?`.  
 Client atom. No copy, no routing. Overlay, Escape, and the close control live here. The trigger is a Button like Dropdown. The panel is `fixed` `bg-panel` from `start` or `end` (logical, RTL-safe), `w-80 max-w-full`, with a `close` icon button. Optional `footer` stays pinned to the bottom of the panel. Overlay and panel fade/slide in `300ms` (`duration-300`). Portal to `document.body` so sticky headers do not clip it.
 
 ### Container

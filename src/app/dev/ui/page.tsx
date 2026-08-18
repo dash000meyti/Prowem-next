@@ -5,10 +5,10 @@ import { SideMenu } from "@/components/ui/side-menu";
 import { LabSection } from "../lab-section";
 import { TokenGallery } from "./tokens";
 
-const buttonVariants = ["filled", "secondary", "outline", "soft", "ghost", "subtle", "link"] as const;
+const buttonVariants = ["filled", "secondary", "outline", "soft", "ghost", "subtle", "link", "muted"] as const;
 const buttonSizes = ["sm", "md", "lg"] as const;
 const buttonRadii = ["sm", "md", "lg", "xl", "full"] as const;
-const dropdownVariants = ["filled", "secondary", "outline", "soft", "link"] as const;
+const dropdownVariants = ["filled", "secondary", "outline", "soft", "link", "muted"] as const;
 const containerWidths = ["xs", "sm", "md", "lg", "xl", "full"] as const;
 const containerPaddings = ["none", "sm", "md", "lg"] as const;
 

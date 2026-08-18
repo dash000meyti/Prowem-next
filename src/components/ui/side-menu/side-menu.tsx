@@ -27,7 +27,7 @@ const closedTranslate = {
   end: "translate-x-full rtl:-translate-x-full",
 } as const;
 
-export type SideMenuVariant = "filled" | "secondary" | "outline" | "soft" | "link";
+export type SideMenuVariant = "filled" | "secondary" | "outline" | "soft" | "link" | "muted";
 
 export type SideMenuProps = {
   trigger?: ReactNode;

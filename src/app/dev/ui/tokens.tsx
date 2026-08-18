@@ -10,17 +10,18 @@ const surfaceSwatches = [
   { label: "panel-hover", className: "bg-panel-hover" },
 ] as const;
 
+const primarySwatch = {
+  name: "primary",
+  tones: [
+    { label: "base", className: "bg-primary" },
+    { label: "foreground", className: "bg-primary-foreground" },
+    { label: "hover", className: "bg-primary-hover" },
+    { label: "glow", className: "bg-primary-glow" },
+    { label: "shadow", className: "bg-primary-shadow" },
+  ],
+} as const;
+
 const actionSwatches = [
-  {
-    name: "primary",
-    tones: [
-      { label: "base", className: "bg-primary" },
-      { label: "foreground", className: "bg-primary-foreground" },
-      { label: "hover", className: "bg-primary-hover" },
-      { label: "glow", className: "bg-primary-glow" },
-      { label: "shadow", className: "bg-primary-shadow" },
-    ],
-  },
   {
     name: "accent-1",
     tones: [
@@ -149,6 +150,15 @@ export async function TokenGallery() {
             </li>
           ))}
         </ul>
+      </div>
+
+      <div className="flex min-w-0 flex-col gap-2">
+        <h3 className="text-sm font-medium text-foreground/70">{primarySwatch.name}</h3>
+        <div className="flex min-w-0 flex-wrap gap-3">
+          {primarySwatch.tones.map((tone) => (
+            <Swatch key={tone.label} {...tone} />
+          ))}
+        </div>
       </div>
 
       <div className="flex min-w-0 flex-col gap-2">

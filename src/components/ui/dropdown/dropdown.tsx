@@ -21,7 +21,7 @@ export const dropdownPanelVariants = cva(
   },
 );
 
-export type DropdownVariant = "filled" | "secondary" | "outline" | "soft" | "link";
+export type DropdownVariant = "filled" | "secondary" | "outline" | "soft" | "link" | "muted";
 
 export type DropdownProps = {
   trigger?: ReactNode;

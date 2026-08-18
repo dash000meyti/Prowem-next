@@ -47,11 +47,11 @@
         }
       },
       "success": {
-        "base": "#12C46A",
+        "base": "#12C4B0",
         "foreground": "#091017",
-        "hover": "#2DD67E",
-        "glow": "#89E2B5",
-        "shadow": "#0B7640"
+        "hover": "#2DD6C4",
+        "glow": "#89E2D8",
+        "shadow": "#0B766A"
       },
       "warning": {
         "base": "#FFB020",

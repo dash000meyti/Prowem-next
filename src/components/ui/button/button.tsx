@@ -4,9 +4,9 @@ import { Icon, type IconName } from "@/components/icons";
 import { cn } from "@/lib/cn";
 
 export const buttonColors = [
+  "primary",
   "background",
   "foreground",
-  "primary",
   "accent-1",
   "accent-2",
   "accent-3",
@@ -32,16 +32,16 @@ const glowByColor: Record<ButtonColor, string> = {
 };
 
 const pressGlowByColor: Record<ButtonColor, string> = {
-  background: "active:shadow-glow-background aria-expanded:shadow-glow-background",
-  foreground: "active:shadow-glow-foreground aria-expanded:shadow-glow-foreground",
-  primary: "active:shadow-glow-primary aria-expanded:shadow-glow-primary",
-  "accent-1": "active:shadow-glow-accent-1 aria-expanded:shadow-glow-accent-1",
-  "accent-2": "active:shadow-glow-accent-2 aria-expanded:shadow-glow-accent-2",
-  "accent-3": "active:shadow-glow-accent-3 aria-expanded:shadow-glow-accent-3",
-  "accent-4": "active:shadow-glow-accent-4 aria-expanded:shadow-glow-accent-4",
-  success: "active:shadow-glow-success aria-expanded:shadow-glow-success",
-  warning: "active:shadow-glow-warning aria-expanded:shadow-glow-warning",
-  error: "active:shadow-glow-error aria-expanded:shadow-glow-error",
+  background: "active:shadow-glow-sm-background aria-expanded:shadow-glow-sm-background",
+  foreground: "active:shadow-glow-sm-foreground aria-expanded:shadow-glow-sm-foreground",
+  primary: "active:shadow-glow-sm-primary aria-expanded:shadow-glow-sm-primary",
+  "accent-1": "active:shadow-glow-sm-accent-1 aria-expanded:shadow-glow-sm-accent-1",
+  "accent-2": "active:shadow-glow-sm-accent-2 aria-expanded:shadow-glow-sm-accent-2",
+  "accent-3": "active:shadow-glow-sm-accent-3 aria-expanded:shadow-glow-sm-accent-3",
+  "accent-4": "active:shadow-glow-sm-accent-4 aria-expanded:shadow-glow-sm-accent-4",
+  success: "active:shadow-glow-sm-success aria-expanded:shadow-glow-sm-success",
+  warning: "active:shadow-glow-sm-warning aria-expanded:shadow-glow-sm-warning",
+  error: "active:shadow-glow-sm-error aria-expanded:shadow-glow-sm-error",
 };
 
 const filledByColor: Record<ButtonColor, string> = {
@@ -122,17 +122,43 @@ const softByColor: Record<ButtonColor, string> = {
   error: `text-error hover:bg-error-hover/20 ${pressGlowByColor.error}`,
 };
 
+const pressTintByColor: Record<ButtonColor, string> = {
+  background: "active:bg-background/20 aria-expanded:bg-background/20",
+  foreground: "active:bg-foreground/20 aria-expanded:bg-foreground/20",
+  primary: "active:bg-primary-hover/20 aria-expanded:bg-primary-hover/20",
+  "accent-1": "active:bg-accent-1-hover/20 aria-expanded:bg-accent-1-hover/20",
+  "accent-2": "active:bg-accent-2-hover/20 aria-expanded:bg-accent-2-hover/20",
+  "accent-3": "active:bg-accent-3-hover/20 aria-expanded:bg-accent-3-hover/20",
+  "accent-4": "active:bg-accent-4-hover/20 aria-expanded:bg-accent-4-hover/20",
+  success: "active:bg-success-hover/20 aria-expanded:bg-success-hover/20",
+  warning: "active:bg-warning-hover/20 aria-expanded:bg-warning-hover/20",
+  error: "active:bg-error-hover/20 aria-expanded:bg-error-hover/20",
+};
+
 const linkByColor: Record<ButtonColor, string> = {
-  background: "text-background hover:text-panel",
-  foreground: "text-foreground hover:text-panel-foreground",
-  primary: "text-primary hover:text-primary-hover",
-  "accent-1": "text-accent-1 hover:text-accent-1-hover",
-  "accent-2": "text-accent-2 hover:text-accent-2-hover",
-  "accent-3": "text-accent-3 hover:text-accent-3-hover",
-  "accent-4": "text-accent-4 hover:text-accent-4-hover",
-  success: "text-success hover:text-success-hover",
-  warning: "text-warning hover:text-warning-hover",
-  error: "text-error hover:text-error-hover",
+  background: `text-background hover:text-panel ${pressTintByColor.background}`,
+  foreground: `text-foreground hover:text-panel-foreground ${pressTintByColor.foreground}`,
+  primary: `text-primary hover:text-primary-hover ${pressTintByColor.primary}`,
+  "accent-1": `text-accent-1 hover:text-accent-1-hover ${pressTintByColor["accent-1"]}`,
+  "accent-2": `text-accent-2 hover:text-accent-2-hover ${pressTintByColor["accent-2"]}`,
+  "accent-3": `text-accent-3 hover:text-accent-3-hover ${pressTintByColor["accent-3"]}`,
+  "accent-4": `text-accent-4 hover:text-accent-4-hover ${pressTintByColor["accent-4"]}`,
+  success: `text-success hover:text-success-hover ${pressTintByColor.success}`,
+  warning: `text-warning hover:text-warning-hover ${pressTintByColor.warning}`,
+  error: `text-error hover:text-error-hover ${pressTintByColor.error}`,
+};
+
+const mutedByColor: Record<ButtonColor, string> = {
+  background: `text-panel-foreground hover:text-panel ${pressTintByColor.background}`,
+  foreground: `text-panel-foreground hover:text-panel-foreground ${pressTintByColor.foreground}`,
+  primary: `text-panel-foreground hover:text-primary-hover ${pressTintByColor.primary}`,
+  "accent-1": `text-panel-foreground hover:text-accent-1-hover ${pressTintByColor["accent-1"]}`,
+  "accent-2": `text-panel-foreground hover:text-accent-2-hover ${pressTintByColor["accent-2"]}`,
+  "accent-3": `text-panel-foreground hover:text-accent-3-hover ${pressTintByColor["accent-3"]}`,
+  "accent-4": `text-panel-foreground hover:text-accent-4-hover ${pressTintByColor["accent-4"]}`,
+  success: `text-panel-foreground hover:text-success-hover ${pressTintByColor.success}`,
+  warning: `text-panel-foreground hover:text-warning-hover ${pressTintByColor.warning}`,
+  error: `text-panel-foreground hover:text-error-hover ${pressTintByColor.error}`,
 };
 
 const colorVariants = Object.fromEntries(
@@ -151,6 +177,7 @@ export const buttonVariants = cva(
         ghost: "bg-transparent",
         subtle: "bg-transparent",
         link: "bg-transparent underline-offset-4 hover:underline",
+        muted: "bg-transparent underline-offset-4 hover:underline",
       },
       color: colorVariants,
       size: {
@@ -228,10 +255,11 @@ export const buttonVariants = cva(
         color,
         class: linkByColor[color],
       })),
-      {
-        variant: "link",
-        class: "h-auto min-h-0 py-0 md:h-auto",
-      },
+      ...buttonColors.map((color) => ({
+        variant: "muted" as const,
+        color,
+        class: mutedByColor[color],
+      })),
     ],
   },
 );
