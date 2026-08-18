@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Component lab (`/dev`)
 
-`src/app/dev` is the visual inventory. It is not the product site. Entry is a manual URL (`/dev/ui`, `/dev/templates`, `/dev/icons`).
+`src/app/dev` is the visual inventory. It is not the product site. Entry is a manual URL (`/dev/ui`, `/dev/templates`, `/dev/icons`). The lab shell (header and gallery pages) uses `Container width="full"` so it spans the viewport; do not wrap it in `xl`.
 
 In the **same turn** as any change to UI, Templates, Icons, theme tokens (`src/settings`, `globals.css`), or component config, update the matching gallery so permutations stay complete:
 

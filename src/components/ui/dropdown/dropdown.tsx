@@ -3,11 +3,12 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import type { IconName } from "@/components/icons";
-import { Button, type ButtonColor } from "@/components/ui/button";
+import { Button, type ButtonColor, type ButtonProps } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/cn";
 
 export const dropdownPanelVariants = cva(
-  "absolute top-full z-50 mt-1 min-w-48 rounded-lg border border-sm border-border bg-panel p-1 transition-opacity duration-300 motion-reduce:transition-none",
+  "absolute top-full z-50 mt-1 min-w-48 p-1 transition-opacity duration-300 motion-reduce:transition-none",
   {
     variants: {
       align: {
@@ -21,7 +22,7 @@ export const dropdownPanelVariants = cva(
   },
 );
 
-export type DropdownVariant = "filled" | "secondary" | "outline" | "soft" | "link" | "muted";
+export type DropdownVariant = NonNullable<ButtonProps["variant"]>;
 
 export type DropdownProps = {
   trigger?: ReactNode;
@@ -39,7 +40,7 @@ export function Dropdown({
   icon,
   children,
   label,
-  variant = "outline",
+  variant = "soft",
   color = "primary",
   align = "end",
   className,
@@ -89,11 +90,13 @@ export function Dropdown({
       >
         {trigger}
       </Button>
-      <div
+      <Card
         id={panelId}
         role="menu"
         aria-hidden={!open}
         inert={!open}
+        surface="panel"
+        padding="none"
         className={cn(
           dropdownPanelVariants({ align }),
           open ? "opacity-100" : "pointer-events-none opacity-0",
@@ -101,7 +104,7 @@ export function Dropdown({
         onClick={() => setOpen(false)}
       >
         {children}
-      </div>
+      </Card>
     </div>
   );
 }

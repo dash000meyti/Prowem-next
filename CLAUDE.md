@@ -24,12 +24,12 @@ Permanent. The user will not repeat it.
 - Changing folder tree, UI / Templates / Icons, existing prop APIs, locale config, or routing: stop, explain recommendation / advantages / risks / alternatives, wait for confirmation.
 - Filling tokens, adding message keys, adding a glyph to the icons pack, or adding a component that follows `docs/components.md`: implement.
 - If the change alters behavior, folders, components, phase, or i18n rules: update `docs/` (and `AGENTS.md` if needed) in the same turn. Also update the matching `.cursor/rules/*.mdc` so Cursor stays in lockstep. If nothing changed, leave docs alone.
-- Same turn: if UI / Templates / Icons / tokens / config changed, update `src/app/dev` galleries (`/dev/ui`, `/dev/templates`, `/dev/icons`).
+- Same turn: if UI / Templates / Icons / tokens / config changed, update `src/app/dev` galleries (`/dev/ui`, `/dev/templates`, `/dev/icons`). Lab chrome is full-width (`Container width="full"`).
 
 ## Layout
 
 - Routes: `src/app/[lang]/` — prefixes `/en` `/de` `/pt` `/es` `/ar`
-- UI atoms: `src/components/ui/<name>/`
+- UI atoms: `src/components/ui/<name>/` (higher atoms compose lower ones: Dropdown → Button + Card)
 - Templates: `src/components/templates/<name>/`
 - Icons: `src/components/icons/` (`<Icon name="…" />`; Linear only)
 - Static assets: `public/` (`logo.svg` wordmark, `favicon/` PHP set)

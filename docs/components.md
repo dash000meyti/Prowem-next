@@ -10,7 +10,9 @@ Three layers. Do not mix their jobs.
 
 UI never knows about locales, dictionaries, or routes. Templates may, but they still take copy as props instead of importing JSON. UI and Templates both import icons from `@/components/icons`. Do not put glyphs inside `ui/` or `templates/`.
 
-The visual inventory is `src/app/dev` (`/dev/ui`, `/dev/templates`, `/dev/icons`). Keep those galleries complete in the same change as UI, Templates, Icons, or token/config updates.
+The visual inventory is `src/app/dev` (`/dev/ui`, `/dev/templates`, `/dev/icons`). Keep those galleries complete in the same change as UI, Templates, Icons, or token/config updates. The lab shell (header and gallery pages) uses `Container width="full"` so it spans the viewport; do not wrap it in `xl`.
+
+Higher UI atoms compose lower ones. Do not copy chrome styles: Dropdown’s trigger is a Button and its open panel is a Card. A later Popup should be Card + Button (plus overlay). Card does not import Button or Dropdown; `CardFooter` is a layout slot.
 
 ## Folder contract
 
@@ -52,12 +54,30 @@ Also: native `button` attributes (`disabled`, `type`, `onClick`, …). `color` t
 
 Icon-only (`icon` and no label): equal padding, same height as `size` (`sm`: `size-8`; `md`: `size-9 md:size-10`; `lg`: `size-10 md:size-12`), with CVA compounds that zero `md:px-*`. Icon + text: normal button height, icon `size-4`, `gap-2`.
 
-`buttonVariants()` is exported for non-button elements (language menu rows). Future Card (and other chrome) must reuse this same `radius` scale — do not invent a second set.
+`buttonVariants()` is exported for non-button elements (language menu rows). Card `radius` is `none` | `sm` | `md` | `lg` | `full` (not Button’s `xl`): `none` is 0; `sm` is 2× theme `sm`; `md` is midway between 2× theme `md` and 2× theme `lg`; `lg` is 2× theme `xl`; `full` is `rounded-full`.
+
+### Card
+
+Compound atom: `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent` (main), `CardFooter`. No copy, no Button import. `cardVariants()`, `cardHeaderVariants()`, `cardContentVariants()`, and `cardFooterVariants()` are exported.
+
+Root `Card`:
+
+- `surface`: `panel` (default) | `glass` | `light` | `glass-light` | `light-dual` | `glass-light-dual`
+- `color`: same as Button (default `primary`). Tints `light` / `glass-light` / `light-dual` / `glass-light-dual` now; later also colored borders
+- `padding`: `none` | `sm` | `md` | `lg` (default `none`)
+- `radius`: `none` | `sm` | `md` | `lg` | `full` (default `md`)
+- Also native `div` attributes and `className?`
+
+`panel` is `bg-panel` + `border-sm border-border`. `glass` matches the stuck header (`bg-panel/72 backdrop-blur-sm`) with the same border. `light` keeps the border and a faint ellipse glow from `color` at the bottom (`bg-card-light`, `ellipse 55% 45% at 50% 110%`, spot `color` at 18%). `glass-light` is the same glow plus blur (`bg-card-glass-light`). `light-dual` / `glass-light-dual` add a mirrored `foreground` glow at the top (`ellipse 55% 45% at 50% -10%`, `--card-spot-fg` at 18%) over the same base (`bg-card-light-dual`). Spot colors are set on the element via `--card-spot` / `--card-spot-fg` / `--card-base`. Root has `overflow-hidden` so slot fills and gradients clip to radius.
+
+`CardHeader` / `CardFooter` `variant`: `none` (default) | `filled` (`bg-panel-hover/50`) | `border` (header `shadow-edge-bottom`, footer `shadow-edge-top`, color `border`) | `divider` (`filled` + `border`). `CardContent` has no variant yet.
+
+Slot `padding`: `none` | `sm` | `md` | `lg` (default `md` = `p-4`) on Header, Content, and Footer. Title and Description have no padding of their own. Header and Footer take their content height (`shrink-0`). `CardContent` fills the leftover space (`flex-1 min-h-0`).
 
 ### Dropdown
 
-Props: `icon?` (`IconName`), `trigger?` (text or node), `children`, `label`, `variant?` (`filled` | `secondary` | `outline` | `soft` | `link` | `muted`, default `outline`), `color?` (same as Button, default `primary`), `align?` (`start` | `end`, default `end`), `className?`.  
-Client atom. No copy, no routing. Closed/open, click-outside, and Escape live here. The trigger is a Button: `icon` alone uses icon-only square padding; `trigger` alone keeps normal button height; both render icon + text. Panel uses `bg-panel border-sm border-border rounded-lg` and fades open/closed in `300ms` (`duration-300`).
+Props: `icon?` (`IconName`), `trigger?` (text or node), `children`, `label`, `variant?` (same as Button, default `soft`), `color?` (same as Button, default `primary`), `align?` (`start` | `end`, default `end`), `className?`.  
+Client atom. No copy, no routing. Closed/open, click-outside, and Escape live here. The trigger is a Button: `icon` alone uses icon-only square padding; `trigger` alone keeps normal button height; both render icon + text. The panel is an empty `Card` (`surface="panel"`, `padding="none"`, default `radius`). `dropdownPanelVariants()` is position and fade only (`absolute`, `align`, `p-1`, `300ms`). Chrome comes from Card.
 
 ### SideMenu
 
@@ -177,4 +197,4 @@ Changing `ButtonProps` / `SiteHeaderProps` (rename, remove, break callers) needs
 
 ## What not to add yet
 
-Hero, footer, cards, Bold/Broken icon styles, and Prowem marketing sections wait for later phases. Header nav labels are in `SiteHeader`; destination pages are not.
+Hero, footer, Bold/Broken icon styles, and Prowem marketing sections wait for later phases. Header nav labels are in `SiteHeader`; destination pages are not.

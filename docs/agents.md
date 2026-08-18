@@ -47,7 +47,7 @@ Skip ahead only for a one-line typo with no structural effect.
 - **Confirm first** if the change touches: folder tree, UI / Templates / Icons split, existing component prop APIs, `src/i18n/config.ts`, locale routing, or new architectural dependencies. Present recommendation, advantages, risks, alternatives. Implement only after yes.
 - **Just do it** if the work stays inside the contract: tokens, dictionary keys with the same schema, a new glyph in `src/components/icons/`, a new UI/Template that follows [components.md](components.md).
 - **Update docs** in the same change when behavior, folders, components, phase, or i18n rules changed. Update Cursor and Claude summaries together. If nothing changed, do not touch docs.
-- **Keep `/dev` in sync** in the same change when UI, Templates, Icons, tokens, or component config changed (`/dev/ui`, `/dev/templates`, `/dev/icons`).
+- **Keep `/dev` in sync** in the same change when UI, Templates, Icons, tokens, or component config changed (`/dev/ui`, `/dev/templates`, `/dev/icons`). Lab chrome is full-width (`Container width="full"`).
 
 ## Next.js 16 traps (this repo)
 

@@ -18,7 +18,10 @@ export function LabHeader() {
 
   return (
     <header className="border-b border-sm border-border bg-panel">
-      <Container className="flex min-h-14 flex-wrap items-center justify-between gap-x-4 gap-y-3 py-3 md:h-16 md:flex-nowrap md:py-0">
+      <Container
+        width="full"
+        className="flex min-h-14 flex-wrap items-center justify-between gap-x-4 gap-y-3 py-3 md:h-16 md:flex-nowrap md:py-0"
+      >
         <p className="min-w-0 text-sm font-semibold tracking-tight">
           Component lab
         </p>

@@ -68,7 +68,7 @@ Request → proxy.ts → [lang]/layout.tsx → page
                          │    ├─ Container (UI)
                          │    ├─ LanguageSwitcher (template)
                          │    │    └─ Dropdown (UI) + Icon flags
-                         │    │         └─ Button / buttonVariants
+                         │    │         └─ Button + Card
                          │    ├─ Button Get Started (UI)
                          │    └─ SideMenu (UI, below header.navFrom)
                          └─ getDictionary() / getSettings()

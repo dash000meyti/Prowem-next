@@ -25,4 +25,4 @@ If behavior, folders, components, phase status, or i18n rules changed, update `d
 
 ## Keep `/dev` in sync
 
-The component lab is `src/app/dev`. Same turn as UI / Templates / Icons / token / config changes: update `/dev/ui`, `/dev/templates`, or `/dev/icons` so the gallery still shows every permutation. Do not leave it stale.
+The component lab is `src/app/dev`. Same turn as UI / Templates / Icons / token / config changes: update `/dev/ui`, `/dev/templates`, or `/dev/icons` so the gallery still shows every permutation. Do not leave it stale. Lab chrome stays full-width (`Container width="full"`).

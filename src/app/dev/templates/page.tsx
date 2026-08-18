@@ -8,7 +8,10 @@ export default async function DevTemplatesPage() {
   const settings = await getSettings();
   return (
     <main className="flex min-w-0 flex-1 flex-col">
-      <Container className="flex flex-col gap-12 py-8 md:gap-16 md:py-12">
+      <Container
+        width="full"
+        className="flex flex-col gap-12 py-8 md:gap-16 md:py-12"
+      >
         <h1 className="text-2xl font-semibold tracking-tight text-start md:text-3xl">
           Templates
         </h1>
