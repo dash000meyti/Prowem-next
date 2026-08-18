@@ -16,8 +16,8 @@ export default async function HomePage() {
           {dict.home.hint}
         </p>
       </Container>
-      <div className="flex h-[1000px] flex-col items-center justify-center">
-        <Link href="/dev/ui" className={buttonVariants()}>
+      <div className="flex h-[1400px] flex-col items-center justify-center">
+        <Link href="/dev" className={buttonVariants()}>
           {dict.home.ui}
         </Link>
       </div>

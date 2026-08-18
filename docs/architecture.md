@@ -16,9 +16,11 @@ src/
     icon1.png          Favicon 256×256 (from PHP favicon-256.png)
     apple-icon.png     Apple touch icon (from PHP apple-touch-icon.png)
     [lang]/
-      layout.tsx       Root layout: <html lang dir>, theme CSS vars, SiteHeader
+      layout.tsx       Product root layout: <html lang dir>, theme CSS vars, SiteHeader
       page.tsx         Locale home (foundation shell)
       not-found.tsx
+    dev/               Optional lab routes (/dev). English only. Sibling root <html>.
+  dev/                 Optional lab internals (copy, meta, chrome, playground, gallery)
   components/
     ui/                Atoms. No routes, no copy.
     templates/         Layout compositions built from UI.
@@ -42,12 +44,14 @@ public/
   logo.svg             Site wordmark (exact PHP logo.svg; SiteHeader home link)
   favicon/             Original PHP favicon set (svg, ico, 32, 256, apple-touch)
 docs/                  Human and AI guides (start at agents.md)
-.cursor/rules/         Cursor: workflow, core, components, i18n, app-router, settings
+.cursor/rules/         Cursor: workflow, core, lab, components, i18n, app-router, settings
 AGENTS.md              Shared Cursor + Claude rules
 CLAUDE.md              Claude Code entry (@AGENTS.md)
 ```
 
 `src/proxy.ts` sits next to `src/app/` because Next.js 16 Proxy must live at the same level as the App Router directory.
+
+`src/app/dev` and `src/dev` are the component lab. They import product UI; product code must not import them. Delete both folders (or leave them in `.dockerignore`) and production is unchanged. Proxy skips `/dev` as a routing exemption only — it does not import the lab.
 
 Copy and settings storage: [content.md](content.md).
 
@@ -92,8 +96,9 @@ Request → proxy.ts → [lang]/layout.tsx → page
 
 ## Routing rules
 
-- Every public URL includes a locale prefix.
-- The root layout **is** `src/app/[lang]/layout.tsx`. It owns `<html>` and `<body>`. Do not add a second `src/app/layout.tsx` with those tags.
+- Every **product** URL includes a locale prefix.
+- The product root layout **is** `src/app/[lang]/layout.tsx`. It owns `<html>` and `<body>` for locale routes. Do not add a second `src/app/layout.tsx` with those tags.
+- `/dev` is a sibling root layout (`src/app/dev/layout.tsx`): English, noindex, no dark mode. Playground LTR/RTL sets `dir` on the preview Card only. Proxy does not locale-prefix it.
 - `generateStaticParams` in the locale layout emits all locales from `src/i18n/config.ts`.
 - Invalid `lang` values call `notFound()`.
 
@@ -102,6 +107,8 @@ Request → proxy.ts → [lang]/layout.tsx → page
 | Kind | Location |
 | --- | --- |
 | Page / route | `src/app/[lang]/...` |
+| Component lab route | `src/app/dev/...` (optional; dockerignoreable) |
+| Lab chrome / meta / playground / gallery | `src/dev/` (optional; dockerignoreable) |
 | Atom (button, card, input) | `src/components/ui/<name>/` |
 | SVG icon / flag | `src/components/icons/` (`glyphs/` or `flags/`, then `registry.ts`) |
 | Section or chrome (hero, header, footer) | `src/components/templates/<name>/` |

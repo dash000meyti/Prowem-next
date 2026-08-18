@@ -6,9 +6,9 @@ alwaysApply: false
 
 # App Router
 
-Every route sits under `src/app/[lang]/`. URLs are `/en`, `/de`, `/pt`, `/es`, `/ar`.
+Product routes sit under `src/app/[lang]/`. URLs are `/en`, `/de`, `/pt`, `/es`, `/ar`.
 
-`src/app/[lang]/layout.tsx` is the root layout: set `<html lang dir>`. Do not add `src/app/layout.tsx` with those tags.
+`src/app/[lang]/layout.tsx` is the product root layout: set `<html lang dir>`. Do not add `src/app/layout.tsx` with those tags. `/dev` is an optional sibling root layout (`src/app/dev`); Proxy skips it so it is not locale-prefixed.
 
 ```tsx
 <html

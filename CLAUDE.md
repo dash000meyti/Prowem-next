@@ -24,7 +24,7 @@ Permanent. The user will not repeat it.
 - Changing folder tree, UI / Templates / Icons, existing prop APIs, locale config, or routing: stop, explain recommendation / advantages / risks / alternatives, wait for confirmation.
 - Filling tokens, adding message keys, adding a glyph to the icons pack, or adding a component that follows `docs/components.md`: implement.
 - If the change alters behavior, folders, components, phase, or i18n rules: update `docs/` (and `AGENTS.md` if needed) in the same turn. Also update the matching `.cursor/rules/*.mdc` so Cursor stays in lockstep. If nothing changed, leave docs alone.
-- Same turn: if UI / Templates / Icons / tokens / config changed, update `src/app/dev` galleries (`/dev/ui`, `/dev/templates`, `/dev/icons`). Lab chrome is full-width (`Container width="full"`).
+- Same turn: if UI / Templates / Icons / tokens / config changed, update the lab (`src/dev/meta`, playground renderer, gallery; `/dev/icons` for glyphs). Lab chrome is full-width (`Container width="full"`). Product code must not import `src/dev` or `src/app/dev`.
 
 ## Layout
 
@@ -35,5 +35,5 @@ Permanent. The user will not repeat it.
 - Static assets: `public/` (`logo.svg` wordmark, `favicon/` PHP set)
 - Locales: `src/i18n/config.ts` + `src/i18n/messages/*.json` (copy via `getDictionary()`)
 - Settings: `src/settings/` (theme tokens, `theme.container`, and `header.navFrom` via `getSettings()`; UI uses `rounded-*` / `border-*` / `max-w-container-*` classes)
-- Root `<html lang dir>` + theme CSS vars: `src/app/[lang]/layout.tsx` only
+- Product `<html lang dir>` + theme CSS vars: `src/app/[lang]/layout.tsx`. Optional lab layout: `src/app/dev/layout.tsx` (English, playground LTR/RTL, no dark mode)
 - Mobile-first UI/templates/pages (`min-w-0`, wrap, `xs:`–`xl:` type/spacing)

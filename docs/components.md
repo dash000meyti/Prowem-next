@@ -10,7 +10,7 @@ Three layers. Do not mix their jobs.
 
 UI never knows about locales, dictionaries, or routes. Templates may, but they still take copy as props instead of importing JSON. UI and Templates both import icons from `@/components/icons`. Do not put glyphs inside `ui/` or `templates/`.
 
-The visual inventory is `src/app/dev` (`/dev/ui`, `/dev/templates`, `/dev/icons`). Keep those galleries complete in the same change as UI, Templates, Icons, or token/config updates. The lab shell (header and gallery pages) uses `Container width="full"` so it spans the viewport; do not wrap it in `xl`.
+The visual inventory is `/dev`: English docs, playgrounds (LTR/RTL and hatch controls on the preview Card), and permutation galleries. Routes live in `src/app/dev`; chrome, meta, playgrounds, and galleries live in `src/dev`. Product code must not import either folder. Same turn as UI / Templates / Icons / token/config updates: add or update `src/dev/meta`, the playground renderer, and the gallery. The lab shell uses `Container width="full"`. Lab copy is English in `src/dev/copy.ts`, not product dictionaries. There is no dark mode and no locale routing on `/dev`.
 
 Higher UI atoms compose lower ones. Do not copy chrome styles: Dropdown’s trigger is a Button and its open panel is a Card. A later Popup should be Card + Button (plus overlay). Card does not import Button or Dropdown; `CardFooter` is a layout slot.
 
@@ -62,15 +62,17 @@ Compound atom: `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardConten
 
 Root `Card`:
 
-- `surface`: `panel` (default) | `glass` | `light` | `glass-light` | `light-dual` | `glass-light-dual`
-- `color`: same as Button (default `primary`). Tints `light` / `glass-light` / `light-dual` / `glass-light-dual` now; later also colored borders
+- `surface`: `panel` (default) | `glass`
+- `lightBottom` / `lightTop` / `lightStart` / `lightEnd`: `none` (default) | same as Button (`primary`, `background`, `foreground`, `accent-1`…`4`, `success`, `warning`, `error`)
 - `padding`: `none` | `sm` | `md` | `lg` (default `none`)
 - `radius`: `none` | `sm` | `md` | `lg` | `full` (default `md`)
+- `border`: `none` | `sm` | `md` | `lg` (default `md`)
+- `borderColor`: `border` (default) | same as Button (`primary`, `background`, `foreground`, `accent-1`…`4`, `success`, `warning`, `error`)
 - Also native `div` attributes and `className?`
 
-`panel` is `bg-panel` + `border-md border-border`. `glass` matches the stuck header (`bg-panel/72 backdrop-blur-sm`) with the same border. `light` keeps the border and a faint ellipse glow from `color` at the bottom (`bg-card-light`, `ellipse 55% 45% at 50% 110%`, spot `color` at 18%). `glass-light` is the same glow plus blur (`bg-card-glass-light`). `light-dual` / `glass-light-dual` add a mirrored `foreground` glow at the top (`ellipse 55% 45% at 50% -10%`, `--card-spot-fg` at 18%) over the same base (`bg-card-light-dual`). Spot colors are set on the element via `--card-spot` / `--card-spot-fg` / `--card-base`. Root has `overflow-hidden` so slot fills and gradients clip to radius.
+`surface` is only the fill: `panel` uses `--panel`; `glass` is the stuck-header mix (`panel` at 72% when unlit, 42% when any light is on) plus `backdrop-blur-sm`. Lights are independent ellipse glows (18% mix) on `bg-card-spots`. `lightStart` / `lightEnd` follow `dir` (not `left` / `right`). Old names map as: `light` → `lightBottom="primary"`; `glass-light` → `surface="glass"` + `lightBottom="primary"`; `light-dual` → `lightBottom="primary"` + `lightTop="foreground"`; `glass-light-dual` → the same lights on `glass`. Root has `overflow-hidden` so slot fills and gradients clip to radius. Root also sets `--card-border-width` and `--card-border-color` so Header/Footer edges can inherit them.
 
-`CardHeader` / `CardFooter` `variant`: `none` (default) | `filled` (`bg-panel-hover/50`) | `border` (header `shadow-edge-bottom`, footer `shadow-edge-top`, color `border`) | `divider` (`filled` + `border`). `CardContent` has no variant yet.
+`CardHeader` / `CardFooter` `variant`: `none` (default) | `filled` (`bg-panel-hover/50`) | `border` (header `shadow-edge-bottom`, footer `shadow-edge-top`) | `divider` (`filled` + `border`). Those `border` / `divider` lines use the parent Card’s `border` width and `borderColor`; slots do not take those props. `CardContent` has no variant yet.
 
 Slot `padding`: `none` | `sm` | `md` | `lg` (default `md` = `p-4`) on Header, Content, and Footer. Title and Description have no padding of their own. Header and Footer take their content height (`shrink-0`). `CardContent` fills the leftover space (`flex-1 min-h-0`).
 
@@ -117,14 +119,14 @@ Composes `Container` + locale-prefixed nav links + `LanguageSwitcher` + filled G
 3. Use `cn()` for `className`.
 4. Add a short entry to this file.
 5. Do not add the component unless a template or page will use it in the same change.
-6. Show it in `src/app/dev/ui` in the same turn.
+6. Same turn: `src/dev/meta/<name>.ts` (register in `src/dev/meta/index.ts`), a playground renderer in `src/dev/playground/renderers.tsx`, and a permutation gallery in `src/dev/gallery` when the component has variants. The page is `/dev/components/[slug]` from meta — do not hardcode a new route.
 
 ## Checklist: add an icon
 
 1. Linear glyph: add `src/components/icons/glyphs/<name>.tsx` using `Glyph` (`viewBox="0 0 24 24"`, stroke `currentColor`, width 1.5, round caps). Flag: add to `src/components/icons/flags/flags.tsx` with its own fills.
 2. Register the name in `src/components/icons/registry.ts`. Flag names start with `flag-`.
 3. Do not add unused glyphs. Do not copy third-party icon files.
-4. Confirm it appears in `src/app/dev/icons` (the grid reads `iconRegistry`).
+4. Confirm it appears in `/dev/icons` (the grid reads `iconRegistry`).
 
 ## Checklist: add a template
 
@@ -132,7 +134,7 @@ Composes `Container` + locale-prefixed nav links + `LanguageSwitcher` + filled G
 2. Compose existing UI. Add a new UI primitive first if the template would otherwise duplicate atom styles.
 3. Accept all copy and locale as props.
 4. Keep routing details inside the template only when they are the template’s job (e.g. language switching).
-5. Preview it in `src/app/dev/templates` in the same turn.
+5. Same turn: `src/dev/meta/<name>.ts` (register in `src/dev/meta/index.ts`), a playground renderer, and a gallery. The page is `/dev/templates/[slug]` from meta.
 
 ## Responsive (first layer)
 

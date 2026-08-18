@@ -31,6 +31,7 @@ function getPreferredLocale(request: NextRequest): Locale {
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // Routing exemption only: product code must not import src/app/dev or src/dev.
   if (pathname === "/dev" || pathname.startsWith("/dev/")) {
     return NextResponse.next();
   }

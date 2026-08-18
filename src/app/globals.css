@@ -63,9 +63,15 @@
   --container-lg: 1200px;
   --container-xl: 1440px;
   --container-full: 100%;
-  --card-spot: color-mix(in srgb, var(--primary) 18%, var(--panel));
-  --card-spot-fg: color-mix(in srgb, var(--foreground) 18%, var(--panel));
+  --card-spot-bottom: transparent;
+  --card-spot-top: transparent;
+  --card-spot-start: transparent;
+  --card-spot-end: transparent;
+  --card-spot-start-at: -10% 50%;
+  --card-spot-end-at: 110% 50%;
   --card-base: var(--panel);
+  --card-border-width: var(--theme-border-width-md);
+  --card-border-color: var(--border);
 }
 
 @theme inline {
@@ -126,8 +132,8 @@
   --border-width-lg: var(--theme-border-width-lg);
   --shadow-outline: inset 0 0 0 var(--theme-border-width-md) var(--border);
   --shadow-outline-sm: inset 0 0 0 var(--theme-border-width-sm) var(--border);
-  --shadow-edge-top: inset 0 var(--theme-border-width-md) 0 0 var(--border);
-  --shadow-edge-bottom: inset 0 calc(-1 * var(--theme-border-width-md)) 0 0 var(--border);
+  --shadow-edge-top: inset 0 var(--card-border-width) 0 0 var(--card-border-color);
+  --shadow-edge-bottom: inset 0 calc(-1 * var(--card-border-width)) 0 0 var(--card-border-color);
   --shadow-glow-background: 0 0 8px color-mix(in srgb, var(--background) 35%, transparent), 0 0 24px color-mix(in srgb, var(--background) 28%, transparent);
   --shadow-glow-foreground: 0 0 8px color-mix(in srgb, var(--foreground) 35%, transparent), 0 0 24px color-mix(in srgb, var(--foreground) 28%, transparent);
   --shadow-glow-primary: 0 0 8px color-mix(in srgb, var(--primary-glow) 35%, transparent), 0 0 24px color-mix(in srgb, var(--primary-glow) 28%, transparent);
@@ -163,32 +169,26 @@
   --font-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
-@utility bg-card-light {
-  background-image: radial-gradient(
-    ellipse 55% 45% at 50% 110%,
-    var(--card-spot) 0%,
-    var(--card-base) 100%
-  );
-}
-
-@utility bg-card-glass-light {
-  background-image: radial-gradient(
-    ellipse 55% 45% at 50% 110%,
-    var(--card-spot) 0%,
-    var(--card-base) 100%
-  );
-}
-
-@utility bg-card-light-dual {
+@utility bg-card-spots {
   background-image:
     radial-gradient(
       ellipse 55% 45% at 50% 110%,
-      var(--card-spot) 0%,
+      var(--card-spot-bottom) 0%,
       transparent 100%
     ),
     radial-gradient(
       ellipse 55% 45% at 50% -10%,
-      var(--card-spot-fg) 0%,
+      var(--card-spot-top) 0%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 45% 55% at var(--card-spot-start-at),
+      var(--card-spot-start) 0%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 45% 55% at var(--card-spot-end-at),
+      var(--card-spot-end) 0%,
       transparent 100%
     ),
     linear-gradient(var(--card-base), var(--card-base));
@@ -197,6 +197,11 @@
 html {
   height: 100%;
   overflow-x: clip;
+}
+
+html[dir="rtl"] {
+  --card-spot-start-at: 110% 50%;
+  --card-spot-end-at: -10% 50%;
 }
 
 body {

@@ -9,7 +9,7 @@ Read [docs/agents.md](docs/agents.md) before non-trivial work, then architecture
 
 Agent rules for Cursor and Claude must stay in lockstep. If you change this file or any `.mdc`, update `CLAUDE.md` and `docs/agents.md` / `AGENTS.md` in the same turn when the meaning changed.
 
-This is Next.js 16. Use `src/proxy.ts`, not `middleware.ts`. No `next-intl`. Root `<html>` lives in `src/app/[lang]/layout.tsx`.
+This is Next.js 16. Use `src/proxy.ts`, not `middleware.ts`. No `next-intl`. Product root `<html>` lives in `src/app/[lang]/layout.tsx`. `/dev` is an optional sibling layout in `src/app/dev` (internals in `src/dev`); product code must not import those folders.
 
 Phase 1: no Prowem marketing sections, brand fonts, unused placeholders, or dark mode unless asked.
 

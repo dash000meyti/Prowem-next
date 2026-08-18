@@ -1,16 +1,18 @@
 ---
-description: Keep src/app/dev galleries in sync with UI, templates, icons, and tokens.
+description: Keep src/app/dev and src/dev in sync with UI, templates, icons, and tokens.
 alwaysApply: true
 ---
 
 # Component lab (`/dev`)
 
-`src/app/dev` is the visual inventory. It is not the product site. Entry is a manual URL (`/dev/ui`, `/dev/templates`, `/dev/icons`). The lab shell (header and gallery pages) uses `Container width="full"` so it spans the viewport; do not wrap it in `xl`.
+The lab is optional and isolated. Routes: `src/app/dev`. Internals: `src/dev` (English copy, meta, chrome, playgrounds, galleries). Product code must not import either folder. Deleting both (or leaving them in `.dockerignore`) removes `/dev` from the build. Proxy skips `/dev` as a routing exemption only.
 
-In the **same turn** as any change to UI, Templates, Icons, theme tokens (`src/settings`, `globals.css`), or component config, update the matching gallery so permutations stay complete:
+It is not the product site. Entry is a manual URL (`/dev`, `/dev/tokens`, `/dev/components/[slug]`, `/dev/templates/[slug]`, `/dev/icons`). English only. Playground LTR/RTL (preview Card `dir` only); no dark mode; no locale routing. Lab copy lives in `src/dev/copy.ts`, not product dictionaries. The lab shell uses `Container width="full"`.
 
-- UI / tokens / Button–Dropdown–Container config → `src/app/dev/ui`
-- Templates → `src/app/dev/templates`
-- Icons / registry → `src/app/dev/icons`
+In the **same turn** as any change to UI, Templates, Icons, theme tokens (`src/settings`, `globals.css`), or component config, update the lab so docs, playgrounds, and galleries stay complete:
+
+- New/changed UI or template → `src/dev/meta/<name>.ts` (register in `index.ts`), playground renderer in `src/dev/playground/renderers.tsx`, permutation gallery in `src/dev/gallery`
+- Tokens → `/dev/tokens` (`src/dev/tokens.tsx`)
+- Icons / registry → `/dev/icons`
 
 Do not finish a component or token change while `/dev` is stale. Do not put lab chrome in `SiteHeader` or dictionaries.

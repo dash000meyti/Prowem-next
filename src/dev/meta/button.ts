@@ -1,0 +1,95 @@
+import {
+  buttonColorValues,
+  buttonVariantValues,
+  iconPlaygroundValues,
+  radiusValues,
+  sizeValues,
+} from "@/dev/values";
+import type { ComponentMeta } from "./types";
+
+export const buttonMeta = {
+  name: "Button",
+  slug: "button",
+  kind: "ui",
+  file: "src/components/ui/button/button.tsx",
+  importStatement: 'import { Button, buttonVariants } from "@/components/ui/button";',
+  description:
+    "Native button with variants, colors, sizes, token radius, and a logical start/end icon.",
+  rules: [
+    "Pass the label as children. Do not hardcode copy inside Button.",
+    "Use icon and iconPosition start|end — never left/right icon props.",
+    "Icon-only (icon and no label) uses equal padding and the same height as size.",
+    "Reuse buttonVariants() on Link or other tags when you need the same chrome without a button element.",
+    "Color tints filled, outline, soft, ghost, subtle, link, and muted. Tokens only — no hex.",
+  ],
+  props: [
+    {
+      name: "children",
+      type: "string",
+      default: "Button",
+      description: "Button label. Omit with icon for an icon-only control.",
+      playground: true,
+    },
+    {
+      name: "variant",
+      type: "enum",
+      values: [...buttonVariantValues],
+      default: "filled",
+      description: "Visual style.",
+      playground: true,
+    },
+    {
+      name: "color",
+      type: "enum",
+      values: [...buttonColorValues],
+      default: "primary",
+      description: "Action color token.",
+      playground: true,
+    },
+    {
+      name: "size",
+      type: "enum",
+      values: [...sizeValues],
+      default: "md",
+      description: "Control height and padding.",
+      playground: true,
+    },
+    {
+      name: "radius",
+      type: "enum",
+      values: [...radiusValues],
+      default: "full",
+      description: "Corner radius token (theme.radius).",
+      playground: true,
+    },
+    {
+      name: "icon",
+      type: "enum",
+      values: [...iconPlaygroundValues],
+      default: "",
+      description: "IconName from @/components/icons.",
+      playground: true,
+    },
+    {
+      name: "iconPosition",
+      type: "enum",
+      values: ["start", "end"],
+      default: "start",
+      description: "Logical side for the icon when a label is present.",
+      playground: true,
+    },
+    {
+      name: "disabled",
+      type: "boolean",
+      default: false,
+      description: "Native disabled state.",
+      playground: true,
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Merged onto the root with cn().",
+      playground: false,
+    },
+  ],
+} satisfies ComponentMeta;

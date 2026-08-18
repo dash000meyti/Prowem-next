@@ -40,7 +40,7 @@ Implement only after the user confirms.
 
 **Update docs when the work changes them.** If behavior, folders, components, phase status, or i18n rules changed, reflect that in `docs/` and in this file if needed. If nothing changed, leave docs alone.
 
-**Keep `/dev` in sync.** The component lab is `src/app/dev` (manual URL, not the site header). Same turn as UI / Templates / Icons / token / config changes: update `/dev/ui`, `/dev/templates`, or `/dev/icons` so every permutation is still visible. Lab chrome is full-width (`Container width="full"`).
+**Keep `/dev` in sync.** The component lab is `src/app/dev` (routes) plus `src/dev` (meta, playgrounds, galleries). Manual URL, not the site header. English only; playground LTR/RTL; no dark mode. Product code must not import those folders (safe to dockerignore). Same turn as UI / Templates / Icons / token / config changes: update meta, the playground renderer, and the permutation gallery (`/dev/icons` for glyphs). Lab chrome is full-width (`Container width="full"`).
 
 **Cursor and Claude stay in lockstep.** The team uses both. Never update only `CLAUDE.md` or only `.cursor/rules/`. Shared truth is `docs/` + this file; both tool entries are summaries and must be updated together, with the same sections and meaning. Pairing table: [docs/agents.md](docs/agents.md#keep-cursor-and-claude-in-lockstep).
 
@@ -82,7 +82,7 @@ Implement only after the user confirms.
 
 ## Next.js 16 notes
 
-- Root layout is `src/app/[lang]/layout.tsx` and owns `<html>` and `<body>`.
+- Product root layout is `src/app/[lang]/layout.tsx` and owns `<html>` and `<body>` for locale routes. `/dev` has a removable sibling layout.
 - Locale for Server Components: `lang` from `next/root-params`, or `params` on the layout/page.
 - Client Components cannot use `next/root-params`. Pass `currentLocale` as a prop.
 - Use `LayoutProps<'/[lang]'>` and `PageProps<'/[lang]'>` for route types.

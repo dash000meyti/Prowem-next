@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from "next";
+import { DevShell } from "@/dev/chrome/shell";
+import { copy } from "@/dev/copy";
 import { toCssVars } from "@/settings/css-vars";
 import { getSettings } from "@/settings/get-settings";
 import "../globals.css";
-import { LabHeader } from "./lab-header";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -10,7 +11,10 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Component lab",
+  title: {
+    default: copy.siteName,
+    template: `%s · ${copy.siteName}`,
+  },
   robots: { index: false, follow: false },
 };
 
@@ -27,8 +31,7 @@ export default async function DevLayout({
       style={toCssVars(settings.theme)}
     >
       <body className="flex min-h-full min-w-0 flex-col bg-background text-foreground">
-        <LabHeader />
-        {children}
+        <DevShell>{children}</DevShell>
       </body>
     </html>
   );

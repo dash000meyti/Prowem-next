@@ -23,69 +23,113 @@ const cssVarByColor: Record<ButtonColor, string> = {
   error: "--error",
 };
 
+type CardSurface = "panel" | "glass";
+type CardLight = "none" | ButtonColor;
+
+function isLightColor(value: string | null | undefined): value is ButtonColor {
+  return Boolean(value && value !== "none" && value in cssVarByColor);
+}
+
+function spotMix(color: string | null | undefined, glass: boolean): string {
+  if (!isLightColor(color)) {
+    return "transparent";
+  }
+
+  const token = cssVarByColor[color];
+  return glass
+    ? `color-mix(in srgb, var(${token}) 18%, transparent)`
+    : `color-mix(in srgb, var(${token}) 18%, var(--panel))`;
+}
+
 function lightVars(
-  surface:
-    | "panel"
-    | "glass"
-    | "light"
-    | "glass-light"
-    | "light-dual"
-    | "glass-light-dual"
-    | null
-    | undefined,
-  color: ButtonColor | null | undefined,
-): CSSProperties | undefined {
-  if (
-    surface !== "light" &&
-    surface !== "glass-light" &&
-    surface !== "light-dual" &&
-    surface !== "glass-light-dual"
-  ) {
-    return undefined;
-  }
-
-  const token = cssVarByColor[color ?? "primary"];
-  const glass = surface === "glass-light" || surface === "glass-light-dual";
-  const dual = surface === "light-dual" || surface === "glass-light-dual";
-
-  const vars = {
-    "--card-spot": glass
-      ? `color-mix(in srgb, var(${token}) 18%, transparent)`
-      : `color-mix(in srgb, var(${token}) 18%, var(--panel))`,
-    "--card-base": glass
-      ? "color-mix(in srgb, var(--panel) 42%, transparent)"
-      : "var(--panel)",
-  } as CSSProperties;
-
-  if (!dual) {
-    return vars;
-  }
+  surface: CardSurface | null | undefined,
+  lightBottom: string | null | undefined,
+  lightTop: string | null | undefined,
+  lightStart: string | null | undefined,
+  lightEnd: string | null | undefined,
+): CSSProperties {
+  const glass = surface === "glass";
+  const lit =
+    isLightColor(lightBottom) ||
+    isLightColor(lightTop) ||
+    isLightColor(lightStart) ||
+    isLightColor(lightEnd);
 
   return {
-    ...vars,
-    "--card-spot-fg": glass
-      ? "color-mix(in srgb, var(--foreground) 18%, transparent)"
-      : "color-mix(in srgb, var(--foreground) 18%, var(--panel))",
+    "--card-spot-bottom": spotMix(lightBottom, glass),
+    "--card-spot-top": spotMix(lightTop, glass),
+    "--card-spot-start": spotMix(lightStart, glass),
+    "--card-spot-end": spotMix(lightEnd, glass),
+    "--card-base": glass
+      ? lit
+        ? "color-mix(in srgb, var(--panel) 42%, transparent)"
+        : "color-mix(in srgb, var(--panel) 72%, transparent)"
+      : "var(--panel)",
   } as CSSProperties;
 }
 
-const colorVariants = Object.fromEntries(
-  buttonColors.map((color) => [color, ""]),
-) as Record<ButtonColor, string>;
+const lightVariants = {
+  none: "",
+  ...Object.fromEntries(buttonColors.map((color) => [color, ""])),
+} as Record<CardLight, string>;
+
+const cardBorderWidth = {
+  none: "var(--theme-border-width-none)",
+  sm: "var(--theme-border-width-sm)",
+  md: "var(--theme-border-width-md)",
+  lg: "var(--theme-border-width-lg)",
+} as const;
+
+const cardBorderColors = {
+  border: "var(--border)",
+  background: "var(--background)",
+  foreground: "var(--foreground)",
+  primary: "var(--primary)",
+  "accent-1": "var(--accent-1)",
+  "accent-2": "var(--accent-2)",
+  "accent-3": "var(--accent-3)",
+  "accent-4": "var(--accent-4)",
+  success: "var(--success)",
+  warning: "var(--warning)",
+  error: "var(--error)",
+} as const;
+
+const borderColorVariants = {
+  border: "border-border",
+  background: "border-background",
+  foreground: "border-foreground",
+  primary: "border-primary",
+  "accent-1": "border-accent-1",
+  "accent-2": "border-accent-2",
+  "accent-3": "border-accent-3",
+  "accent-4": "border-accent-4",
+  success: "border-success",
+  warning: "border-warning",
+  error: "border-error",
+} as const;
+
+function borderVars(
+  border: keyof typeof cardBorderWidth | null | undefined,
+  borderColor: keyof typeof cardBorderColors | null | undefined,
+): CSSProperties {
+  return {
+    "--card-border-width": cardBorderWidth[border ?? "md"],
+    "--card-border-color": cardBorderColors[borderColor ?? "border"],
+  } as CSSProperties;
+}
 
 export const cardVariants = cva(
-  "flex min-w-0 flex-col overflow-hidden border border-md border-border text-panel-foreground text-start",
+  "flex min-w-0 flex-col overflow-hidden bg-card-spots text-panel-foreground text-start",
   {
     variants: {
       surface: {
-        panel: "bg-panel",
-        glass: "bg-panel/72 backdrop-blur-sm",
-        light: "bg-card-light",
-        "glass-light": "bg-card-glass-light backdrop-blur-sm",
-        "light-dual": "bg-card-light-dual",
-        "glass-light-dual": "bg-card-light-dual backdrop-blur-sm",
+        panel: "",
+        glass: "backdrop-blur-sm",
       },
-      color: colorVariants,
+      lightBottom: lightVariants,
+      lightTop: lightVariants,
+      lightStart: lightVariants,
+      lightEnd: lightVariants,
       padding: cardPadding,
       radius: {
         none: "rounded-none",
@@ -94,32 +138,66 @@ export const cardVariants = cva(
         lg: "rounded-lg",
         full: "rounded-full",
       },
+      border: {
+        none: "border-none",
+        sm: "border border-sm",
+        md: "border border-md",
+        lg: "border border-lg",
+      },
+      borderColor: borderColorVariants,
     },
     defaultVariants: {
       surface: "panel",
-      color: "primary",
+      lightBottom: "none",
+      lightTop: "none",
+      lightStart: "none",
+      lightEnd: "none",
       padding: "none",
       radius: "md",
+      border: "md",
+      borderColor: "border",
     },
   },
 );
 
-export type CardProps = Omit<HTMLAttributes<HTMLDivElement>, "color"> &
+export type CardProps = HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof cardVariants>;
 
 export function Card({
   className,
   surface,
-  color,
+  lightBottom,
+  lightTop,
+  lightStart,
+  lightEnd,
   padding,
   radius,
+  border,
+  borderColor,
   style,
   ...props
 }: CardProps) {
   return (
     <div
-      className={cn(cardVariants({ surface, color, padding, radius }), className)}
-      style={{ ...lightVars(surface, color), ...style }}
+      className={cn(
+        cardVariants({
+          surface,
+          lightBottom,
+          lightTop,
+          lightStart,
+          lightEnd,
+          padding,
+          radius,
+          border,
+          borderColor,
+        }),
+        className,
+      )}
+      style={{
+        ...borderVars(border, borderColor),
+        ...lightVars(surface, lightBottom, lightTop, lightStart, lightEnd),
+        ...style,
+      }}
       {...props}
     />
   );
