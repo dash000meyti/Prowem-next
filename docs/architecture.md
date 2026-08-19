@@ -70,11 +70,10 @@ Request → proxy.ts → [lang]/layout.tsx → page
                          ├─ theme CSS vars (getSettings)
                          ├─ SiteHeader (template)
                          │    ├─ Container (UI)
-                         │    ├─ LanguageSwitcher (template)
-                         │    │    └─ Dropdown (UI) + Icon flags
-                         │    │         └─ Button + Card
+                         │    ├─ Dropdown language menu (UI) + Icon flags
+                         │    │    └─ Button + Card
                          │    ├─ Button Get Started (UI)
-                         │    └─ SideMenu (UI, below header.navFrom)
+                         │    └─ SideMenu (UI, Card slots, below header.navFrom)
                          └─ getDictionary() / getSettings()
 ```
 

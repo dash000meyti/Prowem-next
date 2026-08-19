@@ -5,14 +5,14 @@ Three layers. Do not mix their jobs.
 | Layer | Path | Job |
 | --- | --- | --- |
 | **UI** | `src/components/ui/` | Atoms: look and interaction only |
-| **Templates** | `src/components/templates/` | Compositions: header, switcher, later hero/footer |
+| **Templates** | `src/components/templates/` | Compositions: header, later hero/footer |
 | **Icons** | `src/components/icons/` | SVG glyphs and flags. No CVA, no copy, no routes |
 
 UI never knows about locales, dictionaries, or routes. Templates may, but they still take copy as props instead of importing JSON. UI and Templates both import icons from `@/components/icons`. Do not put glyphs inside `ui/` or `templates/`.
 
 The visual inventory is `/dev`: English docs, playgrounds (LTR/RTL and hatch controls on the preview Card), and permutation galleries. Routes live in `src/app/dev`; chrome, meta, playgrounds, and galleries live in `src/dev`. Product code must not import either folder. Same turn as UI / Templates / Icons / token/config updates: add or update `src/dev/meta`, the playground renderer, and the gallery. The lab shell uses `Container width="full"`. Lab copy is English in `src/dev/copy.ts`, not product dictionaries. There is no dark mode and no locale routing on `/dev`.
 
-Higher UI atoms compose lower ones. Do not copy chrome styles: Dropdown’s trigger is a Button and its open panel is a Card. A later Popup should be Card + Button (plus overlay). Card does not import Button or Dropdown; `CardFooter` is a layout slot.
+Higher UI atoms compose lower ones. Do not copy chrome styles: Dropdown’s trigger is a Button and its open panel is a Card. SideMenu’s panel is a Card (`SideMenuHeader` / `SideMenuContent` / `SideMenuFooter`). A later Popup should be Card + Button (plus overlay). Card does not import Button or Dropdown; `CardFooter` is a layout slot.
 
 ## Folder contract
 
@@ -58,7 +58,7 @@ Icon-only (`icon` and no label): equal padding, same height as `size` (`sm`: `si
 
 ### Card
 
-Compound atom: `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent` (main), `CardFooter`. No copy, no Button import. `cardVariants()`, `cardHeaderVariants()`, `cardContentVariants()`, and `cardFooterVariants()` are exported.
+Compound atom: `Card`, `CardHeader`, `CardContent` (main), `CardFooter`. No copy, no Button import. `cardVariants()`, `cardHeaderVariants()`, `cardContentVariants()`, and `cardFooterVariants()` are exported. Header and Footer are layout slots: put children in them (text, buttons, anything).
 
 Root `Card`:
 
@@ -72,9 +72,9 @@ Root `Card`:
 
 `surface` is only the fill: `panel` uses `--panel`; `glass` is the stuck-header mix (`panel` at 72% when unlit, 42% when any light is on) plus `backdrop-blur-sm`. Lights are independent ellipse glows (18% mix) on `bg-card-spots`. `lightStart` / `lightEnd` follow `dir` (not `left` / `right`). Old names map as: `light` → `lightBottom="primary"`; `glass-light` → `surface="glass"` + `lightBottom="primary"`; `light-dual` → `lightBottom="primary"` + `lightTop="foreground"`; `glass-light-dual` → the same lights on `glass`. Root has `overflow-hidden` so slot fills and gradients clip to radius. Root paints its box border from `--card-border-width` and `--card-border-color` (same vars Header/Footer edges inherit). Do not use the Tailwind `border` shorthand with `border-sm|md|lg` — that shorthand also sets width to 1px and wins over the token.
 
-`CardHeader` / `CardFooter` `variant`: `none` | `filled` (`bg-panel-hover/50`) | `border` (default; header bottom edge, footer top edge) | `divider` (`filled` + `border`). Those `border` / `divider` lines use the parent Card’s `border` width and `borderColor`; slots do not take those props. The line is inset on both inline sides by the slot’s `padding` (`none` stays full width; `md` matches `p-4`). Fill stays full-bleed. `CardContent` has no variant yet.
+`CardHeader` / `CardFooter` `variant`: `none` | `filled` (`bg-panel-hover/50`) | `border` (default; header bottom edge, footer top edge) | `divider` (`filled` + `border`). Those `border` / `divider` lines use the parent Card’s `border` width and `borderColor`; slots do not take those props. `border` insets the line on both inline sides by the slot’s `padding` (`none` stays full width; `md` matches `p-4`). `divider` keeps the line full-bleed at every padding. Fill stays full-bleed. `CardContent` has no variant yet.
 
-Slot `padding`: `none` | `sm` | `md` | `lg` (default `md` = `p-4`) on Header, Content, and Footer. Title and Description have no padding of their own. Header and Footer take their content height (`shrink-0`). `CardContent` fills the leftover space (`flex-1 min-h-0`).
+Slot `padding`: `none` | `sm` | `md` | `lg` (default `md` = `p-4`) on Header, Content, and Footer. Header and Footer take their content height (`shrink-0`). `CardContent` fills the leftover space (`flex-1 min-h-0`).
 
 ### Dropdown
 
@@ -83,8 +83,9 @@ Client atom. No copy, no routing. Closed/open, click-outside, and Escape live he
 
 ### SideMenu
 
-Props: `icon?` (`IconName`), `trigger?` (text or node), `children`, `label`, `closeLabel`, `footer?`, `variant?` (`filled` | `secondary` | `outline` | `soft` | `link` | `muted`, default `outline`), `color?` (same as Button, default `primary`), `side?` (`start` | `end`, default `end`), `className?`.  
-Client atom. No copy, no routing. Overlay, Escape, and the close control live here. The trigger is a Button like Dropdown. The panel is `fixed` `bg-panel` from `start` or `end` (logical, RTL-safe), `w-80 max-w-full`, with a `close` icon button. Optional `footer` stays pinned to the bottom of the panel. Overlay and panel fade/slide in `300ms` (`duration-300`). Portal to `document.body` so sticky headers do not clip it.
+Compound atom: `SideMenu`, `SideMenuHeader`, `SideMenuContent`, `SideMenuFooter`. `sideMenuPanelVariants()` is exported.  
+Props on the root: `icon?` (`IconName`), `trigger?` (text or node), `children`, `label`, `closeLabel`, `variant?` (`filled` | `secondary` | `outline` | `soft` | `link` | `muted`, default `outline`), `color?` (same as Button, default `primary`), `side?` (`start` | `end`, default `end`), `className?`. No `footer` prop — pin actions with `SideMenuFooter`.  
+Client atom. No copy, no routing. Overlay, Escape, and the close control live here (close is rendered by `SideMenuHeader`). The trigger is a Button like Dropdown. The panel is a `Card` (`padding="none"`, `radius="none"`) `fixed` from `start` or `end` (logical, RTL-safe), `w-80 max-w-full`. Header / Content / Footer are Card slots: Header default `variant="divider"` and includes the close button; Content fills leftover space; Footer default `variant="divider"`. Overlay and panel fade/slide in `300ms` (`duration-300`). Portal to `document.body` so sticky headers do not clip it.
 
 ### Container
 
@@ -102,15 +103,10 @@ Current names: `close`, `menu`, `chevron-up`, `chevron-down`, `flag-en`, `flag-d
 
 ## Template inventory (phase 1)
 
-### LanguageSwitcher
-
-Props: `currentLocale`, `label`, `className?`.  
-Client component. Trigger is a `soft` Dropdown with the current locale’s flag `Icon` (no custom `trigger`). Menu rows use `<Icon name={…} />` plus the native name. Choosing a row swaps the locale segment with `replaceLocaleInPathname`. Labels come from `localeMeta`, not from dictionaries.
-
 ### SiteHeader
 
 Props: `siteName`, `nav` (`Dictionary["nav"]`), `currentLocale`, `navFrom` (named theme breakpoint from `settings.header.navFrom`), `className?`.  
-Composes `Container` + locale-prefixed nav links + `LanguageSwitcher` + filled Get Started `Button`. The home link shows the brand wordmark (`/logo.svg`, displayed at `h-[1.44rem]` / 0.72 of `h-8`) with `siteName` as the image `alt`. Destinations are `/`, `/my-event-app`, `/my-broadcast`, `/my-socialmedia`, `/my-club`, `/event-team`, `/login` under the current locale; pages can be added later on those routes. Each nav item is `variant="subtle"` with a fixed `color`: Home `primary`, My Event-App `accent-1`, My Broadcast `accent-4`, My Socialmedia `accent-3`, My Club `accent-2`, Prowem Event Team `primary`, Login `foreground` (last in the list). The current page is `disabled` (`aria-current="page"`). From `navFrom` the links follow the wordmark at the start of the bar and Get Started stays a filled primary CTA after the language switcher. Below that breakpoint a `secondary` `menu` SideMenu (`side="end"`) holds the same nav items at default Button size; Get Started leaves the bar and is pinned in the SideMenu `footer`. Default `navFrom` in settings is `xl` (1440px). At the top of the page it is `h-20` with no background and a transparent bottom edge. After `8px` of scroll it sticks (`sticky top-0`) at `h-18` with `bg-panel/72 backdrop-blur-sm` and `border-border`. The bottom edge stays `border-b border-md` in both states so the color can fade in over `300ms`; an `h-2` spacer keeps layout from jumping. It returns to the tall transparent bar when `scrollY` is `0`.
+Composes `Container` + locale-prefixed nav links + a `soft` Dropdown language menu (current locale flag `Icon`; rows are flag + native name from `localeMeta`; choosing a row swaps the locale segment with `replaceLocaleInPathname`) + filled Get Started `Button`. The home link shows the brand wordmark (`/logo.svg`, displayed at `h-[1.44rem]` / 0.72 of `h-8`) with `siteName` as the image `alt`. Destinations are `/`, `/my-event-app`, `/my-broadcast`, `/my-socialmedia`, `/my-club`, `/event-team`, `/login` under the current locale; pages can be added later on those routes. Each nav item is `variant="subtle"` with a fixed `color`: Home `primary`, My Event-App `accent-1`, My Broadcast `accent-4`, My Socialmedia `accent-3`, My Club `accent-2`, Prowem Event Team `primary`, Login `foreground` (last in the list). The current page is `disabled` (`aria-current="page"`). From `navFrom` the links follow the wordmark at the start of the bar and Get Started stays a filled primary CTA after the language menu. Below that breakpoint a `secondary` `menu` SideMenu (`side="end"`) holds the same nav items in `SideMenuContent` at default Button size; Get Started leaves the bar and is composed in `SideMenuFooter`. Default `navFrom` in settings is `xl` (1440px). At the top of the page it is `h-20` with no background and a transparent bottom edge. After `8px` of scroll it sticks (`sticky top-0`) at `h-18` with `bg-panel/72 backdrop-blur-sm` and `border-border`. The bottom edge stays `border-b border-md` in both states so the color can fade in over `300ms`; an `h-2` spacer keeps layout from jumping. It returns to the tall transparent bar when `scrollY` is `0`.
 
 ## Checklist: add a UI component
 
@@ -133,7 +129,7 @@ Composes `Container` + locale-prefixed nav links + `LanguageSwitcher` + filled G
 1. Create `src/components/templates/<name>/`.
 2. Compose existing UI. Add a new UI primitive first if the template would otherwise duplicate atom styles.
 3. Accept all copy and locale as props.
-4. Keep routing details inside the template only when they are the template’s job (e.g. language switching).
+4. Keep routing details inside the template only when they are the template’s job (e.g. SiteHeader locale prefix swap).
 5. Same turn: `src/dev/meta/<name>.ts` (register in `src/dev/meta/index.ts`), a playground renderer, and a gallery. The page is `/dev/templates/[slug]` from meta.
 
 ## Responsive (first layer)
@@ -188,7 +184,9 @@ export function SiteHeader({ siteName, nav, currentLocale }: SiteHeaderProps) {
       <Link href={`/${currentLocale}`}>
         <Image src="/logo.svg" alt={siteName} width={972} height={177} unoptimized />
       </Link>
-      <LanguageSwitcher currentLocale={currentLocale} label={nav.language} />
+      <Dropdown label={nav.language} icon="flag-en" variant="soft">
+        {/* locale rows */}
+      </Dropdown>
       <Button>{nav.getStarted}</Button>
     </header>
   );

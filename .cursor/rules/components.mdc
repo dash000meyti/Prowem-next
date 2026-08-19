@@ -12,7 +12,7 @@ Templates (`src/components/templates/`) = compose UI. Copy and `currentLocale` a
 
 Icons (`src/components/icons/`) = SVG glyphs and flags. Import `@/components/icons`. Do not put glyphs in `ui/` or `templates/`. Linear only (`viewBox="0 0 24 24"`, `stroke="currentColor"`, width 1.5). Register names in `registry.ts`.
 
-Each UI/template is a folder: `<name>.tsx` + `index.ts`. Export the component, props type, and `*Variants` when using `cva`. Button `icon` is an `IconName`; icon-only uses equal padding (CVA `iconOnly` compounds that override `md:px-*`). Higher UI atoms compose lower ones: Dropdown uses Button + Card for trigger and panel; do not duplicate chrome styles.
+Each UI/template is a folder: `<name>.tsx` + `index.ts`. Export the component, props type, and `*Variants` when using `cva`. Button `icon` is an `IconName`; icon-only uses equal padding (CVA `iconOnly` compounds that override `md:px-*`). Higher UI atoms compose lower ones: Dropdown uses Button + Card for trigger and panel; SideMenu uses Button + Card slots (`SideMenuHeader` / `Content` / `Footer`); do not duplicate chrome styles.
 
 ```tsx
 // BAD — copy inside UI, no className merge, hex / arbitrary radius

@@ -11,14 +11,15 @@ export const sideMenuMeta = {
   slug: "side-menu",
   kind: "ui",
   file: "src/components/ui/side-menu/side-menu.tsx",
-  importStatement: 'import { SideMenu } from "@/components/ui/side-menu";',
+  importStatement:
+    'import { SideMenu, SideMenuHeader, SideMenuContent, SideMenuFooter } from "@/components/ui/side-menu";',
   description:
-    "Client atom. Overlay, Escape, and close live here. The panel is fixed from start or end (RTL-safe) and portals to document.body so sticky headers do not clip it.",
+    "Client atom. Overlay, Escape, and close live here. The panel is a Card from start or end (RTL-safe) and portals to document.body so sticky headers do not clip it.",
   rules: [
-    "The trigger is a Button like Dropdown.",
+    "The trigger is a Button like Dropdown. The panel is a Card.",
+    "Compose SideMenuHeader / SideMenuContent / SideMenuFooter. Do not pass a footer prop.",
     "side is start|end (logical), default end.",
     "The playground LTR/RTL control sets dir on the preview only. The panel portals to document.body, so it follows the document direction.",
-    "Optional footer stays pinned to the bottom of the panel.",
     "Pass closeLabel from the parent. Do not hardcode it.",
   ],
   props: [

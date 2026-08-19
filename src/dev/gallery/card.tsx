@@ -2,16 +2,15 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { copy } from "@/dev/copy";
 import { cardLabPreview, GalleryHeading } from "@/dev/gallery/shared";
 import {
   borderValues,
   cardBorderColorValues,
+  cardLightValues,
   cardSlotVariantValues,
   cardSurfaceValues,
   paddingValues,
@@ -42,10 +41,7 @@ export function CardGallery() {
           defaults="surface panel, lights none, padding none, radius md, border md, borderColor border"
         />
         <Card className={`max-w-sm ${cardLabPreview}`}>
-          <CardHeader variant="divider">
-            <CardTitle>{copy.demo.cardTitle}</CardTitle>
-            <CardDescription>{copy.demo.cardDescription}</CardDescription>
-          </CardHeader>
+          <CardHeader variant="divider">{copy.demo.cardTitle}</CardHeader>
           <CardContent>
             <p className="text-sm">{copy.demo.cardContent}</p>
           </CardContent>
@@ -90,13 +86,28 @@ export function CardGallery() {
       </div>
 
       <div className="flex min-w-0 flex-col gap-2">
+        <GalleryHeading label="light color" defaults="none; lightBottom" />
+        <div className="flex min-w-0 flex-wrap items-stretch gap-2">
+          {cardLightValues.map((light) => (
+            <Card
+              key={light}
+              lightBottom={light}
+              className={cardLabPreview}
+            >
+              <CardContent>
+                <p className="text-sm">{light}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex min-w-0 flex-col gap-2">
         <GalleryHeading label="header / footer" defaults="border" />
         <div className="flex min-w-0 flex-wrap items-stretch gap-2">
           {cardSlotVariantValues.map((variant) => (
             <Card key={variant} className={cardLabPreview}>
-              <CardHeader variant={variant}>
-                <CardTitle>{variant}</CardTitle>
-              </CardHeader>
+              <CardHeader variant={variant}>{variant}</CardHeader>
               <CardContent>
                 <p className="text-sm">Main</p>
               </CardContent>
@@ -130,12 +141,34 @@ export function CardGallery() {
           {paddingValues.map((padding) => (
             <Card key={padding} className={cardLabPreview}>
               <CardHeader padding={padding} variant="border">
-                <CardTitle>Header {padding}</CardTitle>
+                Header {padding}
               </CardHeader>
               <CardContent padding={padding}>
                 <p className="text-sm">Main {padding}</p>
               </CardContent>
               <CardFooter padding={padding} variant="border">
+                <p className="text-sm">Footer {padding}</p>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex min-w-0 flex-col gap-2">
+        <GalleryHeading
+          label="divider × padding"
+          defaults="md; divider line is full width"
+        />
+        <div className="flex min-w-0 flex-wrap items-stretch gap-2">
+          {paddingValues.map((padding) => (
+            <Card key={padding} className={cardLabPreview}>
+              <CardHeader padding={padding} variant="divider">
+                Header {padding}
+              </CardHeader>
+              <CardContent padding={padding}>
+                <p className="text-sm">Main {padding}</p>
+              </CardContent>
+              <CardFooter padding={padding} variant="divider">
                 <p className="text-sm">Footer {padding}</p>
               </CardFooter>
             </Card>
@@ -170,9 +203,7 @@ export function CardGallery() {
         <div className="flex min-w-0 flex-wrap items-stretch gap-2">
           {borderValues.map((border) => (
             <Card key={border} border={border} className={cardLabPreview}>
-              <CardHeader variant="divider">
-                <CardTitle>{border}</CardTitle>
-              </CardHeader>
+              <CardHeader variant="divider">{border}</CardHeader>
               <CardContent>
                 <p className="text-sm">Main</p>
               </CardContent>
@@ -209,9 +240,7 @@ export function CardGallery() {
               borderColor={borderColor}
               className={cardLabPreview}
             >
-              <CardHeader variant="divider">
-                <CardTitle>{borderColor}</CardTitle>
-              </CardHeader>
+              <CardHeader variant="divider">{borderColor}</CardHeader>
               <CardContent>
                 <p className="text-sm">Main</p>
               </CardContent>

@@ -4,16 +4,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { LanguageSwitcher } from "@/components/templates/language-switcher";
+import { Icon, type IconName } from "@/components/icons";
 import {
   Button,
   buttonVariants,
   type ButtonColor,
 } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { SideMenu } from "@/components/ui/side-menu";
-import type { Locale } from "@/i18n/config";
+import { Dropdown } from "@/components/ui/dropdown";
+import {
+  SideMenu,
+  SideMenuContent,
+  SideMenuFooter,
+  SideMenuHeader,
+} from "@/components/ui/side-menu";
+import { locales, localeMeta, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionary";
+import { replaceLocaleInPathname } from "@/i18n/pathname";
 import { cn } from "@/lib/cn";
 import type { BreakpointName } from "@/settings/types";
 
@@ -69,6 +76,14 @@ const pageLinks = [
   color: ButtonColor;
 }>;
 
+const localeFlagIcons = {
+  en: "flag-en",
+  de: "flag-de",
+  pt: "flag-pt",
+  es: "flag-es",
+  ar: "flag-ar",
+} as const satisfies Record<Locale, IconName>;
+
 export type SiteHeaderProps = {
   siteName: string;
   nav: Dictionary["nav"];
@@ -79,6 +94,59 @@ export type SiteHeaderProps = {
 
 function hrefFor(locale: Locale, path: string) {
   return path === "" ? `/${locale}` : `/${locale}${path}`;
+}
+
+function LanguageMenu({
+  currentLocale,
+  pathname,
+  label,
+}: {
+  currentLocale: Locale;
+  pathname: string;
+  label: string;
+}) {
+  const currentLabel = localeMeta[currentLocale].label;
+
+  return (
+    <nav aria-label={label} className="flex justify-end">
+      <Dropdown
+        label={`${label}: ${currentLabel}`}
+        icon={localeFlagIcons[currentLocale]}
+        variant="soft"
+      >
+        <ul className="flex min-w-0 flex-col">
+          {locales.map((locale) => {
+            const isCurrent = locale === currentLocale;
+
+            return (
+              <li key={locale}>
+                <Link
+                  href={replaceLocaleInPathname(pathname, locale)}
+                  hrefLang={localeMeta[locale].htmlLang}
+                  lang={localeMeta[locale].htmlLang}
+                  role="menuitem"
+                  aria-current={isCurrent ? "true" : undefined}
+                  className={cn(
+                    buttonVariants({
+                      variant: isCurrent ? "filled" : "ghost",
+                      size: "sm",
+                      radius: "md",
+                    }),
+                    "w-full justify-start gap-2",
+                  )}
+                >
+                  <Icon name={localeFlagIcons[locale]} />
+                  <span className="min-w-0 truncate">
+                    {localeMeta[locale].label}
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </Dropdown>
+    </nav>
+  );
 }
 
 function NavItem({
@@ -218,8 +286,9 @@ export function SiteHeader({
             ))}
           </nav>
           <div className={layout.tools}>
-            <LanguageSwitcher
+            <LanguageMenu
               currentLocale={currentLocale}
+              pathname={pathname}
               label={nav.language}
             />
             <Button className={layout.cta}>
@@ -232,22 +301,27 @@ export function SiteHeader({
               closeLabel={nav.close}
               variant="secondary"
               side="end"
-              footer={<Button className="w-full">{nav.getStarted}</Button>}
             >
-              <ul className="flex min-w-0 flex-col">
-                {links.map((item) => (
-                  <li key={item.href}>
-                    <NavItem
-                      href={item.href}
-                      label={item.label}
-                      color={item.color}
-                      current={item.current}
-                      role="menuitem"
-                      className="w-full justify-start"
-                    />
-                  </li>
-                ))}
-              </ul>
+              <SideMenuHeader>{nav.menu}</SideMenuHeader>
+              <SideMenuContent>
+                <ul className="flex min-w-0 flex-col">
+                  {links.map((item) => (
+                    <li key={item.href}>
+                      <NavItem
+                        href={item.href}
+                        label={item.label}
+                        color={item.color}
+                        current={item.current}
+                        role="menuitem"
+                        className="w-full justify-start"
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </SideMenuContent>
+              <SideMenuFooter>
+                <Button className="w-full">{nav.getStarted}</Button>
+              </SideMenuFooter>
             </SideMenu>
           </div>
         </Container>

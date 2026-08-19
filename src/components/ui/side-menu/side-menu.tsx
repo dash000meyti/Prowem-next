@@ -1,10 +1,27 @@
 "use client";
 
-import { useEffect, useId, useState, useSyncExternalStore, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useId,
+  useState,
+  useSyncExternalStore,
+  type ReactNode,
+} from "react";
 import { createPortal } from "react-dom";
 import { cva, type VariantProps } from "class-variance-authority";
 import type { IconName } from "@/components/icons";
 import { Button, type ButtonColor } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  type CardContentProps,
+  type CardFooterProps,
+  type CardHeaderProps,
+} from "@/components/ui/card";
 import { cn } from "@/lib/cn";
 
 const subscribeIsClient = () => () => {};
@@ -12,12 +29,12 @@ const getIsClientSnapshot = () => true;
 const getIsServerSnapshot = () => false;
 
 export const sideMenuPanelVariants = cva(
-  "fixed inset-y-0 z-50 flex w-80 max-w-full min-w-0 flex-col bg-panel transition-transform duration-300 motion-reduce:transition-none",
+  "fixed inset-y-0 z-50 h-dvh w-80 max-w-full min-w-0 transition-transform duration-300 motion-reduce:transition-none",
   {
     variants: {
       side: {
-        start: "start-0 border-e border-border",
-        end: "end-0 border-s border-border",
+        start: "start-0",
+        end: "end-0",
       },
     },
     defaultVariants: {
@@ -31,7 +48,32 @@ const closedTranslate = {
   end: "translate-x-full rtl:-translate-x-full",
 } as const;
 
-export type SideMenuVariant = "filled" | "secondary" | "outline" | "soft" | "link" | "muted";
+type SideMenuContextValue = {
+  close: () => void;
+  closeLabel: string;
+  titleId: string;
+  closeId: string;
+};
+
+const SideMenuContext = createContext<SideMenuContextValue | null>(null);
+
+function useSideMenu() {
+  const value = useContext(SideMenuContext);
+
+  if (!value) {
+    throw new Error("SideMenu slots must be used inside SideMenu.");
+  }
+
+  return value;
+}
+
+export type SideMenuVariant =
+  | "filled"
+  | "secondary"
+  | "outline"
+  | "soft"
+  | "link"
+  | "muted";
 
 export type SideMenuProps = {
   trigger?: ReactNode;
@@ -42,9 +84,85 @@ export type SideMenuProps = {
   variant?: SideMenuVariant;
   color?: ButtonColor;
   side?: VariantProps<typeof sideMenuPanelVariants>["side"];
-  footer?: ReactNode;
   className?: string;
 };
+
+export type SideMenuHeaderProps = CardHeaderProps;
+export type SideMenuContentProps = CardContentProps;
+export type SideMenuFooterProps = CardFooterProps;
+
+export function SideMenuHeader({
+  className,
+  children,
+  variant = "divider",
+  ...props
+}: SideMenuHeaderProps) {
+  const { close, closeLabel, titleId, closeId } = useSideMenu();
+
+  return (
+    <CardHeader
+      variant={variant}
+      className={cn("flex-row items-center justify-between", className)}
+      {...props}
+    >
+      <div
+        id={titleId}
+        className="min-w-0 truncate text-start text-sm font-semibold tracking-tight"
+      >
+        {children}
+      </div>
+      <Button
+        id={closeId}
+        type="button"
+        variant="subtle"
+        color="foreground"
+        icon="close"
+        aria-label={closeLabel}
+        onClick={close}
+      />
+    </CardHeader>
+  );
+}
+
+export function SideMenuContent({
+  className,
+  onClick,
+  ...props
+}: SideMenuContentProps) {
+  const { close } = useSideMenu();
+
+  return (
+    <CardContent
+      className={cn("overflow-y-auto", className)}
+      onClick={(event) => {
+        onClick?.(event);
+        close();
+      }}
+      {...props}
+    />
+  );
+}
+
+export function SideMenuFooter({
+  className,
+  variant = "divider",
+  onClick,
+  ...props
+}: SideMenuFooterProps) {
+  const { close } = useSideMenu();
+
+  return (
+    <CardFooter
+      variant={variant}
+      className={cn("w-full", className)}
+      onClick={(event) => {
+        onClick?.(event);
+        close();
+      }}
+      {...props}
+    />
+  );
+}
 
 export function SideMenu({
   trigger,
@@ -55,7 +173,6 @@ export function SideMenu({
   variant = "outline",
   color = "primary",
   side = "end",
-  footer,
   className,
 }: SideMenuProps) {
   const [open, setOpen] = useState(false);
@@ -124,50 +241,31 @@ export function SideMenu({
                 )}
                 onClick={() => setOpen(false)}
               />
-              <div
+              <Card
                 id={panelId}
                 role="dialog"
                 aria-modal={open}
                 aria-labelledby={titleId}
                 aria-hidden={!open}
                 inert={!open}
+                padding="none"
+                radius="none"
                 className={cn(
                   sideMenuPanelVariants({ side: resolvedSide }),
                   open ? "translate-x-0" : closedTranslate[resolvedSide],
                 )}
               >
-                <div className="flex shrink-0 items-center justify-between gap-2 px-4 py-3">
-                  <p
-                    id={titleId}
-                    className="min-w-0 truncate text-sm font-semibold tracking-tight text-start"
-                  >
-                    {label}
-                  </p>
-                  <Button
-                    id={closeId}
-                    type="button"
-                    variant="subtle"
-                    color="foreground"
-                    icon="close"
-                    aria-label={closeLabel}
-                    onClick={() => setOpen(false)}
-                  />
-                </div>
-                <div
-                  className="min-h-0 min-w-0 flex-1 overflow-y-auto px-4 pb-4"
-                  onClick={() => setOpen(false)}
+                <SideMenuContext.Provider
+                  value={{
+                    close: () => setOpen(false),
+                    closeLabel,
+                    titleId,
+                    closeId,
+                  }}
                 >
                   {children}
-                </div>
-                {footer ? (
-                  <div
-                    className="shrink-0 px-4 pb-4"
-                    onClick={() => setOpen(false)}
-                  >
-                    {footer}
-                  </div>
-                ) : null}
-              </div>
+                </SideMenuContext.Provider>
+              </Card>
             </>,
             document.body,
           )

@@ -29,8 +29,8 @@ Permanent. The user will not repeat it.
 ## Layout
 
 - Routes: `src/app/[lang]/` — prefixes `/en` `/de` `/pt` `/es` `/ar`
-- UI atoms: `src/components/ui/<name>/` (higher atoms compose lower ones: Dropdown → Button + Card)
-- Templates: `src/components/templates/<name>/`
+- UI atoms: `src/components/ui/<name>/` (higher atoms compose lower ones: Dropdown → Button + Card; SideMenu → Button + Card slots)
+- Templates: `src/components/templates/<name>/` (phase 1: SiteHeader)
 - Icons: `src/components/icons/` (`<Icon name="…" />`; Linear only)
 - Static assets: `public/` (`logo.svg` wordmark, `favicon/` PHP set)
 - Locales: `src/i18n/config.ts` + `src/i18n/messages/*.json` (copy via `getDictionary()`)

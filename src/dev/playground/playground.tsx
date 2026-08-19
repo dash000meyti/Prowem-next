@@ -7,7 +7,6 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { copy } from "@/dev/copy";
 import { labHatchClass } from "@/dev/gallery/shared";
@@ -118,7 +117,9 @@ export function Playground({
         variant="divider"
         className="flex-row items-center justify-between gap-3"
       >
-        <CardTitle>{copy.playground}</CardTitle>
+        <span className="min-w-0 text-start text-base font-semibold tracking-tight">
+          {copy.playground}
+        </span>
         <div className="flex min-w-0 shrink-0 items-center gap-2">
           <Button
             type="button"

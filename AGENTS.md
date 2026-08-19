@@ -71,8 +71,8 @@ Implement only after the user confirms.
 
 ## Components
 
-- **UI** = reusable atoms (Button, Card, Container). No page-specific copy or routing. Higher atoms compose lower ones (Dropdown → Button + Card).
-- **Templates** = compositions of UI for a layout role (SiteHeader, LanguageSwitcher).
+- **UI** = reusable atoms (Button, Card, Container). No page-specific copy or routing. Higher atoms compose lower ones (Dropdown → Button + Card; SideMenu → Button + Card slots).
+- **Templates** = compositions of UI for a layout role (SiteHeader).
 - **Icons** = SVG pack (`<Icon name="close" />`). Linear glyphs and flags. Not UI atoms; do not put glyphs in `ui/` or `templates/`.
 - Every public component accepts explicit props and `className`, merged with `cn()`.
 - Variants go through `class-variance-authority`. Export both the component and its `*Variants` helper.

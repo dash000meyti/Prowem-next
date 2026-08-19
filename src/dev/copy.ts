@@ -63,7 +63,6 @@ export const copy = {
     cancel: "Cancel",
     confirm: "Confirm",
     cardTitle: "Title",
-    cardDescription: "Description",
     cardContent: "Content",
     getStarted: "Get Started",
     nav: {

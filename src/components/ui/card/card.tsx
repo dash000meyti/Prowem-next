@@ -10,12 +10,23 @@ const cardPadding = {
   lg: "p-6",
 } as const;
 
-const cardSlotPadding = {
-  none: "[--card-edge-inset:0px]",
-  sm: "p-2 [--card-edge-inset:calc(var(--spacing)_*_2)]",
-  md: "p-4 [--card-edge-inset:calc(var(--spacing)_*_4)]",
-  lg: "p-6 [--card-edge-inset:calc(var(--spacing)_*_6)]",
-} as const;
+const cardBorderEdgeCompounds = [
+  {
+    variant: "border" as const,
+    padding: "sm" as const,
+    class: "[--card-edge-inset:calc(var(--spacing)_*_2)]",
+  },
+  {
+    variant: "border" as const,
+    padding: "md" as const,
+    class: "[--card-edge-inset:calc(var(--spacing)_*_4)]",
+  },
+  {
+    variant: "border" as const,
+    padding: "lg" as const,
+    class: "[--card-edge-inset:calc(var(--spacing)_*_6)]",
+  },
+];
 
 const cssVarByColor: Record<ButtonColor, string> = {
   background: "--background",
@@ -223,8 +234,9 @@ export const cardHeaderVariants = cva(
         border: "card-edge-bottom",
         divider: "card-edge-bottom bg-panel-hover/50",
       },
-      padding: cardSlotPadding,
+      padding: cardPadding,
     },
+    compoundVariants: cardBorderEdgeCompounds,
     defaultVariants: {
       variant: "border",
       padding: "md",
@@ -244,34 +256,6 @@ export function CardHeader({
   return (
     <div
       className={cn(cardHeaderVariants({ variant, padding }), className)}
-      {...props}
-    />
-  );
-}
-
-export type CardTitleProps = HTMLAttributes<HTMLDivElement>;
-
-export function CardTitle({ className, ...props }: CardTitleProps) {
-  return (
-    <div
-      className={cn(
-        "min-w-0 text-start text-base font-semibold tracking-tight",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
-
-export type CardDescriptionProps = HTMLAttributes<HTMLDivElement>;
-
-export function CardDescription({ className, ...props }: CardDescriptionProps) {
-  return (
-    <div
-      className={cn(
-        "min-w-0 text-start text-sm text-panel-foreground/70",
-        className,
-      )}
       {...props}
     />
   );
@@ -312,8 +296,9 @@ export const cardFooterVariants = cva(
         border: "card-edge-top",
         divider: "card-edge-top bg-panel-hover/50",
       },
-      padding: cardSlotPadding,
+      padding: cardPadding,
     },
+    compoundVariants: cardBorderEdgeCompounds,
     defaultVariants: {
       variant: "border",
       padding: "md",

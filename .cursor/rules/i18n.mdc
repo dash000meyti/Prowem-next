@@ -6,7 +6,7 @@ alwaysApply: false
 
 # i18n
 
-Single locale list: `src/i18n/config.ts`. Do not duplicate `locales` in Proxy, layouts, or the switcher.
+Single locale list: `src/i18n/config.ts`. Do not duplicate `locales` in Proxy, layouts, or SiteHeader.
 
 `en.json` is the schema. After adding keys, update every `messages/*.json` and keep `assert-complete.ts` compiling.
 

@@ -1,16 +1,13 @@
 "use client";
 
 import type { IconName } from "@/components/icons";
-import { LanguageSwitcher } from "@/components/templates/language-switcher";
 import { SiteHeader } from "@/components/templates/site-header";
 import { Button, type ButtonColor, type ButtonProps } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
   type CardContentProps,
   type CardFooterProps,
   type CardHeaderProps,
@@ -18,7 +15,13 @@ import {
 } from "@/components/ui/card";
 import { Container, type ContainerProps } from "@/components/ui/container";
 import { Dropdown, type DropdownProps } from "@/components/ui/dropdown";
-import { SideMenu, type SideMenuProps } from "@/components/ui/side-menu";
+import {
+  SideMenu,
+  SideMenuContent,
+  SideMenuFooter,
+  SideMenuHeader,
+  type SideMenuProps,
+} from "@/components/ui/side-menu";
 import { copy } from "@/dev/copy";
 import { DemoMenu } from "@/dev/gallery/shared";
 import type { ComponentMeta } from "@/dev/meta/types";
@@ -87,8 +90,7 @@ export function PlaygroundBySlug({
                     variant={values.headerVariant as CardHeaderProps["variant"]}
                     padding={values.headerPadding as CardHeaderProps["padding"]}
                   >
-                    <CardTitle>{String(values.title)}</CardTitle>
-                    <CardDescription>{String(values.description)}</CardDescription>
+                    {String(values.title)}
                   </CardHeader>
                   <CardContent
                     padding={values.contentPadding as CardContentProps["padding"]}
@@ -145,9 +147,14 @@ export function PlaygroundBySlug({
               side={values.side as SideMenuProps["side"]}
               label={String(values.label)}
               closeLabel={String(values.closeLabel)}
-              footer={<Button className="w-full">{copy.demo.getStarted}</Button>}
             >
-              <DemoMenu />
+              <SideMenuHeader>{String(values.label)}</SideMenuHeader>
+              <SideMenuContent>
+                <DemoMenu />
+              </SideMenuContent>
+              <SideMenuFooter>
+                <Button className="w-full">{copy.demo.getStarted}</Button>
+              </SideMenuFooter>
             </SideMenu>
           )}
         />
@@ -166,18 +173,6 @@ export function PlaygroundBySlug({
                 width={String(values.width)} padding={String(values.padding)}
               </p>
             </Container>
-          )}
-        />
-      );
-    case "language-switcher":
-      return (
-        <Playground
-          meta={meta}
-          render={(values: PlaygroundValues) => (
-            <LanguageSwitcher
-              currentLocale={values.currentLocale as Locale}
-              label={String(values.label)}
-            />
           )}
         />
       );

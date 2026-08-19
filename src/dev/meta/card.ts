@@ -15,14 +15,14 @@ export const cardMeta = {
   kind: "ui",
   file: "src/components/ui/card/card.tsx",
   importStatement:
-    'import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";',
+    'import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";',
   description:
-    "Compound surface: Card + Header / Title / Description / Content / Footer. No copy and no Button import. Lights and start/end edges follow dir.",
+    "Compound surface: Card + Header / Content / Footer. No copy and no Button import. Lights and start/end edges follow dir.",
   rules: [
     "Compose the slots. Do not invent a second card chrome on templates.",
     "surface is only the fill (panel or glass). Lights are independent ellipse glows.",
     "lightStart / lightEnd follow dir — not left/right.",
-    "Header and Footer variant border|divider inherit the parent Card border width and borderColor. The line is inset by that slot’s padding (none is full width).",
+    "Header and Footer variant border|divider inherit the parent Card border width and borderColor. border insets the line by slot padding; divider stays full width.",
     "CardContent fills leftover space (flex-1 min-h-0). Header and Footer stay shrink-0.",
   ],
   props: [
@@ -30,14 +30,7 @@ export const cardMeta = {
       name: "title",
       type: "string",
       default: "Title",
-      description: "Demo title in CardTitle (not a Card root prop).",
-      playground: true,
-    },
-    {
-      name: "description",
-      type: "string",
-      default: "Description",
-      description: "Demo text in CardDescription.",
+      description: "Demo header children (not a Card root prop).",
       playground: true,
     },
     {
@@ -140,7 +133,7 @@ export const cardMeta = {
       type: "enum",
       values: [...paddingValues],
       default: "md",
-      description: "CardHeader padding. border|divider inset matches this on both inline sides.",
+      description: "CardHeader padding. border inset matches this; divider stays full width.",
       playground: true,
     },
     {
@@ -156,7 +149,7 @@ export const cardMeta = {
       type: "enum",
       values: [...paddingValues],
       default: "md",
-      description: "CardFooter padding. border|divider inset matches this on both inline sides.",
+      description: "CardFooter padding. border inset matches this; divider stays full width.",
       playground: true,
     },
     {
