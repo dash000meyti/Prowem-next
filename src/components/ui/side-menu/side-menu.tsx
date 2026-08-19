@@ -94,7 +94,7 @@ export type SideMenuFooterProps = CardFooterProps;
 export function SideMenuHeader({
   className,
   children,
-  variant = "divider",
+  variant = "border",
   ...props
 }: SideMenuHeaderProps) {
   const { close, closeLabel, titleId, closeId } = useSideMenu();
@@ -145,7 +145,7 @@ export function SideMenuContent({
 
 export function SideMenuFooter({
   className,
-  variant = "divider",
+  variant = "border",
   onClick,
   ...props
 }: SideMenuFooterProps) {
@@ -236,7 +236,7 @@ export function SideMenu({
                 aria-hidden={!open}
                 inert={!open}
                 className={cn(
-                  "fixed inset-0 z-50 bg-background/72 transition-opacity duration-300 motion-reduce:transition-none",
+                  "fixed inset-0 z-50 bg-background/72 backdrop-blur-xs transition-opacity duration-300 motion-reduce:transition-none",
                   open ? "opacity-100" : "pointer-events-none opacity-0",
                 )}
                 onClick={() => setOpen(false)}
@@ -250,6 +250,9 @@ export function SideMenu({
                 inert={!open}
                 padding="none"
                 radius="none"
+                surface="glass"
+                lightBottom="primary"
+                lightTop="foreground"
                 className={cn(
                   sideMenuPanelVariants({ side: resolvedSide }),
                   open ? "translate-x-0" : closedTranslate[resolvedSide],

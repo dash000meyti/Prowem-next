@@ -14,9 +14,9 @@ export const sideMenuMeta = {
   importStatement:
     'import { SideMenu, SideMenuHeader, SideMenuContent, SideMenuFooter } from "@/components/ui/side-menu";',
   description:
-    "Client atom. Overlay, Escape, and close live here. The panel is a Card from start or end (RTL-safe) and portals to document.body so sticky headers do not clip it.",
+    "Client atom. Overlay, Escape, and close live here. The panel is a glass Card from start or end (RTL-safe) and portals to document.body so sticky headers do not clip it.",
   rules: [
-    "The trigger is a Button like Dropdown. The panel is a Card.",
+    "The trigger is a Button like Dropdown. The panel is a glass Card (primary bottom light, foreground top light). Header and Footer default to variant border.",
     "Compose SideMenuHeader / SideMenuContent / SideMenuFooter. Do not pass a footer prop.",
     "side is start|end (logical), default end.",
     "The playground LTR/RTL control sets dir on the preview only. The panel portals to document.body, so it follows the document direction.",
