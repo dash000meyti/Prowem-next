@@ -208,8 +208,14 @@ Client hover/focus hint. Portal + Card (`padding="sm"`).
 ### Popup
 
 Compound client atom: `Popup`, `PopupHeader`, `PopupContent`, `PopupFooter`. `popupPanelVariants()` is exported.  
-Props on the root: `icon?` (`IconName`), `trigger?` (text or node), `children`, `label`, `closeLabel`, `variant?` (same as SideMenu trigger, default `outline`), `color?` (same as Button, default `primary`), `className?`.  
-The trigger is a Button like Dropdown / SideMenu. Overlay matches SideMenu (`bg-background/72 backdrop-blur-xs`, `duration-300`). The panel is a centered Card (`padding="none"`) portaled to `document.body`. Header / Content / Footer are Card slots: Header default `variant="border"` and includes the close button; Footer default `variant="border"`. Escape, overlay click, and a light focus trap live here.
+Props on the root: `icon?` (`IconName`), `trigger?` (text or node), `children`, `label`, `closeLabel`, `variant?` (same as SideMenu trigger, default `outline`), `color?` (same as Button, default `primary`), `card?` (`none` | `main`, default `main`), `size?` (`sm` | `md` | `lg` | `full`, default `sm`), `className?`.  
+The trigger is a Button like Dropdown / SideMenu. Overlay matches SideMenu (`bg-background/72 backdrop-blur-xs`, `duration-300`). The panel is a centered Card (`padding="none"`) portaled to `document.body`.
+
+`size` sets panel max width one container step smaller than the name: `sm` → `max-w-container-xs`, `md` → `max-w-container-sm`, `lg` → `max-w-container-md`, `full` → `max-w-none` (still inset by the overlay `p-4`).
+
+`card="main"` applies `surface="glass"`, `lightBottom="primary"`, `lightTop="foreground"`, `border="md"`, `borderLightTop="foreground"`, `borderLightBottom="primary"`, defaults `PopupHeader` `underline` to `primary`, and defaults Header / Footer `variant` to `none` (all overridable). `card="none"` keeps a plain Card and defaults Header / Footer `variant` to `border`.
+
+Header / Content / Footer are Card slots: Header includes the close button. Escape, overlay click, and a light focus trap live here.
 
 ## Icons inventory (phase 1)
 

@@ -573,6 +573,8 @@ export function PlaygroundBySlug({
               icon={iconName(values.icon)}
               variant={values.variant as PopupProps["variant"]}
               color={values.color as ButtonColor}
+              card={values.card as PopupProps["card"]}
+              size={values.size as PopupProps["size"]}
               label={String(values.label)}
               closeLabel={String(values.closeLabel)}
             >

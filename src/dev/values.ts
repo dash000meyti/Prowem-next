@@ -99,3 +99,7 @@ export const separatorOrientationValues = ["horizontal", "vertical"] as const;
 export const tooltipSideValues = ["top", "bottom", "start", "end"] as const;
 
 export const selectOptionValues = ["one", "two"] as const;
+
+export const popupCardValues = ["none", "main"] as const;
+
+export const popupSizeValues = ["sm", "md", "lg", "full"] as const;

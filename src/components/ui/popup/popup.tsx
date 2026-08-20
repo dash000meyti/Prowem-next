@@ -11,7 +11,7 @@ import {
   type ReactNode,
 } from "react";
 import { createPortal } from "react-dom";
-import { cva } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 import type { IconName } from "@/components/icons";
 import { Button, type ButtonColor } from "@/components/ui/button";
 import {
@@ -22,6 +22,7 @@ import {
   type CardContentProps,
   type CardFooterProps,
   type CardHeaderProps,
+  type CardProps,
 } from "@/components/ui/card";
 import { cn } from "@/lib/cn";
 
@@ -33,14 +34,56 @@ const focusableSelector =
   'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 export const popupPanelVariants = cva(
-  "z-50 w-full max-w-md min-w-0 transition-opacity duration-300 motion-reduce:transition-none",
+  "pointer-events-auto z-50 w-full min-w-0 transition-opacity duration-300 motion-reduce:transition-none",
+  {
+    variants: {
+      size: {
+        sm: "max-w-container-xs",
+        md: "max-w-container-sm",
+        lg: "max-w-container-md",
+        full: "max-w-none",
+      },
+    },
+    defaultVariants: {
+      size: "sm",
+    },
+  },
 );
+
+export type PopupCard = "none" | "main";
+export type PopupSize = NonNullable<
+  VariantProps<typeof popupPanelVariants>["size"]
+>;
+
+const popupCardPresets: Record<
+  PopupCard,
+  Pick<
+    CardProps,
+    | "surface"
+    | "lightBottom"
+    | "lightTop"
+    | "border"
+    | "borderLightTop"
+    | "borderLightBottom"
+  >
+> = {
+  none: {},
+  main: {
+    surface: "glass",
+    lightBottom: "primary",
+    lightTop: "foreground",
+    border: "md",
+    borderLightTop: "foreground",
+    borderLightBottom: "primary",
+  },
+};
 
 type PopupContextValue = {
   close: () => void;
   closeLabel: string;
   titleId: string;
   closeId: string;
+  card: PopupCard;
 };
 
 const PopupContext = createContext<PopupContextValue | null>(null);
@@ -71,6 +114,8 @@ export type PopupProps = {
   closeLabel: string;
   variant?: PopupVariant;
   color?: ButtonColor;
+  card?: PopupCard;
+  size?: PopupSize;
   className?: string;
 };
 
@@ -81,14 +126,19 @@ export type PopupFooterProps = CardFooterProps;
 export function PopupHeader({
   className,
   children,
-  variant = "border",
+  variant,
+  underline,
   ...props
 }: PopupHeaderProps) {
-  const { close, closeLabel, titleId, closeId } = usePopup();
+  const { close, closeLabel, titleId, closeId, card } = usePopup();
+  const resolvedVariant = variant ?? (card === "main" ? "none" : "border");
+  const resolvedUnderline =
+    underline ?? (card === "main" ? "primary" : undefined);
 
   return (
     <CardHeader
-      variant={variant}
+      variant={resolvedVariant}
+      underline={resolvedUnderline}
       className={cn("flex-row items-center justify-between", className)}
       {...props}
     >
@@ -117,11 +167,18 @@ export function PopupContent({ className, ...props }: PopupContentProps) {
 
 export function PopupFooter({
   className,
-  variant = "border",
+  variant,
   ...props
 }: PopupFooterProps) {
+  const { card } = usePopup();
+  const resolvedVariant = variant ?? (card === "main" ? "none" : "border");
+
   return (
-    <CardFooter variant={variant} className={cn("w-full", className)} {...props} />
+    <CardFooter
+      variant={resolvedVariant}
+      className={cn("w-full", className)}
+      {...props}
+    />
   );
 }
 
@@ -133,6 +190,8 @@ export function Popup({
   closeLabel,
   variant = "outline",
   color = "primary",
+  card = "main",
+  size = "sm",
   className,
 }: PopupProps) {
   const [open, setOpen] = useState(false);
@@ -238,7 +297,10 @@ export function Popup({
               >
                 <div
                   ref={panelRef}
-                  className="pointer-events-auto w-full max-w-md min-w-0"
+                  className={cn(
+                    popupPanelVariants({ size }),
+                    open ? "opacity-100" : "opacity-0",
+                  )}
                 >
                   <Card
                     id={panelId}
@@ -248,10 +310,8 @@ export function Popup({
                     aria-hidden={!open}
                     inert={!open}
                     padding="none"
-                    className={cn(
-                      popupPanelVariants(),
-                      open ? "opacity-100" : "opacity-0",
-                    )}
+                    {...popupCardPresets[card]}
+                    className="w-full"
                   >
                     <PopupContext.Provider
                       value={{
@@ -259,6 +319,7 @@ export function Popup({
                         closeLabel,
                         titleId,
                         closeId,
+                        card,
                       }}
                     >
                       {children}
