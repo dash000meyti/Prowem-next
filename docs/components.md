@@ -78,6 +78,11 @@ Root `Card`:
 
 `CardHeader` / `CardFooter` `variant`: `none` (default) | `filled` (`bg-panel-hover/50`) | `border` (header bottom edge, footer top edge) | `divider` (`filled` + `border`). Those `border` / `divider` lines use the parent Card’s `border` width and `borderColor`; slots do not take those props. `border` insets the line on both inline sides by the slot’s `padding` (`none` stays full width; `md` matches `p-4`). `divider` keeps the line full-bleed at every padding. Fill stays full-bleed. `CardContent` has no variant yet.
 
+`CardHeader` `underline`: `none` (default) | same colors as lights. Bar on the lowest edge of the header (`::before`). Logical `start` inset matches the slot padding (`none` → `start-0`, `md` → `start-4`). Stacks with `variant` `border` / `divider` (those keep the full-width `::after` edge). `PopupHeader` / `SideMenuHeader` inherit these props.
+
+- `underlineSize`: `sm` | `md` (default) | `lg` — height from `theme.borderWidth` (`1px` / `2px` / `4px`)
+- `underlineWidth`: `fix` (default, `50px`) | `25` (`25%`) | `50` (`50%`) | `75` (`75%`)
+
 Slot `padding`: `none` | `sm` | `md` | `lg` (default `md` = `p-4`) on Header, Content, and Footer. Header and Footer take their content height (`shrink-0`). `CardContent` fills the leftover space (`flex-1 min-h-0`).
 
 ### Dropdown

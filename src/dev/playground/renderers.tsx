@@ -146,6 +146,15 @@ export function PlaygroundBySlug({
                   <CardHeader
                     variant={values.headerVariant as CardHeaderProps["variant"]}
                     padding={values.headerPadding as CardHeaderProps["padding"]}
+                    underline={
+                      values.headerUnderline as CardHeaderProps["underline"]
+                    }
+                    underlineSize={
+                      values.headerUnderlineSize as CardHeaderProps["underlineSize"]
+                    }
+                    underlineWidth={
+                      values.headerUnderlineWidth as CardHeaderProps["underlineWidth"]
+                    }
                   >
                     {String(values.title)}
                   </CardHeader>

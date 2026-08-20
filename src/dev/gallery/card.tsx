@@ -13,6 +13,8 @@ import {
   cardLightValues,
   cardSlotVariantValues,
   cardSurfaceValues,
+  cardUnderlineSizeValues,
+  cardUnderlineWidthValues,
   paddingValues,
   radiusValues,
 } from "@/dev/values";
@@ -197,6 +199,60 @@ export function CardGallery() {
                   Action
                 </Button>
               </CardFooter>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex min-w-0 flex-col gap-2">
+        <GalleryHeading label="header underline" defaults="none" />
+        <div className="flex min-w-0 flex-wrap items-stretch gap-2">
+          {cardLightValues.map((underline) => (
+            <Card key={underline} className={cardLabPreview}>
+              <CardHeader underline={underline}>{underline}</CardHeader>
+              <CardContent>
+                <p className="text-sm">Main</p>
+              </CardContent>
+            </Card>
+          ))}
+          <Card className={cardLabPreview}>
+            <CardHeader variant="border" underline="primary">
+              border + primary
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm">Main</p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
+      <div className="flex min-w-0 flex-col gap-2">
+        <GalleryHeading label="header underlineSize" defaults="md" />
+        <div className="flex min-w-0 flex-wrap items-stretch gap-2">
+          {cardUnderlineSizeValues.map((underlineSize) => (
+            <Card key={underlineSize} className={cardLabPreview}>
+              <CardHeader underline="primary" underlineSize={underlineSize}>
+                {underlineSize}
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm">Main</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex min-w-0 flex-col gap-2">
+        <GalleryHeading label="header underlineWidth" defaults="fix" />
+        <div className="flex min-w-0 flex-wrap items-stretch gap-2">
+          {cardUnderlineWidthValues.map((underlineWidth) => (
+            <Card key={underlineWidth} className={cardLabPreview}>
+              <CardHeader underline="primary" underlineWidth={underlineWidth}>
+                {underlineWidth}
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm">Main</p>
+              </CardContent>
             </Card>
           ))}
         </div>

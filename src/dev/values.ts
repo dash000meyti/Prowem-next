@@ -36,6 +36,10 @@ export const cardSlotVariantValues = ["none", "filled", "border", "divider"] as 
 
 export const cardLightValues = ["none", ...buttonColors] as const;
 
+export const cardUnderlineSizeValues = ["sm", "md", "lg"] as const;
+
+export const cardUnderlineWidthValues = ["fix", "25", "50", "75"] as const;
+
 export const cardBorderColorValues = ["border", ...buttonColors] as const;
 
 export const iconPlaygroundValues = [

@@ -423,6 +423,36 @@ export function Card({
   );
 }
 
+const headerUnderlineBar =
+  "relative before:pointer-events-none before:absolute before:bottom-0 before:z-10 before:content-['']";
+
+const headerUnderline = {
+  none: "",
+  background: `${headerUnderlineBar} before:bg-background`,
+  foreground: `${headerUnderlineBar} before:bg-foreground`,
+  primary: `${headerUnderlineBar} before:bg-primary`,
+  "accent-1": `${headerUnderlineBar} before:bg-accent-1`,
+  "accent-2": `${headerUnderlineBar} before:bg-accent-2`,
+  "accent-3": `${headerUnderlineBar} before:bg-accent-3`,
+  "accent-4": `${headerUnderlineBar} before:bg-accent-4`,
+  success: `${headerUnderlineBar} before:bg-success`,
+  warning: `${headerUnderlineBar} before:bg-warning`,
+  error: `${headerUnderlineBar} before:bg-error`,
+} as const satisfies Record<CardLight, string>;
+
+const headerUnderlineSize = {
+  sm: "before:h-[var(--theme-border-width-sm)]",
+  md: "before:h-[var(--theme-border-width-md)]",
+  lg: "before:h-[var(--theme-border-width-lg)]",
+} as const;
+
+const headerUnderlineWidth = {
+  fix: "before:w-[50px]",
+  "25": "before:w-1/4",
+  "50": "before:w-1/2",
+  "75": "before:w-3/4",
+} as const;
+
 export const cardHeaderVariants = cva(
   "flex min-w-0 shrink-0 flex-col gap-1.5 text-start",
   {
@@ -433,12 +463,23 @@ export const cardHeaderVariants = cva(
         border: "card-edge-bottom",
         divider: "card-edge-bottom bg-panel-hover/50",
       },
-      padding: cardPadding,
+      padding: {
+        none: cn(cardPadding.none, "before:start-0"),
+        sm: cn(cardPadding.sm, "before:start-2"),
+        md: cn(cardPadding.md, "before:start-4"),
+        lg: cn(cardPadding.lg, "before:start-6"),
+      },
+      underline: headerUnderline,
+      underlineSize: headerUnderlineSize,
+      underlineWidth: headerUnderlineWidth,
     },
     compoundVariants: cardBorderEdgeCompounds,
     defaultVariants: {
       variant: "none",
       padding: "md",
+      underline: "none",
+      underlineSize: "md",
+      underlineWidth: "fix",
     },
   },
 );
@@ -450,11 +491,23 @@ export function CardHeader({
   className,
   variant,
   padding,
+  underline,
+  underlineSize,
+  underlineWidth,
   ...props
 }: CardHeaderProps) {
   return (
     <div
-      className={cn(cardHeaderVariants({ variant, padding }), className)}
+      className={cn(
+        cardHeaderVariants({
+          variant,
+          padding,
+          underline,
+          underlineSize,
+          underlineWidth,
+        }),
+        className,
+      )}
       {...props}
     />
   );
