@@ -179,13 +179,26 @@ function borderVars(
     "--card-border-light-end-image": endLit
       ? borderLightImage(borderLightEnd, "y")
       : "none",
-    borderTopColor: topLit ? "transparent" : "var(--card-border-color)",
-    borderBottomColor: bottomLit ? "transparent" : "var(--card-border-color)",
-    borderInlineStartColor: startLit
-      ? "transparent"
-      : "var(--card-border-color)",
-    borderInlineEndColor: endLit ? "transparent" : "var(--card-border-color)",
   } as CSSProperties;
+}
+
+function hasBorderLights(
+  border: keyof typeof cardBorderWidth | null | undefined,
+  borderLightTop: string | null | undefined,
+  borderLightBottom: string | null | undefined,
+  borderLightStart: string | null | undefined,
+  borderLightEnd: string | null | undefined,
+): boolean {
+  if ((border ?? "sm") === "none") {
+    return false;
+  }
+
+  return (
+    isLightColor(borderLightTop) ||
+    isLightColor(borderLightBottom) ||
+    isLightColor(borderLightStart) ||
+    isLightColor(borderLightEnd)
+  );
 }
 
 export const cardVariants = cva(
@@ -277,6 +290,13 @@ export function Card({
           border,
           borderColor,
         }),
+        hasBorderLights(
+          border,
+          borderLightTop,
+          borderLightBottom,
+          borderLightStart,
+          borderLightEnd,
+        ) && "card-border-lights",
         className,
       )}
       style={{
@@ -291,6 +311,7 @@ export function Card({
         ),
         borderStyle: "solid",
         borderWidth: "var(--card-border-width)",
+        borderColor: "var(--card-border-color)",
         ...lightVars(surface, lightBottom, lightTop, lightStart, lightEnd),
         ...style,
       }}

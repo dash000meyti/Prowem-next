@@ -73,9 +73,6 @@
   --card-border-width: var(--theme-border-width-md);
   --card-border-color: var(--border);
   --card-radius: var(--theme-radius-md);
-  --card-border-light-extent: calc(
-    var(--card-radius) + var(--card-border-width)
-  );
   --card-border-light-top-image: none;
   --card-border-light-bottom-image: none;
   --card-border-light-start-image: none;
@@ -201,30 +198,46 @@
       var(--card-spot-end) 0%,
       transparent 100%
     ),
-    linear-gradient(var(--card-base), var(--card-base)),
-    var(--card-border-light-top-image),
-    var(--card-border-light-bottom-image),
-    var(--card-border-light-start-image),
-    var(--card-border-light-end-image);
-  background-repeat: no-repeat;
-  background-origin:
-    padding-box, padding-box, padding-box, padding-box, padding-box,
-    border-box, border-box, border-box, border-box;
-  background-clip:
-    padding-box, padding-box, padding-box, padding-box, padding-box,
-    border-box, border-box, border-box, border-box;
-  background-size:
-    auto, auto, auto, auto, auto,
-    100% var(--card-border-light-extent),
-    100% var(--card-border-light-extent),
-    var(--card-border-light-extent) 100%,
-    var(--card-border-light-extent) 100%;
-  background-position:
-    0 0, 0 0, 0 0, 0 0, 0 0,
-    top,
-    bottom,
-    var(--card-border-light-start-pos),
-    var(--card-border-light-end-pos);
+    linear-gradient(var(--card-base), var(--card-base));
+}
+
+@utility card-border-lights {
+  position: relative;
+  overflow: visible !important;
+
+  &::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: calc(-1 * var(--card-border-width));
+    z-index: 1;
+    padding: var(--card-border-width);
+    border-radius: inherit;
+    background-image:
+      var(--card-border-light-top-image),
+      var(--card-border-light-bottom-image),
+      var(--card-border-light-start-image),
+      var(--card-border-light-end-image);
+    background-repeat: no-repeat;
+    background-size:
+      100% var(--card-border-width),
+      100% var(--card-border-width),
+      var(--card-border-width) 100%,
+      var(--card-border-width) 100%;
+    background-position:
+      top,
+      bottom,
+      var(--card-border-light-start-pos),
+      var(--card-border-light-end-pos);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+  }
 }
 
 @utility card-edge-top {
