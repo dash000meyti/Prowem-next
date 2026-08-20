@@ -61,6 +61,7 @@ Wrong answers from older training data. Prefer `node_modules/next/dist/docs/`.
 | `getDictionary()` in a Client Component | Pass strings and `currentLocale` as props |
 | `PageProps` without the route | `LayoutProps<'/[lang]'>` / `PageProps<'/[lang]'>` |
 | `left` / `right` / `ml-` / `pl-` | `start` / `end` / `ms-` / `ps-` / `text-start` |
+| Uncapped `next build` in Docker (`os.cpus()` = host) | `NEXT_CPUS` + Tokio/Rayon caps in the `Dockerfile` (see [architecture.md](architecture.md)) |
 
 ## Output quality checklist
 

@@ -53,6 +53,8 @@ CLAUDE.md              Claude Code entry (@AGENTS.md)
 
 `src/app/dev` and `src/dev` are the component lab. They import product UI; product code must not import them. Delete both folders (or leave them in `.dockerignore`) and production is unchanged. Proxy skips `/dev` as a routing exemption only — it does not import the lab.
 
+The production `Dockerfile` sets `NEXT_CPUS=1` (and Tokio/Rayon thread caps). Next 16 defaults `experimental.cpus` to `os.cpus().length`, which inside Docker is often the **host** count; “Collecting page data using N workers” then aborts with `OS can't spawn worker thread: Resource temporarily unavailable (os error 11)`.
+
 Copy and settings storage: [content.md](content.md).
 
 ## Request flow
