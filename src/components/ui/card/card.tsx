@@ -131,7 +131,7 @@ function borderVars(
   borderColor: keyof typeof cardBorderColors | null | undefined,
 ): CSSProperties {
   return {
-    "--card-border-width": cardBorderWidth[border ?? "md"],
+    "--card-border-width": cardBorderWidth[border ?? "sm"],
     "--card-border-color": cardBorderColors[borderColor ?? "border"],
   } as CSSProperties;
 }
@@ -172,7 +172,7 @@ export const cardVariants = cva(
       lightEnd: "none",
       padding: "none",
       radius: "md",
-      border: "md",
+      border: "sm",
       borderColor: "border",
     },
   },
@@ -238,7 +238,7 @@ export const cardHeaderVariants = cva(
     },
     compoundVariants: cardBorderEdgeCompounds,
     defaultVariants: {
-      variant: "border",
+      variant: "none",
       padding: "md",
     },
   },
@@ -300,7 +300,7 @@ export const cardFooterVariants = cva(
     },
     compoundVariants: cardBorderEdgeCompounds,
     defaultVariants: {
-      variant: "border",
+      variant: "none",
       padding: "md",
     },
   },

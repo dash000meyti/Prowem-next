@@ -72,6 +72,8 @@
   --card-base: var(--panel);
   --card-border-width: var(--theme-border-width-md);
   --card-border-color: var(--border);
+  /* /dev/test scratch token — promote to settings when ready */
+  --test: #ff9500;
 }
 
 @theme inline {
@@ -165,6 +167,8 @@
   --breakpoint-xl: 1440px;
   --breakpoint-2xl: initial;
   --font-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* /dev/test scratch token — promote to settings when ready */
+  --test: var(--test);
 }
 
 @utility bg-card-spots {

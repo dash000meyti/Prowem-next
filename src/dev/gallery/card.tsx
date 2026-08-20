@@ -38,7 +38,7 @@ export function CardGallery() {
       <div className="flex min-w-0 flex-col gap-2">
         <GalleryHeading
           label="compound"
-          defaults="surface panel, lights none, padding none, radius md, border md, borderColor border"
+          defaults="surface panel, lights none, padding none, radius md, border sm, borderColor border"
         />
         <Card className={`max-w-sm ${cardLabPreview}`}>
           <CardHeader variant="divider">{copy.demo.cardTitle}</CardHeader>
@@ -103,7 +103,7 @@ export function CardGallery() {
       </div>
 
       <div className="flex min-w-0 flex-col gap-2">
-        <GalleryHeading label="header / footer" defaults="border" />
+        <GalleryHeading label="header / footer" defaults="none" />
         <div className="flex min-w-0 flex-wrap items-stretch gap-2">
           {cardSlotVariantValues.map((variant) => (
             <Card key={variant} className={cardLabPreview}>
@@ -188,7 +188,7 @@ export function CardGallery() {
       </div>
 
       <div className="flex min-w-0 flex-col gap-2">
-        <GalleryHeading label="border" defaults="md" />
+        <GalleryHeading label="border" defaults="sm" />
         <div className="flex min-w-0 flex-wrap items-stretch gap-2">
           {borderValues.map((border) => (
             <Card key={border} border={border} padding="md" className={cardLabPreview}>
@@ -199,7 +199,7 @@ export function CardGallery() {
       </div>
 
       <div className="flex min-w-0 flex-col gap-2">
-        <GalleryHeading label="border × divider" defaults="md" />
+        <GalleryHeading label="border × divider" defaults="sm" />
         <div className="flex min-w-0 flex-wrap items-stretch gap-2">
           {borderValues.map((border) => (
             <Card key={border} border={border} className={cardLabPreview}>

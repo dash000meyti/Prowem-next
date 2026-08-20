@@ -10,6 +10,7 @@ import { cn } from "@/lib/cn";
 
 const guide = [
   { href: "/dev", label: copy.gettingStarted },
+  { href: "/dev/test", label: copy.test },
   { href: "/dev/tokens", label: copy.tokens },
   { href: "/dev/icons", label: copy.icons },
 ] as const;

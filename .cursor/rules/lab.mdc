@@ -7,7 +7,7 @@ alwaysApply: true
 
 The lab is optional and isolated. Routes: `src/app/dev`. Internals: `src/dev` (English copy, meta, chrome, playgrounds, galleries). Product code must not import either folder. Deleting both (or leaving them in `.dockerignore`) removes `/dev` from the build. Proxy skips `/dev` as a routing exemption only.
 
-It is not the product site. Entry is a manual URL (`/dev`, `/dev/tokens`, `/dev/components/[slug]`, `/dev/templates/[slug]`, `/dev/icons`). English only. Playground LTR/RTL (preview Card `dir` only); no dark mode; no locale routing. Lab copy lives in `src/dev/copy.ts`, not product dictionaries. The lab shell uses `Container width="full"`.
+It is not the product site. Entry is a manual URL (`/dev`, `/dev/test`, `/dev/tokens`, `/dev/components/[slug]`, `/dev/templates/[slug]`, `/dev/icons`). English only. Playground LTR/RTL (preview Card `dir` only); no dark mode; no locale routing. Lab copy lives in `src/dev/copy.ts`, not product dictionaries. The lab shell uses `Container width="full"`.
 
 In the **same turn** as any change to UI, Templates, Icons, theme tokens (`src/settings`, `globals.css`), or component config, update the lab so docs, playgrounds, and galleries stay complete:
 

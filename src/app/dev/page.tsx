@@ -83,6 +83,9 @@ export default function DevHomePage() {
             <Link href="/dev/icons" className="text-primary hover:underline">
               {copy.icons}
             </Link>
+            <Link href="/dev/test" className="text-primary hover:underline">
+              {copy.test}
+            </Link>
           </div>
         </div>
       </section>

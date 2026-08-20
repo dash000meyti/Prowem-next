@@ -22,6 +22,7 @@ export const copy = {
   agentRules: "Agent rules",
   playground: "Playground",
   gallery: "Gallery",
+  test: "Test",
   none: "None",
   home: {
     title: "Component lab",
@@ -56,6 +57,18 @@ export const copy = {
     title: "Icons",
     intro: "Names come from src/components/icons/registry.ts. Linear glyphs use currentColor; flags keep national fills.",
     hint: "src/components/icons",
+  },
+  testPage: {
+    title: "Test sandbox",
+    intro:
+      "Scratch space for new UI ideas. Edit src/dev/test/test-sandbox.tsx only — product code must not import it.",
+    steps: [
+      "Build the idea in TestSection blocks below (hatch + LTR/RTL help spot layout issues).",
+      "Scratch tokens live in src/app/globals.css as --test-* (e.g. --test → bg-test).",
+      "When it looks right, tell the agent which section to port and where (e.g. Card border variant).",
+      "The agent moves the final version into src/components/ui or templates and updates meta/gallery/docs.",
+    ],
+    placeholder: "Add Cards, Buttons, custom borders, or any markup in this section.",
   },
   demo: {
     menuItemOne: "Item one",
