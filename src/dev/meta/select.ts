@@ -8,9 +8,9 @@ export const selectMeta = {
   file: "src/components/ui/select/select.tsx",
   importStatement: 'import { Select, selectVariants } from "@/components/ui/select";',
   description:
-    "Native select. Same panel fill and sm inset border as Input. Not a custom listbox — options are option children. Chevron sits on the logical end, inset like start padding.",
+    "Native select. Same panel fill and sm inset border as Input. Not a custom listbox — options are option children. Chevron sits on the logical end, inset like start padding. Use SelectMenu for a Card listbox, Combobox when that list needs search.",
   rules: [
-    "Keep this native. Do not replace it with Dropdown unless the product needs a custom listbox.",
+    "Keep this native. Do not replace it with Dropdown (that atom is a menu) or with SelectMenu unless the product needs a custom listbox.",
     "Pass option children from the parent. Labels come from the parent.",
     "Heights match Button / Input (sm / md / lg). Default radius is md.",
     "Tokens only: bg-panel and shadow-outline-sm. The chevron is Icon chevron-down.",

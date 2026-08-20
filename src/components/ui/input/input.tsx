@@ -1,5 +1,5 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import type { InputHTMLAttributes } from "react";
+import type { InputHTMLAttributes, Ref } from "react";
 import { cn } from "@/lib/cn";
 
 /** Shared field chrome: panel fill, sm border inside the box. Select and Textarea reuse this. */
@@ -30,11 +30,14 @@ export const inputVariants = cva(fieldBoxClass, {
 });
 
 export type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "size"> &
-  VariantProps<typeof inputVariants>;
+  VariantProps<typeof inputVariants> & {
+    ref?: Ref<HTMLInputElement>;
+  };
 
-export function Input({ className, size, radius, ...props }: InputProps) {
+export function Input({ className, size, radius, ref, ...props }: InputProps) {
   return (
     <input
+      ref={ref}
       className={cn(inputVariants({ size, radius }), className)}
       {...props}
     />

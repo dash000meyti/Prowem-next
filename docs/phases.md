@@ -13,7 +13,7 @@ Done in this repository:
 - Skeleton home that proves i18n and direction
 - Docs for humans and agents ([docs/agents.md](agents.md) is the Cursor/Claude map)
 - Card UI atom (compound Header / Content / Footer). Added here because Dropdown’s open panel is a Card
-- Lab UI kit used by `/dev`: Heading, Text, List, Table, Code, Label, Input, Select, Checkbox, Textarea, Switch, Separator, Badge, Tabs, Alert, Tooltip, Popup
+- Lab UI kit used by `/dev`: Heading, Text, List, Table, Code, Label, Input, Select, SelectMenu, Combobox, Checkbox, Textarea, Switch, Separator, Badge, Tabs, Alert, Tooltip, Popup
 
 Not in this phase: fonts, Prowem page sections. The site wordmark lives in `public/logo.svg` and is used by `SiteHeader`. The PHP favicon set is in `public/favicon/`; Next.js serves the same files from `src/app/` (`favicon.ico`, `icon.svg`, `icon.png`, `icon1.png`, `apple-icon.png`). Brand color values live in `src/settings/default.json`.
 

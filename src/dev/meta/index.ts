@@ -12,6 +12,8 @@ import { codeMeta } from "./code";
 import { labelMeta } from "./label";
 import { inputMeta } from "./input";
 import { selectMeta } from "./select";
+import { selectMenuMeta } from "./select-menu";
+import { comboboxMeta } from "./combobox";
 import { checkboxMeta } from "./checkbox";
 import { separatorMeta } from "./separator";
 import { badgeMeta } from "./badge";
@@ -29,6 +31,8 @@ export const uiMetas: ComponentMeta[] = [
   inputMeta,
   textareaMeta,
   selectMeta,
+  selectMenuMeta,
+  comboboxMeta,
   checkboxMeta,
   switchMeta,
   labelMeta,

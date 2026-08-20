@@ -25,6 +25,17 @@ export function DemoMenu() {
   );
 }
 
+export const demoSelectItems = [
+  { value: "one", label: copy.demo.optionOne },
+  { value: "two", label: copy.demo.optionTwo },
+] as const;
+
+export const demoComboboxItems = [
+  ...demoSelectItems,
+  { value: "three", label: copy.demo.optionThree },
+  { value: "thirty", label: copy.demo.optionThirty },
+] as const;
+
 export const cardLabPreview = "min-w-[200px] min-h-[300px]";
 
 export const labHatchClass =

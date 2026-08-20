@@ -1,0 +1,103 @@
+import { alignValues, fieldSizeValues, radiusValues, selectOptionValues } from "@/dev/values";
+import type { ComponentMeta } from "./types";
+
+export const comboboxMeta = {
+  name: "Combobox",
+  slug: "combobox",
+  kind: "ui",
+  file: "src/components/ui/combobox/combobox.tsx",
+  importStatement:
+    'import { Combobox, comboboxTriggerVariants } from "@/components/ui/combobox";',
+  description:
+    "SelectMenu plus search inside the panel. The trigger still shows the selected label. Typing filters labels on the client and does not commit until a row is chosen.",
+  rules: [
+    "Same items / value / onValueChange contract as SelectMenu. Search is an Input at the top of the Card, not typing on the trigger.",
+    "Pass searchLabel and emptyLabel from the parent. No copy inside the atom.",
+    "Do not replace native Select or Dropdown with this. Select is option children; Dropdown is a menu.",
+    "className merges onto the field wrapper, like Select.",
+  ],
+  props: [
+    {
+      name: "value",
+      type: "enum",
+      values: [...selectOptionValues],
+      default: "one",
+      description: "Selected item value. Playground remounts via defaultValue.",
+      playground: true,
+      group: "Demo",
+    },
+    {
+      name: "placeholder",
+      type: "string",
+      default: "Choose",
+      description: "Shown on the trigger when nothing is selected.",
+      playground: true,
+      group: "Demo",
+    },
+    {
+      name: "label",
+      type: "string",
+      default: "Choose",
+      description: "Accessible name for the trigger and listbox.",
+      playground: true,
+      group: "Demo",
+    },
+    {
+      name: "searchLabel",
+      type: "string",
+      default: "Search",
+      description: "Accessible name for the panel search field.",
+      playground: true,
+      group: "Demo",
+    },
+    {
+      name: "emptyLabel",
+      type: "string",
+      default: "No matches",
+      description: "Shown when the filter matches no labels.",
+      playground: true,
+      group: "Demo",
+    },
+    {
+      name: "size",
+      type: "enum",
+      values: [...fieldSizeValues],
+      default: "md",
+      description: "Height aligned with Select / Input.",
+      playground: true,
+      group: "Appearance",
+    },
+    {
+      name: "radius",
+      type: "enum",
+      values: [...radiusValues],
+      default: "md",
+      description: "Token radius.",
+      playground: true,
+      group: "Appearance",
+    },
+    {
+      name: "align",
+      type: "enum",
+      values: [...alignValues],
+      default: "start",
+      description: "Panel alignment on the logical start/end axis.",
+      playground: true,
+      group: "Panel",
+    },
+    {
+      name: "disabled",
+      type: "boolean",
+      default: false,
+      description: "Disables the trigger.",
+      playground: true,
+      group: "State",
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Merged onto the field wrapper with cn().",
+      playground: false,
+    },
+  ],
+} satisfies ComponentMeta;

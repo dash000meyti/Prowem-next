@@ -12,6 +12,8 @@ import { LabelGallery } from "@/dev/gallery/label";
 import { ListGallery } from "@/dev/gallery/list";
 import { PopupGallery } from "@/dev/gallery/popup";
 import { SelectGallery } from "@/dev/gallery/select";
+import { SelectMenuGallery } from "@/dev/gallery/select-menu";
+import { ComboboxGallery } from "@/dev/gallery/combobox";
 import { SeparatorGallery } from "@/dev/gallery/separator";
 import { SideMenuGallery } from "@/dev/gallery/side-menu";
 import { SiteHeaderGallery } from "@/dev/gallery/site-header";
@@ -34,6 +36,10 @@ export async function GalleryBySlug({ slug }: { slug: string }) {
       return <TextareaGallery />;
     case "select":
       return <SelectGallery />;
+    case "select-menu":
+      return <SelectMenuGallery />;
+    case "combobox":
+      return <ComboboxGallery />;
     case "checkbox":
       return <CheckboxGallery />;
     case "switch":

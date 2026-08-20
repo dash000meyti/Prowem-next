@@ -30,7 +30,9 @@ import {
   PopupHeader,
   type PopupProps,
 } from "@/components/ui/popup";
+import { Combobox, type ComboboxProps } from "@/components/ui/combobox";
 import { Select, type SelectProps } from "@/components/ui/select";
+import { SelectMenu, type SelectMenuProps } from "@/components/ui/select-menu";
 import { Separator, type SeparatorProps } from "@/components/ui/separator";
 import {
   SideMenu,
@@ -53,7 +55,7 @@ import { Text, type TextProps } from "@/components/ui/text";
 import { Textarea, type TextareaProps } from "@/components/ui/textarea";
 import { Tooltip, type TooltipProps } from "@/components/ui/tooltip";
 import { copy } from "@/dev/copy";
-import { DemoMenu } from "@/dev/gallery/shared";
+import { DemoMenu, demoComboboxItems, demoSelectItems } from "@/dev/gallery/shared";
 import type { ComponentMeta } from "@/dev/meta/types";
 import { Playground, type PlaygroundValues } from "@/dev/playground/playground";
 import type { Locale } from "@/i18n/config";
@@ -376,6 +378,48 @@ export function PlaygroundBySlug({
               <option value="one">{copy.demo.optionOne}</option>
               <option value="two">{copy.demo.optionTwo}</option>
             </Select>
+          )}
+        />
+      );
+    case "select-menu":
+      return (
+        <Playground
+          meta={meta}
+          render={(values: PlaygroundValues) => (
+            <SelectMenu
+              key={String(values.value)}
+              className="max-w-xs"
+              items={demoSelectItems}
+              defaultValue={String(values.value)}
+              placeholder={String(values.placeholder)}
+              label={String(values.label)}
+              size={values.size as SelectMenuProps["size"]}
+              radius={values.radius as SelectMenuProps["radius"]}
+              align={values.align as SelectMenuProps["align"]}
+              disabled={Boolean(values.disabled)}
+            />
+          )}
+        />
+      );
+    case "combobox":
+      return (
+        <Playground
+          meta={meta}
+          render={(values: PlaygroundValues) => (
+            <Combobox
+              key={String(values.value)}
+              className="max-w-xs"
+              items={demoComboboxItems}
+              defaultValue={String(values.value)}
+              placeholder={String(values.placeholder)}
+              label={String(values.label)}
+              searchLabel={String(values.searchLabel)}
+              emptyLabel={String(values.emptyLabel)}
+              size={values.size as ComboboxProps["size"]}
+              radius={values.radius as ComboboxProps["radius"]}
+              align={values.align as ComboboxProps["align"]}
+              disabled={Boolean(values.disabled)}
+            />
           )}
         />
       );

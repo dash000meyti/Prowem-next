@@ -101,6 +101,11 @@ export const copy = {
     tabTwoBody: "Second panel.",
     optionOne: "One",
     optionTwo: "Two",
+    optionThree: "Three",
+    optionThirty: "Thirty",
+    choose: "Choose",
+    search: "Search",
+    empty: "No matches",
     nav: {
       language: "Language",
       menu: "Menu",

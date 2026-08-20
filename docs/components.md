@@ -14,7 +14,7 @@ The visual inventory is `/dev`: English docs, playgrounds (LTR/RTL and hatch con
 
 Playground meta props may set `group` (footer section label) and `dependsOn` (show the control only when another prop is active, e.g. border-light stop fields after a color is chosen). Components without groups keep a flat control grid.
 
-Higher UI atoms compose lower ones. Do not copy chrome styles: Dropdown’s trigger is a Button and its open panel is a Card. SideMenu’s panel is a Card (`SideMenuHeader` / `SideMenuContent` / `SideMenuFooter`). Popup is Card + Button (plus overlay). Alert is a Card. TabsTrigger is a Button. Tooltip’s panel is a Card. Card does not import Button or Dropdown; `CardFooter` is a layout slot.
+Higher UI atoms compose lower ones. Do not copy chrome styles: Dropdown’s trigger is a Button and its open panel is a Card (`role="menu"`). SelectMenu and Combobox use the same field chrome as Select plus a Card listbox (`role="listbox"`) — do not use Dropdown as a select field. Combobox adds an Input search inside the panel. SideMenu’s panel is a Card (`SideMenuHeader` / `SideMenuContent` / `SideMenuFooter`). Popup is Card + Button (plus overlay). Alert is a Card. TabsTrigger is a Button. Tooltip’s panel is a Card. Card does not import Button or Dropdown; `CardFooter` is a layout slot.
 
 ## Folder contract
 
@@ -83,7 +83,7 @@ Slot `padding`: `none` | `sm` | `md` | `lg` (default `md` = `p-4`) on Header, Co
 ### Dropdown
 
 Props: `icon?` (`IconName`), `trigger?` (text or node), `children`, `label`, `variant?` (same as Button, default `soft`), `color?` (same as Button, default `primary`), `align?` (`start` | `end`, default `end`), `className?`.  
-Client atom. No copy, no routing. Closed/open, click-outside, and Escape live here. The trigger is a Button: `icon` alone uses icon-only square padding; `trigger` alone keeps normal button height; both render icon + text. The panel is an empty `Card` (`surface="panel"`, `padding="none"`, default `radius`). `dropdownPanelVariants()` is position and fade only (`absolute`, `align`, `p-1`, `300ms`). Chrome comes from Card.
+Client atom. No copy, no routing. Closed/open, click-outside, and Escape live here. The trigger is a Button: `icon` alone uses icon-only square padding; `trigger` alone keeps normal button height; both render icon + text. The panel is an empty `Card` (`surface="panel"`, `padding="none"`, default `radius`, `role="menu"`). `dropdownPanelVariants()` is position and fade only (`absolute`, `align`, `p-1`, `300ms`). Chrome comes from Card. This is a menu, not a select field — use Select, SelectMenu, or Combobox for choosing a value.
 
 ### SideMenu
 
@@ -138,7 +138,22 @@ Fill is `bg-panel` with `text-panel-foreground`. The `sm` `border` edge is drawn
 
 ### Select
 
-Native `<select>`. Same panel fill and `shadow-outline-sm` edge as Input. Same `size` and `radius` scale (default radius `md`). Native arrow is replaced with a `chevron-down` Icon inset on the logical `end` to match start padding (`appearance-none`). Options are `option` children. Not a custom listbox. `selectVariants()` is exported.
+Native `<select>`. Same panel fill and `shadow-outline-sm` edge as Input. Same `size` and `radius` scale (default radius `md`). Native arrow is replaced with a `chevron-down` Icon inset on the logical `end` to match start padding (`appearance-none`). Options are `option` children. Not a custom listbox. Do not replace this with Dropdown (Dropdown is a menu). Use SelectMenu for a Card listbox, Combobox when that list needs in-panel search. `selectVariants()` is exported.
+
+### SelectMenu
+
+Client listbox field. Same field chrome and end chevron as Select; the trigger is a field button, not a Dropdown Button. Panel is a Card (`surface="panel"`, `padding="none"`) with `dropdownPanelVariants` for position and fade.
+
+`items`: `{ value: string; label: string; disabled?: boolean }[]`  
+`value` / `defaultValue` / `onValueChange`  
+`placeholder` / `label` (accessible name; from the parent)  
+`size` / `radius` / `disabled` / `align` (`start` | `end`, default `start`)
+
+Rows use `buttonVariants({ variant: "ghost" | "subtle", size: "sm" })` (`subtle` when selected). `role="listbox"` / `option`. Enter, ArrowUp/Down, Home/End, Escape, and click-outside live here. `className` merges onto the field wrapper. `selectMenuTriggerVariants()` and `selectMenuPanelVariants()` are exported.
+
+### Combobox
+
+SelectMenu plus search **inside the panel** (an Input above the list, not typing on the trigger). The trigger still shows the selected label. Client filter on `label`. Search does not change `value` until a row is chosen. Same `items` / `value` / `onValueChange` contract as SelectMenu. `searchLabel` and `emptyLabel` come from the parent. `comboboxTriggerVariants()` and `comboboxPanelVariants()` are exported.
 
 ### Checkbox
 

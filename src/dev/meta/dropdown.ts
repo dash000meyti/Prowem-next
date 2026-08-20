@@ -19,6 +19,7 @@ export const dropdownMeta = {
     "The panel is Card (surface panel, padding none). Do not restyle a second panel.",
     "align is start|end (logical), default end.",
     "Pass menu rows as children. Labels come from the parent.",
+    "This is a menu (role=menu), not a select field. Use Select, SelectMenu, or Combobox to choose a value.",
   ],
   props: [
     {
