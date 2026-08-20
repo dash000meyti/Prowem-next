@@ -1,23 +1,18 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { TextareaHTMLAttributes } from "react";
+import { fieldRadius } from "@/components/ui/input";
 import { cn } from "@/lib/cn";
 
 export const textareaVariants = cva(
-  "w-full min-h-20 min-w-0 border-md border-border bg-background py-2 text-foreground transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50",
+  "flex w-full min-h-20 min-w-0 flex-col bg-panel text-panel-foreground shadow-outline-sm transition focus-within:outline-none focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 focus-within:ring-offset-background has-[:disabled]:pointer-events-none has-[:disabled]:opacity-50",
   {
     variants: {
       size: {
-        sm: "px-2 text-sm",
-        md: "px-2 text-sm md:px-3",
-        lg: "px-3 text-sm md:px-4 md:text-base",
+        sm: "p-2 text-sm",
+        md: "p-2 text-sm md:p-3",
+        lg: "p-3 text-sm md:p-4 md:text-base",
       },
-      radius: {
-        none: "rounded-none",
-        sm: "rounded-sm",
-        md: "rounded-md",
-        lg: "rounded-lg",
-        full: "rounded-full",
-      },
+      radius: fieldRadius,
     },
     defaultVariants: {
       size: "md",
@@ -32,11 +27,20 @@ export type TextareaProps = Omit<
 > &
   VariantProps<typeof textareaVariants>;
 
-export function Textarea({ className, size, radius, ...props }: TextareaProps) {
+export function Textarea({
+  className,
+  size,
+  radius,
+  disabled,
+  ...props
+}: TextareaProps) {
   return (
-    <textarea
-      className={cn(textareaVariants({ size, radius }), className)}
-      {...props}
-    />
+    <div className={cn(textareaVariants({ size, radius }), className)}>
+      <textarea
+        disabled={disabled}
+        className="block min-h-16 w-full min-w-0 flex-1 resize-y appearance-none bg-transparent text-inherit outline-none"
+        {...props}
+      />
+    </div>
   );
 }

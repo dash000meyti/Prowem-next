@@ -8,10 +8,11 @@ export const textareaMeta = {
   file: "src/components/ui/textarea/textarea.tsx",
   importStatement: 'import { Textarea, textareaVariants } from "@/components/ui/textarea";',
   description:
-    "Native multiline field. Same radius and type scale as Input. min-h-20 instead of Button height.",
+    "Native multiline field. Same panel fill and sm inset border as Input. Padding is on every side so the resize handle is inset like the start. min-h-20 instead of Button height.",
   rules: [
     "Pass placeholder and value from the parent. Do not hardcode copy inside Textarea.",
     "Use Label with htmlFor.",
+    "Tokens only: bg-panel and shadow-outline-sm. className merges onto the chrome wrapper.",
   ],
   props: [
     {

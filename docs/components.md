@@ -134,11 +134,11 @@ Native `label`. `size`: `sm` | `md` (default `md`). Pair with `htmlFor`. `labelV
 Native text field. Native `size` is omitted so the design `size` can use that name.  
 `size`: `sm` | `md` | `lg` (heights match Button: `h-8` / `h-9 md:h-10` / `h-10 md:h-12`)  
 `radius`: `none` | `sm` | `md` | `lg` | `full` (default `md`)  
-`inputVariants()` is exported. Other native input attributes pass through.
+Fill is `bg-panel` with `text-panel-foreground`. The `sm` `border` edge is drawn inside the box (`shadow-outline-sm`) so it does not add width — same as Button `outline` / `soft`. Do not use the Tailwind `border` shorthand. `inputVariants()` is exported. Other native input attributes pass through.
 
 ### Select
 
-Native `<select>`. Same `size` and `radius` scale as Input (default radius `md`). Options are `option` children. Not a custom listbox — keep it native. `selectVariants()` is exported.
+Native `<select>`. Same panel fill and `shadow-outline-sm` edge as Input. Same `size` and `radius` scale (default radius `md`). Native arrow is replaced with a `chevron-down` Icon inset on the logical `end` to match start padding (`appearance-none`). Options are `option` children. Not a custom listbox. `selectVariants()` is exported.
 
 ### Checkbox
 
@@ -146,7 +146,7 @@ Native checkbox. `size`: `sm` | `md` | `lg` (default `md`). Token border and `ac
 
 ### Textarea
 
-Native multiline field. Same `size` (type/padding) and `radius` as Input. `min-h-20` instead of Button height. `textareaVariants()` is exported.
+Native multiline field. Same panel fill and `shadow-outline-sm` edge as Input. Same `size` (type/padding) and `radius`. Padding is on all sides (`p-*`) so the resize handle sits inset by the same amount as the start. `min-h-20` instead of Button height. `className` merges onto the chrome wrapper; native attributes go on the `textarea`. `textareaVariants()` is exported.
 
 ### Switch
 

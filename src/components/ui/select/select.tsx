@@ -1,23 +1,17 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { SelectHTMLAttributes } from "react";
+import { Icon } from "@/components/icons";
+import { fieldBoxClass, fieldRadius } from "@/components/ui/input";
 import { cn } from "@/lib/cn";
 
-export const selectVariants = cva(
-  "w-full min-w-0 border-md border-border bg-background text-foreground transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50",
-  {
+export const selectVariants = cva(cn(fieldBoxClass, "peer"), {
     variants: {
       size: {
-        sm: "h-8 px-2 text-sm",
-        md: "h-9 px-2 text-sm md:h-10 md:px-3",
-        lg: "h-10 px-3 text-sm md:h-12 md:px-4 md:text-base",
+        sm: "h-8 ps-2 pe-8 text-sm",
+        md: "h-9 ps-2 pe-8 text-sm md:h-10 md:ps-3 md:pe-9",
+        lg: "h-10 ps-3 pe-9 text-sm md:h-12 md:ps-4 md:pe-10 md:text-base",
       },
-      radius: {
-        none: "rounded-none",
-        sm: "rounded-sm",
-        md: "rounded-md",
-        lg: "rounded-lg",
-        full: "rounded-full",
-      },
+      radius: fieldRadius,
     },
     defaultVariants: {
       size: "md",
@@ -26,14 +20,28 @@ export const selectVariants = cva(
   },
 );
 
+const chevronEnd = {
+  sm: "end-2",
+  md: "end-2 md:end-3",
+  lg: "end-3 md:end-4",
+} as const;
+
 export type SelectProps = Omit<SelectHTMLAttributes<HTMLSelectElement>, "size"> &
   VariantProps<typeof selectVariants>;
 
-export function Select({ className, size, radius, ...props }: SelectProps) {
+export function Select({ className, size = "md", radius, ...props }: SelectProps) {
+  const resolvedSize = size ?? "md";
+
   return (
-    <select
-      className={cn(selectVariants({ size, radius }), className)}
-      {...props}
-    />
+    <span className={cn("relative block w-full min-w-0", className)}>
+      <select className={cn(selectVariants({ size, radius }))} {...props} />
+      <Icon
+        name="chevron-down"
+        className={cn(
+          "pointer-events-none absolute top-1/2 size-4 -translate-y-1/2 text-panel-foreground peer-disabled:opacity-50",
+          chevronEnd[resolvedSize],
+        )}
+      />
+    </span>
   );
 }

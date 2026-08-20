@@ -8,10 +8,11 @@ export const inputMeta = {
   file: "src/components/ui/input/input.tsx",
   importStatement: 'import { Input, inputVariants } from "@/components/ui/input";',
   description:
-    "Native text field. Heights match Button (sm / md / lg). Radius tokens default to md. Native size is omitted so the design size can use that name.",
+    "Native text field. Heights match Button (sm / md / lg). Radius tokens default to md. Fill is panel. The sm border is shadow-outline-sm (inside the box, border color). Native size is omitted so the design size can use that name.",
   rules: [
     "Pass placeholder and value from the parent. Do not hardcode copy inside Input.",
     "Use Label with htmlFor. Do not restyle a second text field.",
+    "Tokens only: bg-panel and shadow-outline-sm. Do not use the border shorthand.",
     "Native type, disabled, and other input attributes pass through.",
   ],
   props: [
