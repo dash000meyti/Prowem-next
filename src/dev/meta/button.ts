@@ -29,6 +29,7 @@ export const buttonMeta = {
       default: "Button",
       description: "Button label. Omit with icon for an icon-only control.",
       playground: true,
+      group: "Demo",
     },
     {
       name: "variant",
@@ -37,6 +38,7 @@ export const buttonMeta = {
       default: "filled",
       description: "Visual style.",
       playground: true,
+      group: "Appearance",
     },
     {
       name: "color",
@@ -45,6 +47,7 @@ export const buttonMeta = {
       default: "primary",
       description: "Action color token.",
       playground: true,
+      group: "Appearance",
     },
     {
       name: "size",
@@ -53,6 +56,7 @@ export const buttonMeta = {
       default: "md",
       description: "Control height and padding.",
       playground: true,
+      group: "Appearance",
     },
     {
       name: "radius",
@@ -61,6 +65,7 @@ export const buttonMeta = {
       default: "full",
       description: "Corner radius token (theme.radius).",
       playground: true,
+      group: "Appearance",
     },
     {
       name: "icon",
@@ -69,6 +74,7 @@ export const buttonMeta = {
       default: "",
       description: "IconName from @/components/icons.",
       playground: true,
+      group: "Icon",
     },
     {
       name: "iconPosition",
@@ -77,6 +83,7 @@ export const buttonMeta = {
       default: "start",
       description: "Logical side for the icon when a label is present.",
       playground: true,
+      group: "Icon",
     },
     {
       name: "disabled",
@@ -84,6 +91,7 @@ export const buttonMeta = {
       default: false,
       description: "Native disabled state.",
       playground: true,
+      group: "State",
     },
     {
       name: "className",

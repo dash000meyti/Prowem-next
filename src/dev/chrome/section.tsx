@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import { Heading } from "@/components/ui/heading";
+import { Text } from "@/components/ui/text";
 import { cn } from "@/lib/cn";
 
 export function LabSection({
@@ -14,9 +16,11 @@ export function LabSection({
 }) {
   return (
     <section className={cn("min-w-0", className)}>
-      <h2 className="text-lg font-semibold tracking-tight text-start">{title}</h2>
+      <Heading level={2}>{title}</Heading>
       {hint ? (
-        <p className="mt-1 text-sm leading-6 text-foreground/70 text-start">{hint}</p>
+        <Text variant="muted" className="mt-1">
+          {hint}
+        </Text>
       ) : null}
       <div className="mt-4 min-w-0">{children}</div>
     </section>

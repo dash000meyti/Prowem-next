@@ -43,6 +43,7 @@ const cssVarByColor: Record<ButtonColor, string> = {
 
 type CardSurface = "panel" | "glass";
 type CardLight = "none" | ButtonColor;
+type BorderLightStop = number | `${number}`;
 
 function isLightColor(value: string | null | undefined): value is ButtonColor {
   return Boolean(value && value !== "none" && value in cssVarByColor);
@@ -89,6 +90,9 @@ function lightVars(
 function borderLightImage(
   color: string | null | undefined,
   axis: "x" | "y",
+  start: BorderLightStop | null | undefined,
+  center: BorderLightStop | null | undefined,
+  end: BorderLightStop | null | undefined,
 ): string {
   if (!isLightColor(color)) {
     return "none";
@@ -96,8 +100,29 @@ function borderLightImage(
 
   const token = cssVarByColor[color];
   const direction = axis === "x" ? "90deg" : "180deg";
+  const startStop = normalizeBorderLightStop(start, 10);
+  const centerStop = normalizeBorderLightStop(center, 50);
+  const endStop = normalizeBorderLightStop(end, 90);
 
-  return `linear-gradient(${direction}, color-mix(in srgb, var(${token}) 0%, transparent) 10%, color-mix(in srgb, var(${token}) 90%, transparent) 50%, color-mix(in srgb, var(${token}) 0%, transparent) 90%)`;
+  return `linear-gradient(${direction}, color-mix(in srgb, var(${token}) 0%, transparent) ${startStop}%, color-mix(in srgb, var(${token}) 50%, transparent) ${centerStop}%, color-mix(in srgb, var(${token}) 0%, transparent) ${endStop}%)`;
+}
+
+function normalizeBorderLightStop(
+  value: BorderLightStop | null | undefined,
+  fallback: number,
+): number {
+  if (value === null || value === undefined) {
+    return fallback;
+  }
+
+  const numericValue =
+    typeof value === "number" ? value : Number.parseFloat(value);
+
+  if (Number.isNaN(numericValue)) {
+    return fallback;
+  }
+
+  return Math.min(100, Math.max(0, numericValue));
 }
 
 const lightVariants = {
@@ -156,6 +181,18 @@ function borderVars(
   borderLightBottom: string | null | undefined,
   borderLightStart: string | null | undefined,
   borderLightEnd: string | null | undefined,
+  borderLightTopStart: BorderLightStop | null | undefined,
+  borderLightTopCenter: BorderLightStop | null | undefined,
+  borderLightTopEnd: BorderLightStop | null | undefined,
+  borderLightBottomStart: BorderLightStop | null | undefined,
+  borderLightBottomCenter: BorderLightStop | null | undefined,
+  borderLightBottomEnd: BorderLightStop | null | undefined,
+  borderLightStartStart: BorderLightStop | null | undefined,
+  borderLightStartCenter: BorderLightStop | null | undefined,
+  borderLightStartEnd: BorderLightStop | null | undefined,
+  borderLightEndStart: BorderLightStop | null | undefined,
+  borderLightEndCenter: BorderLightStop | null | undefined,
+  borderLightEndEnd: BorderLightStop | null | undefined,
 ): CSSProperties {
   const hasBorder = (border ?? "sm") !== "none";
   const topLit = hasBorder && isLightColor(borderLightTop);
@@ -168,16 +205,40 @@ function borderVars(
     "--card-border-color": cardBorderColors[borderColor ?? "border"],
     "--card-radius": cardRadiusVars[radius ?? "md"],
     "--card-border-light-top-image": topLit
-      ? borderLightImage(borderLightTop, "x")
+      ? borderLightImage(
+          borderLightTop,
+          "x",
+          borderLightTopStart,
+          borderLightTopCenter,
+          borderLightTopEnd,
+        )
       : "none",
     "--card-border-light-bottom-image": bottomLit
-      ? borderLightImage(borderLightBottom, "x")
+      ? borderLightImage(
+          borderLightBottom,
+          "x",
+          borderLightBottomStart,
+          borderLightBottomCenter,
+          borderLightBottomEnd,
+        )
       : "none",
     "--card-border-light-start-image": startLit
-      ? borderLightImage(borderLightStart, "y")
+      ? borderLightImage(
+          borderLightStart,
+          "y",
+          borderLightStartStart,
+          borderLightStartCenter,
+          borderLightStartEnd,
+        )
       : "none",
     "--card-border-light-end-image": endLit
-      ? borderLightImage(borderLightEnd, "y")
+      ? borderLightImage(
+          borderLightEnd,
+          "y",
+          borderLightEndStart,
+          borderLightEndCenter,
+          borderLightEndEnd,
+        )
       : "none",
   } as CSSProperties;
 }
@@ -251,8 +312,26 @@ export const cardVariants = cva(
   },
 );
 
+type CardVariantProps = VariantProps<typeof cardVariants>;
+
+export type CardBorderLightStopProps = {
+  borderLightTopStart?: BorderLightStop;
+  borderLightTopCenter?: BorderLightStop;
+  borderLightTopEnd?: BorderLightStop;
+  borderLightBottomStart?: BorderLightStop;
+  borderLightBottomCenter?: BorderLightStop;
+  borderLightBottomEnd?: BorderLightStop;
+  borderLightStartStart?: BorderLightStop;
+  borderLightStartCenter?: BorderLightStop;
+  borderLightStartEnd?: BorderLightStop;
+  borderLightEndStart?: BorderLightStop;
+  borderLightEndCenter?: BorderLightStop;
+  borderLightEndEnd?: BorderLightStop;
+};
+
 export type CardProps = HTMLAttributes<HTMLDivElement> &
-  VariantProps<typeof cardVariants>;
+  CardVariantProps &
+  CardBorderLightStopProps;
 
 export function Card({
   className,
@@ -265,6 +344,18 @@ export function Card({
   borderLightTop,
   borderLightStart,
   borderLightEnd,
+  borderLightTopStart,
+  borderLightTopCenter,
+  borderLightTopEnd,
+  borderLightBottomStart,
+  borderLightBottomCenter,
+  borderLightBottomEnd,
+  borderLightStartStart,
+  borderLightStartCenter,
+  borderLightStartEnd,
+  borderLightEndStart,
+  borderLightEndCenter,
+  borderLightEndEnd,
   padding,
   radius,
   border,
@@ -308,6 +399,18 @@ export function Card({
           borderLightBottom,
           borderLightStart,
           borderLightEnd,
+          borderLightTopStart,
+          borderLightTopCenter,
+          borderLightTopEnd,
+          borderLightBottomStart,
+          borderLightBottomCenter,
+          borderLightBottomEnd,
+          borderLightStartStart,
+          borderLightStartCenter,
+          borderLightStartEnd,
+          borderLightEndStart,
+          borderLightEndCenter,
+          borderLightEndEnd,
         ),
         borderStyle: "solid",
         borderWidth: "var(--card-border-width)",

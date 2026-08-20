@@ -23,6 +23,7 @@ export const containerMeta = {
       default: "xl",
       description: "Max width token. full is 100%.",
       playground: true,
+      group: "Layout",
     },
     {
       name: "padding",
@@ -31,6 +32,7 @@ export const containerMeta = {
       default: "md",
       description: "Horizontal padding step.",
       playground: true,
+      group: "Layout",
     },
     {
       name: "className",

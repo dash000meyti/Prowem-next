@@ -27,6 +27,7 @@ export const dropdownMeta = {
       default: "Menu",
       description: "Trigger label (or a node in real use).",
       playground: true,
+      group: "Demo",
     },
     {
       name: "icon",
@@ -35,6 +36,7 @@ export const dropdownMeta = {
       default: "",
       description: "Optional IconName on the trigger.",
       playground: true,
+      group: "Trigger",
     },
     {
       name: "variant",
@@ -43,6 +45,7 @@ export const dropdownMeta = {
       default: "soft",
       description: "Button variant for the trigger.",
       playground: true,
+      group: "Trigger",
     },
     {
       name: "color",
@@ -51,6 +54,7 @@ export const dropdownMeta = {
       default: "primary",
       description: "Button color for the trigger.",
       playground: true,
+      group: "Trigger",
     },
     {
       name: "align",
@@ -59,6 +63,7 @@ export const dropdownMeta = {
       default: "end",
       description: "Panel alignment on the logical start/end axis.",
       playground: true,
+      group: "Panel",
     },
     {
       name: "label",
@@ -66,6 +71,7 @@ export const dropdownMeta = {
       default: "Menu",
       description: "Accessible name for the trigger.",
       playground: true,
+      group: "Demo",
     },
     {
       name: "className",

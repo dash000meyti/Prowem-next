@@ -158,6 +158,32 @@ export function CardGallery() {
       </div>
 
       <div className="flex min-w-0 flex-col gap-2">
+        <GalleryHeading
+          label="borderLight stops"
+          defaults="top 10/50/90; bottom 0/20/40"
+        />
+        <div className="flex min-w-0 flex-wrap items-stretch gap-2">
+          <Card
+            border="md"
+            borderLightTop="primary"
+            borderLightBottom="accent-2"
+            borderLightTopStart={10}
+            borderLightTopCenter={50}
+            borderLightTopEnd={90}
+            borderLightBottomStart={0}
+            borderLightBottomCenter={20}
+            borderLightBottomEnd={40}
+            className={cardLabPreview}
+          >
+            <CardContent>
+              <p className="text-sm">top 10/50/90</p>
+              <p className="text-sm">bottom 0/20/40</p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
+      <div className="flex min-w-0 flex-col gap-2">
         <GalleryHeading label="header / footer" defaults="none" />
         <div className="flex min-w-0 flex-wrap items-stretch gap-2">
           {cardSlotVariantValues.map((variant) => (

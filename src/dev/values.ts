@@ -42,6 +42,7 @@ export const iconPlaygroundValues = [
   "",
   "close",
   "menu",
+  "info",
   "chevron-up",
   "chevron-down",
 ] as const;
@@ -60,3 +61,37 @@ export const sideMenuVariantValues = [
   "link",
   "muted",
 ] as const;
+
+export const headingLevelValues = ["1", "2", "3", "4", "5", "6"] as const;
+
+export const headingToneValues = ["default", "muted"] as const;
+
+export const textVariantValues = [
+  "body",
+  "muted",
+  "caption",
+  "overline",
+  "code",
+] as const;
+
+export const textAsValues = ["p", "span"] as const;
+
+export const listMarkerValues = ["disc", "decimal", "none"] as const;
+
+export const listGapValues = ["sm", "md"] as const;
+
+export const listAsValues = ["ul", "ol"] as const;
+
+export const codeDisplayValues = ["inline", "block"] as const;
+
+export const labelSizeValues = ["sm", "md"] as const;
+
+export const fieldSizeValues = ["sm", "md", "lg"] as const;
+
+export const badgeVariantValues = ["filled", "outline", "soft", "muted"] as const;
+
+export const separatorOrientationValues = ["horizontal", "vertical"] as const;
+
+export const tooltipSideValues = ["top", "bottom", "start", "end"] as const;
+
+export const selectOptionValues = ["one", "two"] as const;

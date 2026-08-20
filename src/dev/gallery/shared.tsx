@@ -1,3 +1,5 @@
+import { Heading } from "@/components/ui/heading";
+import { List } from "@/components/ui/list";
 import { copy } from "@/dev/copy";
 
 export function GalleryHeading({
@@ -8,18 +10,18 @@ export function GalleryHeading({
   defaults: string;
 }) {
   return (
-    <h3 className="text-sm font-medium text-foreground/70">
+    <Heading level={3} tone="muted">
       {label} - Default: {defaults}
-    </h3>
+    </Heading>
   );
 }
 
 export function DemoMenu() {
   return (
-    <ul className="flex min-w-0 flex-col p-1 text-sm">
+    <List marker="none" gap="sm" className="p-1">
       <li className="px-3 py-1.5">{copy.demo.menuItemOne}</li>
       <li className="px-3 py-1.5">{copy.demo.menuItemTwo}</li>
-    </ul>
+    </List>
   );
 }
 

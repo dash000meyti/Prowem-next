@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type ReactNode } from "react";
+import { useId, useMemo, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,6 +8,14 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Heading } from "@/components/ui/heading";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Text } from "@/components/ui/text";
+import { Tooltip } from "@/components/ui/tooltip";
 import { copy } from "@/dev/copy";
 import { labHatchClass } from "@/dev/gallery/shared";
 import type { ComponentMeta, ComponentMetaProp } from "@/dev/meta/types";
@@ -25,6 +33,60 @@ function initialValues(meta: ComponentMeta): Values {
   return values;
 }
 
+function isDependencyActive(
+  values: Values,
+  dependsOn: string | undefined,
+): boolean {
+  if (!dependsOn) {
+    return true;
+  }
+
+  const dependencyValue = values[dependsOn];
+
+  if (dependencyValue === false) {
+    return false;
+  }
+
+  if (dependencyValue === "" || dependencyValue === "none") {
+    return false;
+  }
+
+  return true;
+}
+
+type ControlGroup = {
+  label?: string;
+  props: ComponentMetaProp[];
+};
+
+function groupControls(
+  props: ComponentMetaProp[],
+  values: Values,
+): ControlGroup[] {
+  const visible = props.filter(
+    (prop) =>
+      prop.playground !== false &&
+      isDependencyActive(values, prop.dependsOn),
+  );
+  const groups: ControlGroup[] = [];
+  const indexByKey = new Map<string, number>();
+
+  for (const prop of visible) {
+    const key = prop.group ?? "";
+    const existingIndex = indexByKey.get(key);
+
+    if (existingIndex === undefined) {
+      indexByKey.set(key, groups.length);
+      groups.push({ label: prop.group, props: [prop] });
+      continue;
+    }
+
+    groups[existingIndex]?.props.push(prop);
+  }
+
+  return groups;
+}
+
 function Control({
   prop,
   value,
@@ -34,15 +96,19 @@ function Control({
   value: string | number | boolean | undefined;
   onChange: (value: string | number | boolean) => void;
 }) {
-  const fieldClass =
-    "h-9 rounded-md border-md border-border bg-background px-2 text-sm text-foreground";
+  const id = useId();
+  const rowClass = "flex min-w-0 items-center gap-2";
 
   if (prop.type === "enum") {
     return (
-      <label className="flex min-w-0 flex-col gap-1 text-sm">
-        <span className="text-foreground/70">{prop.name}</span>
-        <select
-          className={fieldClass}
+      <div className={rowClass}>
+        <Label htmlFor={id} className="shrink-0">
+          {prop.name}
+        </Label>
+        <Select
+          id={id}
+          size="sm"
+          className="w-24 max-w-full shrink-0"
           value={String(value ?? "")}
           onChange={(event) => onChange(event.target.value)}
         >
@@ -51,48 +117,57 @@ function Control({
               {item || copy.none}
             </option>
           ))}
-        </select>
-      </label>
+        </Select>
+      </div>
     );
   }
 
   if (prop.type === "boolean") {
     return (
-      <label className="flex min-w-0 items-center gap-2 text-sm">
-        <input
-          type="checkbox"
+      <div className={rowClass}>
+        <Label htmlFor={id} className="shrink-0">
+          {prop.name}
+        </Label>
+        <Checkbox
+          id={id}
           checked={Boolean(value)}
           onChange={(event) => onChange(event.target.checked)}
         />
-        <span>{prop.name}</span>
-      </label>
+      </div>
     );
   }
 
   if (prop.type === "number") {
     return (
-      <label className="flex min-w-0 flex-col gap-1 text-sm">
-        <span className="text-foreground/70">{prop.name}</span>
-        <input
+      <div className={rowClass}>
+        <Label htmlFor={id} className="shrink-0">
+          {prop.name}
+        </Label>
+        <Input
+          id={id}
           type="number"
-          className={fieldClass}
+          size="sm"
+          className="w-16 max-w-full shrink-0"
           value={Number(value ?? 0)}
           onChange={(event) => onChange(Number(event.target.value))}
         />
-      </label>
+      </div>
     );
   }
 
   return (
-    <label className="flex min-w-0 flex-col gap-1 text-sm">
-      <span className="text-foreground/70">{prop.name}</span>
-      <input
-        type="text"
-        className={fieldClass}
+    <div className={rowClass}>
+      <Label htmlFor={id} className="shrink-0">
+        {prop.name}
+      </Label>
+      <Input
+        id={id}
+        size="sm"
+        className="w-24 max-w-full shrink-0"
         value={String(value ?? "")}
         onChange={(event) => onChange(event.target.value)}
       />
-    </label>
+    </div>
   );
 }
 
@@ -106,9 +181,9 @@ export function Playground({
   const [values, setValues] = useState(() => initialValues(meta));
   const [dir, setDir] = useState<PreviewDir>("ltr");
   const [hatch, setHatch] = useState(true);
-  const controls = useMemo(
-    () => meta.props.filter((prop) => prop.playground !== false),
-    [meta.props],
+  const controlGroups = useMemo(
+    () => groupControls(meta.props, values),
+    [meta.props, values],
   );
 
   return (
@@ -117,43 +192,45 @@ export function Playground({
         variant="divider"
         className="flex-row items-center justify-between gap-3"
       >
-        <span className="min-w-0 text-start text-base font-semibold tracking-tight">
+        <Heading level={3} className="text-base font-semibold">
           {copy.playground}
-        </span>
+        </Heading>
         <div className="flex min-w-0 shrink-0 items-center gap-2">
-          <Button
-            type="button"
-            variant="soft"
-            size="sm"
-            onClick={() => setDir((current) => (current === "ltr" ? "rtl" : "ltr"))}
-            aria-label={copy.dirToggle}
-            aria-pressed={dir === "rtl"}
-          >
-            {dir === "rtl" ? copy.dirRtl : copy.dirLtr}
-          </Button>
-          <Button
-            type="button"
-            variant="soft"
-            size="sm"
-            onClick={() => setHatch((current) => !current)}
-            aria-label={copy.hatchToggle}
-            aria-pressed={hatch}
-          >
-            {copy.hatch}
-          </Button>
-          <Button
-            type="button"
-            variant="soft"
-            size="sm"
-            onClick={() => {
-              setValues(initialValues(meta));
-              setDir("ltr");
-              setHatch(true);
-            }}
-            aria-label={copy.resetToggle}
-          >
-            {copy.reset}
-          </Button>
+          <Tooltip content={copy.dirToggle} side="bottom">
+            <Button
+              type="button"
+              variant="soft"
+              size="sm"
+              onClick={() => setDir((current) => (current === "ltr" ? "rtl" : "ltr"))}
+              aria-label={copy.dirToggle}
+              aria-pressed={dir === "rtl"}
+            >
+              {dir === "rtl" ? copy.dirRtl : copy.dirLtr}
+            </Button>
+          </Tooltip>
+          <Tooltip content={copy.hatchToggle} side="bottom">
+            <Switch
+              checked={hatch}
+              onCheckedChange={setHatch}
+              size="sm"
+              aria-label={copy.hatchToggle}
+            />
+          </Tooltip>
+          <Tooltip content={copy.resetToggle} side="bottom">
+            <Button
+              type="button"
+              variant="soft"
+              size="sm"
+              onClick={() => {
+                setValues(initialValues(meta));
+                setDir("ltr");
+                setHatch(true);
+              }}
+              aria-label={copy.resetToggle}
+            >
+              {copy.reset}
+            </Button>
+          </Tooltip>
         </div>
       </CardHeader>
       <CardContent
@@ -166,20 +243,39 @@ export function Playground({
       >
         {render(values)}
       </CardContent>
+      {controlGroups.length > 0 ? (
       <CardFooter variant="divider" className="w-full">
-        <div className="grid min-w-0 w-full gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {controls.map((prop) => (
-            <Control
-              key={prop.name}
-              prop={prop}
-              value={values[prop.name]}
-              onChange={(value) =>
-                setValues((current) => ({ ...current, [prop.name]: value }))
-              }
-            />
+        <div className="flex min-w-0 w-full flex-col gap-6">
+          {controlGroups.map((group) => (
+            <section
+              key={group.label ?? "ungrouped"}
+              className="flex min-w-0 flex-col gap-3"
+            >
+              {group.label ? (
+                <Text as="span" variant="overline">
+                  {group.label}
+                </Text>
+              ) : null}
+              <div className="flex min-w-0 w-full flex-wrap gap-x-6 gap-y-3">
+                {group.props.map((prop) => (
+                  <Control
+                    key={prop.name}
+                    prop={prop}
+                    value={values[prop.name]}
+                    onChange={(value) =>
+                      setValues((current) => ({
+                        ...current,
+                        [prop.name]: value,
+                      }))
+                    }
+                  />
+                ))}
+              </div>
+            </section>
           ))}
         </div>
       </CardFooter>
+      ) : null}
     </Card>
   );
 }

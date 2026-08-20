@@ -12,7 +12,9 @@ UI never knows about locales, dictionaries, or routes. Templates may, but they s
 
 The visual inventory is `/dev`: English docs, playgrounds (LTR/RTL and hatch controls on the preview Card), permutation galleries, and `/dev/test` (scratch sandbox in `src/dev/test/test-sandbox.tsx`). Routes live in `src/app/dev`; chrome, meta, playgrounds, and galleries live in `src/dev`. Product code must not import either folder. Same turn as UI / Templates / Icons / token/config updates: add or update `src/dev/meta`, the playground renderer, and the gallery. The lab shell uses `Container width="full"`. Lab copy is English in `src/dev/copy.ts`, not product dictionaries. There is no dark mode and no locale routing on `/dev`.
 
-Higher UI atoms compose lower ones. Do not copy chrome styles: Dropdown’s trigger is a Button and its open panel is a Card. SideMenu’s panel is a Card (`SideMenuHeader` / `SideMenuContent` / `SideMenuFooter`). A later Popup should be Card + Button (plus overlay). Card does not import Button or Dropdown; `CardFooter` is a layout slot.
+Playground meta props may set `group` (footer section label) and `dependsOn` (show the control only when another prop is active, e.g. border-light stop fields after a color is chosen). Components without groups keep a flat control grid.
+
+Higher UI atoms compose lower ones. Do not copy chrome styles: Dropdown’s trigger is a Button and its open panel is a Card. SideMenu’s panel is a Card (`SideMenuHeader` / `SideMenuContent` / `SideMenuFooter`). Popup is Card + Button (plus overlay). Alert is a Card. TabsTrigger is a Button. Tooltip’s panel is a Card. Card does not import Button or Dropdown; `CardFooter` is a layout slot.
 
 ## Folder contract
 
@@ -64,14 +66,15 @@ Root `Card`:
 
 - `surface`: `panel` (default) | `glass`
 - `lightBottom` / `lightTop` / `lightStart` / `lightEnd`: `none` (default) | same as Button (`primary`, `background`, `foreground`, `accent-1`…`4`, `success`, `warning`, `error`)
-- `borderLightBottom` / `borderLightTop` / `borderLightStart` / `borderLightEnd`: `none` (default) | same colors as lights. Fade along that box-border edge (0% mix at 10% / 90% mix at 50% / 0% at 90%). Needs `border` other than `none`. Start/end follow `dir`.
+- `borderLightBottom` / `borderLightTop` / `borderLightStart` / `borderLightEnd`: `none` (default) | same colors as lights. Fade along that box-border edge. Needs `border` other than `none`. Start/end follow `dir`.
+- `borderLightTopStart` / `borderLightTopCenter` / `borderLightTopEnd`, `borderLightBottomStart` / `borderLightBottomCenter` / `borderLightBottomEnd`, `borderLightStartStart` / `borderLightStartCenter` / `borderLightStartEnd`, `borderLightEndStart` / `borderLightEndCenter` / `borderLightEndEnd`: numeric stop percentages for each edge gradient. Defaults are `10` / `50` / `90`.
 - `padding`: `none` | `sm` | `md` | `lg` (default `none`)
 - `radius`: `none` | `sm` | `md` | `lg` | `full` (default `md`)
 - `border`: `none` | `sm` | `md` | `lg` (default `sm`)
 - `borderColor`: `border` (default) | same as Button (`primary`, `background`, `foreground`, `accent-1`…`4`, `success`, `warning`, `error`)
 - Also native `div` attributes and `className?`
 
-`surface` is only the fill: `panel` uses `--panel`; `glass` is the stuck-header mix (`panel` at 72% when unlit, 42% when any light is on) plus `backdrop-blur-sm`. Lights are independent ellipse glows (18% mix) on `bg-card-spots`. `lightStart` / `lightEnd` follow `dir` (not `left` / `right`). `borderLight*` overlays a fade on the existing box border (`card-border-lights` pseudo, same `--card-border-width`, follows `radius`); solid `borderColor` stays. Old names map as: `light` → `lightBottom="primary"`; `glass-light` → `surface="glass"` + `lightBottom="primary"`; `light-dual` → `lightBottom="primary"` + `lightTop="foreground"`; `glass-light-dual` → the same lights on `glass`. Root has `overflow-hidden` so slot fills and gradients clip to radius. Root paints its box border from `--card-border-width` and `--card-border-color` (same vars Header/Footer edges inherit). Do not use the Tailwind `border` shorthand with `border-sm|md|lg` — that shorthand also sets width to 1px and wins over the token.
+`surface` is only the fill: `panel` uses `--panel`; `glass` is the stuck-header mix (`panel` at 72% when unlit, 42% when any light is on) plus `backdrop-blur-sm`. Lights are independent ellipse glows (18% mix) on `bg-card-spots`. `lightStart` / `lightEnd` follow `dir` (not `left` / `right`). `borderLight*` overlays a fade on the existing box border (`card-border-lights` pseudo, same `--card-border-width`, follows `radius`); solid `borderColor` stays. The border-light stop props control where that fade starts, peaks, and ends on each edge; omitted props fall back to `10` / `50` / `90`. Old names map as: `light` → `lightBottom="primary"`; `glass-light` → `surface="glass"` + `lightBottom="primary"`; `light-dual` → `lightBottom="primary"` + `lightTop="foreground"`; `glass-light-dual` → the same lights on `glass`. Root has `overflow-hidden` so slot fills and gradients clip to radius. Root paints its box border from `--card-border-width` and `--card-border-color` (same vars Header/Footer edges inherit). Do not use the Tailwind `border` shorthand with `border-sm|md|lg` — that shorthand also sets width to 1px and wins over the token.
 
 `CardHeader` / `CardFooter` `variant`: `none` (default) | `filled` (`bg-panel-hover/50`) | `border` (header bottom edge, footer top edge) | `divider` (`filled` + `border`). Those `border` / `divider` lines use the parent Card’s `border` width and `borderColor`; slots do not take those props. `border` insets the line on both inline sides by the slot’s `padding` (`none` stays full width; `md` matches `p-4`). `divider` keeps the line full-bleed at every padding. Fill stays full-bleed. `CardContent` has no variant yet.
 
@@ -94,13 +97,107 @@ Client atom. No copy, no routing. Overlay, Escape, and the close control live he
 `padding`: `none` | `sm` | `md` | `lg` (each step is already viewport-scaled, e.g. default `md` is `px-4 md:px-6 lg:px-8`)  
 Use as the page/section shell. Horizontal padding is symmetric (`px-*`), which is RTL-safe. `min-w-0` is on the root so flex layouts can shrink.
 
+### Heading
+
+`level`: `1` | `2` | `3` | `4` | `5` | `6` (renders `h1`–`h6`; size follows the level)  
+`tone`: `default` | `muted`  
+No subtitle slot. Pass supporting copy as a sibling `Text`. `headingVariants()` is exported.
+
+### Text
+
+`as?`: `p` (default) | `span`  
+`variant`: `body` | `muted` | `caption` | `overline` | `code`  
+No heading sizes — use Heading for those. `variant="code"` is inline; use `Code` `display="block"` for a snippet panel. `textVariants()` is exported.
+
+### List
+
+`as?`: `ul` | `ol` (defaults to `ol` when `marker="decimal"`, otherwise `ul`)  
+`marker`: `disc` (default) | `decimal` | `none`  
+`gap`: `sm` | `md` (default `md`)  
+Children are `li` nodes. No ListItem atom. `listVariants()` is exported.
+
+### Table
+
+Compound atom: `Table`, `TableHeader`, `TableBody`, `TableRow`, `TableHead`, `TableCell`. No caption. Root wraps the table with overflow clip, `rounded-md`, and `border-md border-border`. Header uses `bg-panel`. Body rows get a top edge. `tableVariants()` and slot helpers are exported.
+
+### Code
+
+`display`: `inline` (default) | `block`  
+Inline is a `code` tag. Block is `pre > code` with `bg-panel`, token border, `p-4`, `font-mono text-xs`. `codeVariants()` is exported.
+
+### Label
+
+Native `label`. `size`: `sm` | `md` (default `md`). Pair with `htmlFor`. `labelVariants()` is exported.
+
+### Input
+
+Native text field. Native `size` is omitted so the design `size` can use that name.  
+`size`: `sm` | `md` | `lg` (heights match Button: `h-8` / `h-9 md:h-10` / `h-10 md:h-12`)  
+`radius`: `none` | `sm` | `md` | `lg` | `full` (default `md`)  
+`inputVariants()` is exported. Other native input attributes pass through.
+
+### Select
+
+Native `<select>`. Same `size` and `radius` scale as Input (default radius `md`). Options are `option` children. Not a custom listbox — keep it native. `selectVariants()` is exported.
+
+### Checkbox
+
+Native checkbox. `size`: `sm` | `md` | `lg` (default `md`). Token border and `accent-primary`. Pair with Label. `checkboxVariants()` is exported.
+
+### Textarea
+
+Native multiline field. Same `size` (type/padding) and `radius` as Input. `min-h-20` instead of Button height. `textareaVariants()` is exported.
+
+### Switch
+
+Client toggle (`role="switch"`). `checked?` + `onCheckedChange?`, or `defaultChecked` for uncontrolled.  
+`color`: same as Button (tints the on track)  
+`size`: `sm` | `md` | `lg` (default `md`)  
+The thumb uses `ms-auto` when on so start/end follow `dir`. `switchVariants()` is exported.
+
+### Separator
+
+`orientation`: `horizontal` (default) | `vertical`. Fills with `bg-border`. `separatorVariants()` is exported.
+
+### Badge
+
+`variant`: `filled` | `outline` | `soft` | `muted`  
+`color`: same as Button  
+`size`: `sm` (default) | `md`  
+`radius`: `none` | `sm` | `md` | `lg` | `full` (default `full`)  
+No title slot. Pass the label as children. `badgeVariants()` is exported.
+
+### Tabs
+
+Compound client atom: `Tabs`, `TabsList`, `TabsTrigger`, `TabsContent`.  
+`defaultValue?` or controlled `value` + `onValueChange?`. Triggers are Buttons (`subtle` when selected, `ghost` otherwise, `size="sm"`, `radius="md"`). Do not restyle a second tab chrome.
+
+### Alert
+
+Status panel. Card underneath (`padding="md"`, optional `borderColor`).  
+`color?`: same as Card `borderColor` (default `border`)  
+`icon?`: `IconName`  
+No `AlertTitle` / `AlertDescription` — children are the message. Put a Heading inside children if you need one.
+
+### Tooltip
+
+Client hover/focus hint. Portal + Card (`padding="sm"`).  
+`content`, `children` (the trigger), `side?`: `top` (default) | `bottom` | `start` | `end`  
+`start` / `end` follow `dir`. No collision flip or overflow shifting — keep content short. Delay 200ms.
+
+### Popup
+
+Compound client atom: `Popup`, `PopupHeader`, `PopupContent`, `PopupFooter`. `popupPanelVariants()` is exported.  
+Props on the root: `icon?` (`IconName`), `trigger?` (text or node), `children`, `label`, `closeLabel`, `variant?` (same as SideMenu trigger, default `outline`), `color?` (same as Button, default `primary`), `className?`.  
+The trigger is a Button like Dropdown / SideMenu. Overlay matches SideMenu (`bg-background/72 backdrop-blur-xs`, `duration-300`). The panel is a centered Card (`padding="none"`) portaled to `document.body`. Header / Content / Footer are Card slots: Header default `variant="border"` and includes the close button; Footer default `variant="border"`. Escape, overlay click, and a light focus trap live here.
+
 ## Icons inventory (phase 1)
 
 Public API: `<Icon name="close" className="size-5" />`. Names live in `src/components/icons/registry.ts`.
 
 Linear glyphs only (`viewBox="0 0 24 24"`, `stroke="currentColor"`, `strokeWidth={1.5}`, round caps). Draw our own paths — do not copy Iconsax files. Bold/Broken styles are later.
 
-Current names: `close`, `menu`, `chevron-up`, `chevron-down`, `flag-en`, `flag-de`, `flag-pt`, `flag-es`, `flag-ar`. Flags keep their own fills (national colors, not theme tokens). `Icon` clips flags with `overflow-hidden rounded-full`.
+Current names: `close`, `menu`, `info`, `chevron-up`, `chevron-down`, `flag-en`, `flag-de`, `flag-pt`, `flag-es`, `flag-ar`. Flags keep their own fills (national colors, not theme tokens). `Icon` clips flags with `overflow-hidden rounded-full`.
 
 ## Template inventory (phase 1)
 

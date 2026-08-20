@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { buttonVariants } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { Text } from "@/components/ui/text";
 import { copy } from "@/dev/copy";
 import { templateMetas, uiMetas } from "@/dev/meta";
 import { cn } from "@/lib/cn";
@@ -41,9 +43,9 @@ function NavLink({ href, label }: { href: string; label: string }) {
 function NavGroup({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div className="flex min-w-0 flex-col gap-2">
-      <p className="text-xs font-semibold uppercase tracking-wide text-foreground/70">
+      <Text as="span" variant="overline">
         {title}
-      </p>
+      </Text>
       {children}
     </div>
   );
@@ -57,6 +59,7 @@ export function DevNav({ className }: { className?: string }) {
           <NavLink key={item.href} href={item.href} label={item.label} />
         ))}
       </NavGroup>
+      <Separator />
       <NavGroup title={copy.components}>
         {uiMetas.map((meta) => (
           <NavLink
@@ -66,6 +69,7 @@ export function DevNav({ className }: { className?: string }) {
           />
         ))}
       </NavGroup>
+      <Separator />
       <NavGroup title={copy.templates}>
         {templateMetas.map((meta) => (
           <NavLink

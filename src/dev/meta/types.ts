@@ -9,6 +9,10 @@ export type ComponentMetaProp = {
   default?: string | number | boolean;
   description: string;
   playground?: boolean;
+  /** Playground footer section label (English). */
+  group?: string;
+  /** Shown only when the named prop is active (not none / false / empty). */
+  dependsOn?: string;
 };
 
 export type ComponentMeta = {

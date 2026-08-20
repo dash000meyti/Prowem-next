@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Alert } from "@/components/ui/alert";
+import { Heading } from "@/components/ui/heading";
+import { List } from "@/components/ui/list";
+import { Text } from "@/components/ui/text";
 import { copy } from "@/dev/copy";
 import { templateMetas, uiMetas } from "@/dev/meta";
 
@@ -11,50 +15,38 @@ export default function DevHomePage() {
   return (
     <article className="flex min-w-0 flex-col gap-8">
       <header className="flex min-w-0 flex-col gap-3">
-        <h1 className="text-2xl font-semibold tracking-tight text-start md:text-3xl">
-          {copy.home.title}
-        </h1>
-        <p className="text-sm leading-6 text-foreground/70">{copy.home.intro}</p>
+        <Heading level={1}>{copy.home.title}</Heading>
+        <Text variant="muted">{copy.home.intro}</Text>
       </header>
 
       <section className="flex min-w-0 flex-col gap-3">
-        <h2 className="text-lg font-semibold tracking-tight text-start">
-          {copy.home.foldersTitle}
-        </h2>
-        <p className="text-sm leading-6 text-foreground/70">
-          {copy.home.foldersIntro}
-        </p>
-        <ul className="flex list-disc flex-col gap-2 ps-5 text-sm">
+        <Heading level={2}>{copy.home.foldersTitle}</Heading>
+        <Text variant="muted">{copy.home.foldersIntro}</Text>
+        <List marker="disc">
           {copy.home.folders.map((item) => (
             <li key={item}>{item}</li>
           ))}
-        </ul>
+        </List>
       </section>
 
       <section className="flex min-w-0 flex-col gap-3">
-        <h2 className="text-lg font-semibold tracking-tight text-start">
-          {copy.home.dockerTitle}
-        </h2>
-        <p className="text-sm leading-6 text-foreground/70">
-          {copy.home.dockerIntro}
-        </p>
+        <Heading level={2}>{copy.home.dockerTitle}</Heading>
+        <Alert icon="info">
+          <Text variant="muted">{copy.home.dockerIntro}</Text>
+        </Alert>
       </section>
 
       <section className="flex min-w-0 flex-col gap-3">
-        <h2 className="text-lg font-semibold tracking-tight text-start">
-          {copy.home.addTitle}
-        </h2>
-        <ol className="flex list-decimal flex-col gap-2 ps-5 text-sm">
+        <Heading level={2}>{copy.home.addTitle}</Heading>
+        <List as="ol" marker="decimal">
           {copy.home.add.map((item) => (
             <li key={item}>{item}</li>
           ))}
-        </ol>
+        </List>
       </section>
 
       <section className="flex min-w-0 flex-col gap-3">
-        <h2 className="text-lg font-semibold tracking-tight text-start">
-          {copy.home.catalogTitle}
-        </h2>
+        <Heading level={2}>{copy.home.catalogTitle}</Heading>
         <div className="grid min-w-0 gap-3 sm:grid-cols-2">
           <div className="flex min-w-0 flex-col gap-2">
             {uiMetas.map((meta) => (

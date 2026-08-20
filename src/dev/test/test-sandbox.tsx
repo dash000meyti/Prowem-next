@@ -3,6 +3,11 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Heading } from "@/components/ui/heading";
+import { List } from "@/components/ui/list";
+import { Switch } from "@/components/ui/switch";
+import { Text } from "@/components/ui/text";
+import { Tooltip } from "@/components/ui/tooltip";
 import { copy } from "@/dev/copy";
 import { labHatchClass } from "@/dev/gallery/shared";
 import { cn } from "@/lib/cn";
@@ -18,42 +23,38 @@ export function TestSandbox() {
   return (
     <article className="flex min-w-0 flex-col gap-8">
       <header className="flex min-w-0 flex-col gap-3">
-        <h1 className="text-2xl font-semibold tracking-tight text-start md:text-3xl">
-          {copy.testPage.title}
-        </h1>
-        <p className="text-sm leading-6 text-foreground/70">
-          {copy.testPage.intro}
-        </p>
-        <ol className="flex list-decimal flex-col gap-2 ps-5 text-sm leading-6 text-foreground/70">
+        <Heading level={1}>{copy.testPage.title}</Heading>
+        <Text variant="muted">{copy.testPage.intro}</Text>
+        <List as="ol" marker="decimal" className="text-foreground/70">
           {copy.testPage.steps.map((step) => (
             <li key={step}>{step}</li>
           ))}
-        </ol>
+        </List>
       </header>
 
       <div className="flex min-w-0 flex-wrap items-center gap-2">
-        <Button
-          type="button"
-          variant="soft"
-          size="sm"
-          onClick={() =>
-            setDir((current) => (current === "ltr" ? "rtl" : "ltr"))
-          }
-          aria-label={copy.dirToggle}
-          aria-pressed={dir === "rtl"}
-        >
-          {dir === "rtl" ? copy.dirRtl : copy.dirLtr}
-        </Button>
-        <Button
-          type="button"
-          variant="soft"
-          size="sm"
-          onClick={() => setHatch((current) => !current)}
-          aria-label={copy.hatchToggle}
-          aria-pressed={hatch}
-        >
-          {copy.hatch}
-        </Button>
+        <Tooltip content={copy.dirToggle} side="bottom">
+          <Button
+            type="button"
+            variant="soft"
+            size="sm"
+            onClick={() =>
+              setDir((current) => (current === "ltr" ? "rtl" : "ltr"))
+            }
+            aria-label={copy.dirToggle}
+            aria-pressed={dir === "rtl"}
+          >
+            {dir === "rtl" ? copy.dirRtl : copy.dirLtr}
+          </Button>
+        </Tooltip>
+        <Tooltip content={copy.hatchToggle} side="bottom">
+          <Switch
+            checked={hatch}
+            onCheckedChange={setHatch}
+            size="sm"
+            aria-label={copy.hatchToggle}
+          />
+        </Tooltip>
       </div>
 
       <div
@@ -68,6 +69,13 @@ export function TestSandbox() {
         <Card
           border="md"
           borderLightTop="primary"
+          borderLightTopStart={10}
+          borderLightTopCenter={50}
+          borderLightTopEnd={90}
+          borderLightBottom="accent-2"
+          borderLightBottomStart={0}
+          borderLightBottomCenter={20}
+          borderLightBottomEnd={40}
           className="h-[350px] w-[250px]"
           surface="glass"
           lightBottom="primary"

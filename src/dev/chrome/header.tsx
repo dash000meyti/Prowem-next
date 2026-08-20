@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { Text } from "@/components/ui/text";
 import { copy } from "@/dev/copy";
 import { cn } from "@/lib/cn";
 
@@ -11,11 +12,13 @@ export function DevHeader() {
         width="full"
         className="flex min-h-14 flex-wrap items-center justify-between gap-x-4 gap-y-3 py-3 md:h-16 md:flex-nowrap md:py-0"
       >
-        <Link
-          href="/dev"
-          className="min-w-0 text-start text-sm font-semibold tracking-tight md:text-base"
-        >
-          {copy.siteName}
+        <Link href="/dev" className="min-w-0">
+          <Text
+            as="span"
+            className="text-sm font-semibold tracking-tight text-foreground md:text-base"
+          >
+            {copy.siteName}
+          </Text>
         </Link>
         <Link
           href="/"

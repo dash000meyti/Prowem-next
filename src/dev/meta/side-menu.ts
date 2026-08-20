@@ -29,6 +29,7 @@ export const sideMenuMeta = {
       default: "Menu",
       description: "Trigger label (or a node in real use).",
       playground: true,
+      group: "Demo",
     },
     {
       name: "icon",
@@ -37,6 +38,7 @@ export const sideMenuMeta = {
       default: "menu",
       description: "Optional IconName on the trigger.",
       playground: true,
+      group: "Trigger",
     },
     {
       name: "variant",
@@ -45,6 +47,7 @@ export const sideMenuMeta = {
       default: "outline",
       description: "Button variant for the trigger.",
       playground: true,
+      group: "Trigger",
     },
     {
       name: "color",
@@ -53,6 +56,7 @@ export const sideMenuMeta = {
       default: "primary",
       description: "Button color for the trigger.",
       playground: true,
+      group: "Trigger",
     },
     {
       name: "side",
@@ -61,6 +65,7 @@ export const sideMenuMeta = {
       default: "end",
       description: "Which logical edge the panel slides from.",
       playground: true,
+      group: "Panel",
     },
     {
       name: "label",
@@ -68,6 +73,7 @@ export const sideMenuMeta = {
       default: "Menu",
       description: "Accessible name for the trigger.",
       playground: true,
+      group: "Demo",
     },
     {
       name: "closeLabel",
@@ -75,6 +81,7 @@ export const sideMenuMeta = {
       default: "Close",
       description: "Accessible name for the close control.",
       playground: true,
+      group: "Demo",
     },
     {
       name: "className",

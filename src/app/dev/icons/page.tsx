@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Heading } from "@/components/ui/heading";
+import { Text } from "@/components/ui/text";
 import { copy } from "@/dev/copy";
 import { IconsGallery } from "@/dev/gallery/icons";
 
@@ -10,12 +12,8 @@ export default function DevIconsPage() {
   return (
     <article className="flex min-w-0 flex-col gap-8">
       <header className="flex min-w-0 flex-col gap-3">
-        <h1 className="text-2xl font-semibold tracking-tight text-start md:text-3xl">
-          {copy.iconsPage.title}
-        </h1>
-        <p className="text-sm leading-6 text-foreground/70">
-          {copy.iconsPage.intro}
-        </p>
+        <Heading level={1}>{copy.iconsPage.title}</Heading>
+        <Text variant="muted">{copy.iconsPage.intro}</Text>
       </header>
       <IconsGallery />
     </article>

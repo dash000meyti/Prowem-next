@@ -29,7 +29,7 @@ Permanent. The user will not repeat it.
 ## Layout
 
 - Routes: `src/app/[lang]/` — prefixes `/en` `/de` `/pt` `/es` `/ar`
-- UI atoms: `src/components/ui/<name>/` (higher atoms compose lower ones: Dropdown → Button + Card; SideMenu → Button + Card slots)
+- UI atoms: `src/components/ui/<name>/` (higher atoms compose lower ones: Dropdown → Button + Card; SideMenu / Popup → Button + Card slots)
 - Templates: `src/components/templates/<name>/` (phase 1: SiteHeader)
 - Icons: `src/components/icons/` (`<Icon name="…" />`; Linear only)
 - Static assets: `public/` (`logo.svg` wordmark, `favicon/` PHP set)

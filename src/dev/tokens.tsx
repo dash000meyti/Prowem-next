@@ -1,3 +1,8 @@
+import { Heading } from "@/components/ui/heading";
+import { List } from "@/components/ui/list";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Text } from "@/components/ui/text";
+import { copy } from "@/dev/copy";
 import { getSettings } from "@/settings/get-settings";
 import type { ThemeContainer } from "@/settings/types";
 
@@ -129,7 +134,9 @@ function Swatch({ label, className }: { label: string; className: string }) {
       <div
         className={`shrink-0 border-md border-border ${tokenSwatch} ${className}`}
       />
-      <span className="min-w-0 truncate text-xs text-foreground/70">{label}</span>
+      <Text as="span" variant="caption" className="min-w-0 truncate">
+        {label}
+      </Text>
     </div>
   );
 }
@@ -138,84 +145,99 @@ export async function TokenGallery() {
   const settings = await getSettings();
 
   return (
-    <div className="flex min-w-0 flex-col gap-8">
-      <div className="flex min-w-0 flex-col gap-2">
-        <h3 className="text-sm font-medium text-foreground/70">layout</h3>
-        <p className="text-xs text-foreground/70">
-          Prefix widths live in globals.css. Container max-widths live in
-          theme.container. Keep the pixel values the same. full is Container
-          only.
-        </p>
-        <ul className="flex min-w-0 flex-col gap-2">
+    <Tabs defaultValue="layout">
+      <TabsList>
+        <TabsTrigger value="layout">{copy.tokensPage.layoutTab}</TabsTrigger>
+        <TabsTrigger value="color">{copy.tokensPage.colorTab}</TabsTrigger>
+        <TabsTrigger value="radius">{copy.tokensPage.radiusTab}</TabsTrigger>
+        <TabsTrigger value="border">{copy.tokensPage.borderTab}</TabsTrigger>
+      </TabsList>
+      <TabsContent value="layout" className="flex min-w-0 flex-col gap-2">
+        <Heading level={3} tone="muted">
+          layout
+        </Heading>
+        <Text variant="caption">{copy.tokensPage.layoutIntro}</Text>
+        <List marker="none" gap="sm">
           {layoutRows.map((row) => (
             <li key={row.name} className="flex min-w-0 flex-col gap-1">
-              <span className="text-xs text-foreground/70">
+              <Text as="span" variant="caption">
                 {row.name}: {settings.theme.container[row.name]}
-              </span>
+              </Text>
               <div
                 className={`h-2 w-full bg-panel ${row.className} shadow-outline`}
               />
             </li>
           ))}
-        </ul>
-      </div>
-
-      <div className="flex min-w-0 flex-col gap-2">
-        <h3 className="text-sm font-medium text-foreground/70">{primarySwatch.name}</h3>
-        <div className="flex min-w-0 flex-wrap gap-3">
-          {primarySwatch.tones.map((tone) => (
-            <Swatch key={tone.label} {...tone} />
-          ))}
-        </div>
-      </div>
-
-      <div className="flex min-w-0 flex-col gap-2">
-        <h3 className="text-sm font-medium text-foreground/70">surface</h3>
-        <div className="flex min-w-0 flex-wrap gap-3">
-          {surfaceSwatches.map((swatch) => (
-            <Swatch key={swatch.label} {...swatch} />
-          ))}
-        </div>
-      </div>
-
-      {actionSwatches.map((action) => (
-        <div key={action.name} className="flex min-w-0 flex-col gap-2">
-          <h3 className="text-sm font-medium text-foreground/70">{action.name}</h3>
+        </List>
+      </TabsContent>
+      <TabsContent value="color" className="flex min-w-0 flex-col gap-8">
+        <div className="flex min-w-0 flex-col gap-2">
+          <Heading level={3} tone="muted">
+            {primarySwatch.name}
+          </Heading>
           <div className="flex min-w-0 flex-wrap gap-3">
-            {action.tones.map((tone) => (
+            {primarySwatch.tones.map((tone) => (
               <Swatch key={tone.label} {...tone} />
             ))}
           </div>
         </div>
-      ))}
-
-      <div className="flex min-w-0 flex-col gap-2">
-        <h3 className="text-sm font-medium text-foreground/70">radius</h3>
+        <div className="flex min-w-0 flex-col gap-2">
+          <Heading level={3} tone="muted">
+            surface
+          </Heading>
+          <div className="flex min-w-0 flex-wrap gap-3">
+            {surfaceSwatches.map((swatch) => (
+              <Swatch key={swatch.label} {...swatch} />
+            ))}
+          </div>
+        </div>
+        {actionSwatches.map((action) => (
+          <div key={action.name} className="flex min-w-0 flex-col gap-2">
+            <Heading level={3} tone="muted">
+              {action.name}
+            </Heading>
+            <div className="flex min-w-0 flex-wrap gap-3">
+              {action.tones.map((tone) => (
+                <Swatch key={tone.label} {...tone} />
+              ))}
+            </div>
+          </div>
+        ))}
+      </TabsContent>
+      <TabsContent value="radius" className="flex min-w-0 flex-col gap-2">
+        <Heading level={3} tone="muted">
+          radius
+        </Heading>
         <div className="flex min-w-0 flex-wrap items-center gap-3">
           {radiusSwatches.map((swatch) => (
             <div key={swatch.label} className="flex min-w-0 flex-col items-center gap-1">
               <div
                 className={`bg-panel ${tokenSwatch} ${swatch.className} shadow-outline`}
               />
-              <span className="text-xs text-foreground/70">{swatch.label}</span>
+              <Text as="span" variant="caption">
+                {swatch.label}
+              </Text>
             </div>
           ))}
         </div>
-      </div>
-
-      <div className="flex min-w-0 flex-col gap-2">
-        <h3 className="text-sm font-medium text-foreground/70">border - Default: md</h3>
+      </TabsContent>
+      <TabsContent value="border" className="flex min-w-0 flex-col gap-2">
+        <Heading level={3} tone="muted">
+          border
+        </Heading>
         <div className="flex min-w-0 flex-wrap items-center gap-3">
           {borderSwatches.map((swatch) => (
             <div key={swatch.label} className="flex min-w-0 flex-col items-center gap-1">
               <div
                 className={`border bg-panel border-border ${tokenSwatch} ${swatch.className}`}
               />
-              <span className="text-xs text-foreground/70">{swatch.label}</span>
+              <Text as="span" variant="caption">
+                {swatch.label}
+              </Text>
             </div>
           ))}
         </div>
-      </div>
-    </div>
+      </TabsContent>
+    </Tabs>
   );
 }

@@ -24,6 +24,7 @@ export const siteHeaderMeta = {
       default: "Prowem",
       description: "Wordmark alt text.",
       playground: true,
+      group: "Content",
     },
     {
       name: "currentLocale",
@@ -32,6 +33,7 @@ export const siteHeaderMeta = {
       default: "en",
       description: "Locale prefix for nav hrefs.",
       playground: true,
+      group: "Locale",
     },
     {
       name: "navFrom",
@@ -40,6 +42,7 @@ export const siteHeaderMeta = {
       default: "xl",
       description: "Breakpoint where desktop nav replaces the hamburger.",
       playground: true,
+      group: "Layout",
     },
     {
       name: "className",
