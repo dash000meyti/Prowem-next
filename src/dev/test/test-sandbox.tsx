@@ -65,7 +65,14 @@ export function TestSandbox() {
       >
         {/* ——— Add experiments below. Duplicate TestSection blocks as needed. ——— */}
 
-        <Card className="w-[250px] h-[350px] border-test"></Card>
+        <Card
+          border="md"
+          borderLightTop="primary"
+          className="h-[350px] w-[250px]"
+          surface="glass"
+          lightBottom="primary"
+          lightTop="foreground"
+        />
 
         {/* ——— End of experiments. ——— */}
       </div>

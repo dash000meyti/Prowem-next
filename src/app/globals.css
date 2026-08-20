@@ -72,7 +72,17 @@
   --card-base: var(--panel);
   --card-border-width: var(--theme-border-width-md);
   --card-border-color: var(--border);
-  /* /dev/test scratch token — promote to settings when ready */
+  --card-radius: var(--theme-radius-md);
+  --card-border-light-extent: calc(
+    var(--card-radius) + var(--card-border-width)
+  );
+  --card-border-light-top-image: none;
+  --card-border-light-bottom-image: none;
+  --card-border-light-start-image: none;
+  --card-border-light-end-image: none;
+  --card-border-light-start-pos: left center;
+  --card-border-light-end-pos: right center;
+  /* /dev/test scratch tokens — promote to settings when ready */
   --test: #ff9500;
 }
 
@@ -167,8 +177,6 @@
   --breakpoint-xl: 1440px;
   --breakpoint-2xl: initial;
   --font-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
-  /* /dev/test scratch token — promote to settings when ready */
-  --test: var(--test);
 }
 
 @utility bg-card-spots {
@@ -193,7 +201,30 @@
       var(--card-spot-end) 0%,
       transparent 100%
     ),
-    linear-gradient(var(--card-base), var(--card-base));
+    linear-gradient(var(--card-base), var(--card-base)),
+    var(--card-border-light-top-image),
+    var(--card-border-light-bottom-image),
+    var(--card-border-light-start-image),
+    var(--card-border-light-end-image);
+  background-repeat: no-repeat;
+  background-origin:
+    padding-box, padding-box, padding-box, padding-box, padding-box,
+    border-box, border-box, border-box, border-box;
+  background-clip:
+    padding-box, padding-box, padding-box, padding-box, padding-box,
+    border-box, border-box, border-box, border-box;
+  background-size:
+    auto, auto, auto, auto, auto,
+    100% var(--card-border-light-extent),
+    100% var(--card-border-light-extent),
+    var(--card-border-light-extent) 100%,
+    var(--card-border-light-extent) 100%;
+  background-position:
+    0 0, 0 0, 0 0, 0 0, 0 0,
+    top,
+    bottom,
+    var(--card-border-light-start-pos),
+    var(--card-border-light-end-pos);
 }
 
 @utility card-edge-top {
@@ -232,6 +263,8 @@ html {
 html[dir="rtl"] {
   --card-spot-start-at: 110% 50%;
   --card-spot-end-at: -10% 50%;
+  --card-border-light-start-pos: right center;
+  --card-border-light-end-pos: left center;
 }
 
 body {

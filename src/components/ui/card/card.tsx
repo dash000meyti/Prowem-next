@@ -86,6 +86,20 @@ function lightVars(
   } as CSSProperties;
 }
 
+function borderLightImage(
+  color: string | null | undefined,
+  axis: "x" | "y",
+): string {
+  if (!isLightColor(color)) {
+    return "none";
+  }
+
+  const token = cssVarByColor[color];
+  const direction = axis === "x" ? "90deg" : "180deg";
+
+  return `linear-gradient(${direction}, color-mix(in srgb, var(${token}) 0%, transparent) 10%, color-mix(in srgb, var(${token}) 90%, transparent) 50%, color-mix(in srgb, var(${token}) 0%, transparent) 90%)`;
+}
+
 const lightVariants = {
   none: "",
   ...Object.fromEntries(buttonColors.map((color) => [color, ""])),
@@ -96,6 +110,14 @@ const cardBorderWidth = {
   sm: "var(--theme-border-width-sm)",
   md: "var(--theme-border-width-md)",
   lg: "var(--theme-border-width-lg)",
+} as const;
+
+const cardRadiusVars = {
+  none: "var(--theme-radius-none)",
+  sm: "var(--theme-radius-sm)",
+  md: "var(--theme-radius-md)",
+  lg: "var(--theme-radius-lg)",
+  full: "var(--theme-radius-full)",
 } as const;
 
 const cardBorderColors = {
@@ -129,10 +151,40 @@ const borderColorVariants = {
 function borderVars(
   border: keyof typeof cardBorderWidth | null | undefined,
   borderColor: keyof typeof cardBorderColors | null | undefined,
+  radius: keyof typeof cardRadiusVars | null | undefined,
+  borderLightTop: string | null | undefined,
+  borderLightBottom: string | null | undefined,
+  borderLightStart: string | null | undefined,
+  borderLightEnd: string | null | undefined,
 ): CSSProperties {
+  const hasBorder = (border ?? "sm") !== "none";
+  const topLit = hasBorder && isLightColor(borderLightTop);
+  const bottomLit = hasBorder && isLightColor(borderLightBottom);
+  const startLit = hasBorder && isLightColor(borderLightStart);
+  const endLit = hasBorder && isLightColor(borderLightEnd);
+
   return {
     "--card-border-width": cardBorderWidth[border ?? "sm"],
     "--card-border-color": cardBorderColors[borderColor ?? "border"],
+    "--card-radius": cardRadiusVars[radius ?? "md"],
+    "--card-border-light-top-image": topLit
+      ? borderLightImage(borderLightTop, "x")
+      : "none",
+    "--card-border-light-bottom-image": bottomLit
+      ? borderLightImage(borderLightBottom, "x")
+      : "none",
+    "--card-border-light-start-image": startLit
+      ? borderLightImage(borderLightStart, "y")
+      : "none",
+    "--card-border-light-end-image": endLit
+      ? borderLightImage(borderLightEnd, "y")
+      : "none",
+    borderTopColor: topLit ? "transparent" : "var(--card-border-color)",
+    borderBottomColor: bottomLit ? "transparent" : "var(--card-border-color)",
+    borderInlineStartColor: startLit
+      ? "transparent"
+      : "var(--card-border-color)",
+    borderInlineEndColor: endLit ? "transparent" : "var(--card-border-color)",
   } as CSSProperties;
 }
 
@@ -148,6 +200,10 @@ export const cardVariants = cva(
       lightTop: lightVariants,
       lightStart: lightVariants,
       lightEnd: lightVariants,
+      borderLightBottom: lightVariants,
+      borderLightTop: lightVariants,
+      borderLightStart: lightVariants,
+      borderLightEnd: lightVariants,
       padding: cardPadding,
       radius: {
         none: "rounded-none",
@@ -170,6 +226,10 @@ export const cardVariants = cva(
       lightTop: "none",
       lightStart: "none",
       lightEnd: "none",
+      borderLightBottom: "none",
+      borderLightTop: "none",
+      borderLightStart: "none",
+      borderLightEnd: "none",
       padding: "none",
       radius: "md",
       border: "sm",
@@ -188,6 +248,10 @@ export function Card({
   lightTop,
   lightStart,
   lightEnd,
+  borderLightBottom,
+  borderLightTop,
+  borderLightStart,
+  borderLightEnd,
   padding,
   radius,
   border,
@@ -204,6 +268,10 @@ export function Card({
           lightTop,
           lightStart,
           lightEnd,
+          borderLightBottom,
+          borderLightTop,
+          borderLightStart,
+          borderLightEnd,
           padding,
           radius,
           border,
@@ -212,10 +280,17 @@ export function Card({
         className,
       )}
       style={{
-        ...borderVars(border, borderColor),
+        ...borderVars(
+          border,
+          borderColor,
+          radius,
+          borderLightTop,
+          borderLightBottom,
+          borderLightStart,
+          borderLightEnd,
+        ),
         borderStyle: "solid",
         borderWidth: "var(--card-border-width)",
-        borderColor: "var(--card-border-color)",
         ...lightVars(surface, lightBottom, lightTop, lightStart, lightEnd),
         ...style,
       }}

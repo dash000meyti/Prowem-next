@@ -32,6 +32,19 @@ const lightCombos = Array.from({ length: 16 }, (_, mask) => {
   };
 });
 
+const borderLightCombos = Array.from({ length: 16 }, (_, mask) => {
+  const on = lightDirs.filter((_, index) => Boolean(mask & (1 << index)));
+
+  return {
+    key: String(mask),
+    label: on.length === 0 ? "none" : on.join(" + "),
+    borderLightBottom: on.includes("bottom") ? ("primary" as const) : undefined,
+    borderLightTop: on.includes("top") ? ("primary" as const) : undefined,
+    borderLightStart: on.includes("start") ? ("primary" as const) : undefined,
+    borderLightEnd: on.includes("end") ? ("primary" as const) : undefined,
+  };
+});
+
 export function CardGallery() {
   return (
     <div className="flex min-w-0 flex-col gap-8">
@@ -92,6 +105,48 @@ export function CardGallery() {
             <Card
               key={light}
               lightBottom={light}
+              className={cardLabPreview}
+            >
+              <CardContent>
+                <p className="text-sm">{light}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex min-w-0 flex-col gap-2">
+        <GalleryHeading label="border lights" defaults="none; needs border" />
+        <div className="flex min-w-0 flex-wrap items-stretch gap-2">
+          {borderLightCombos.map((combo) => (
+            <Card
+              key={combo.key}
+              border="md"
+              borderLightBottom={combo.borderLightBottom}
+              borderLightTop={combo.borderLightTop}
+              borderLightStart={combo.borderLightStart}
+              borderLightEnd={combo.borderLightEnd}
+              className={cardLabPreview}
+            >
+              <CardContent>
+                <p className="text-sm">{combo.label}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex min-w-0 flex-col gap-2">
+        <GalleryHeading
+          label="borderLight color"
+          defaults="none; borderLightTop"
+        />
+        <div className="flex min-w-0 flex-wrap items-stretch gap-2">
+          {cardLightValues.map((light) => (
+            <Card
+              key={light}
+              border="md"
+              borderLightTop={light}
               className={cardLabPreview}
             >
               <CardContent>
