@@ -11,6 +11,7 @@ export const inputMeta = {
     "Native text field. Heights match Button (sm / md / lg). Radius tokens default to md. Fill is panel. The sm border is shadow-outline-sm (inside the box, border color). Native size is omitted so the design size can use that name.",
   rules: [
     "Pass placeholder and value from the parent. Do not hardcode copy inside Input.",
+    "Placeholders use Heebo Regular at the body size via shared field chrome.",
     "Use Label with htmlFor. Do not restyle a second text field.",
     "Tokens only: bg-panel and shadow-outline-sm. Do not use the border shorthand.",
     "Native type, disabled, and other input attributes pass through.",
@@ -37,7 +38,7 @@ export const inputMeta = {
       type: "enum",
       values: [...fieldSizeValues],
       default: "md",
-      description: "Height aligned with Button.",
+      description: "Height and type aligned with Button (32/14, 34/16, 40/18).",
       playground: true,
       group: "Appearance",
     },

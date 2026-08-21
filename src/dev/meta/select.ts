@@ -30,7 +30,7 @@ export const selectMeta = {
       type: "enum",
       values: [...fieldSizeValues],
       default: "md",
-      description: "Height aligned with Button.",
+      description: "Height and type aligned with Button (32/14, 34/16, 40/18).",
       playground: true,
       group: "Appearance",
     },

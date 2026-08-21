@@ -31,6 +31,7 @@ export type DropdownProps = {
   label: string;
   variant?: DropdownVariant;
   color?: ButtonColor;
+  size?: ButtonProps["size"];
   align?: VariantProps<typeof dropdownPanelVariants>["align"];
   className?: string;
 };
@@ -42,6 +43,7 @@ export function Dropdown({
   label,
   variant = "soft",
   color = "primary",
+  size = "md",
   align = "end",
   className,
 }: DropdownProps) {
@@ -81,6 +83,7 @@ export function Dropdown({
         type="button"
         variant={variant}
         color={color}
+        size={size}
         icon={icon}
         aria-haspopup="menu"
         aria-expanded={open}

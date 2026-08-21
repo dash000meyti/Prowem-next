@@ -1,6 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { Icon, type IconName } from "@/components/icons";
+import { fontFaceVariants, type FontFace } from "@/fonts";
 import { cn } from "@/lib/cn";
 
 export const buttonColors = [
@@ -166,7 +167,7 @@ const colorVariants = Object.fromEntries(
 ) as Record<ButtonColor, string>;
 
 export const buttonVariants = cva(
-  "inline-flex max-w-full items-center justify-center font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex max-w-full items-center justify-center leading-none tracking-normal transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
@@ -182,8 +183,8 @@ export const buttonVariants = cva(
       color: colorVariants,
       size: {
         sm: "h-8 px-3 text-sm",
-        md: "h-9 px-3.5 text-sm md:h-10 md:px-4",
-        lg: "h-10 px-4 text-sm md:h-12 md:px-6 md:text-base",
+        md: "h-[34px] px-3.5 text-base",
+        lg: "h-10 px-4 text-lg",
       },
       iconOnly: {
         true: "shrink-0 gap-0",
@@ -213,12 +214,12 @@ export const buttonVariants = cva(
       {
         iconOnly: true,
         size: "md",
-        class: "size-9 px-0 md:size-10 md:px-0",
+        class: "size-[34px] px-0",
       },
       {
         iconOnly: true,
         size: "lg",
-        class: "size-10 px-0 md:size-12 md:px-0",
+        class: "size-10 px-0",
       },
       ...buttonColors.map((color) => ({
         variant: "filled" as const,
@@ -268,6 +269,8 @@ export type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "color">
   Omit<VariantProps<typeof buttonVariants>, "iconOnly"> & {
     icon?: IconName;
     iconPosition?: "start" | "end";
+    /** Catalog face. Default Heebo Regular; Ubuntu Medium is the alternate label face. */
+    font?: FontFace;
   };
 
 function hasButtonLabel(children: ReactNode): boolean {
@@ -288,6 +291,7 @@ export function Button({
   color,
   size,
   radius,
+  font = "heeboRegular",
   icon,
   iconPosition = "start",
   type = "button",
@@ -298,12 +302,16 @@ export function Button({
   const iconNode = icon ? (
     <Icon name={icon} className={iconOnly ? "size-5" : "size-4"} />
   ) : null;
+  const trimCapHeight = font !== "ubuntuMedium" && font !== "ubuntuLight";
 
   return (
     <button
       type={type}
       className={cn(
         buttonVariants({ variant, color, size, radius, iconOnly }),
+        fontFaceVariants({ font }),
+        trimCapHeight &&
+          "[text-box-trim:trim-both] [text-box-edge:cap_alphabetic]",
         icon && !iconOnly && "gap-2",
         className,
       )}

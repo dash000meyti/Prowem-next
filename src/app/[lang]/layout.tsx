@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/templates/site-header";
+import { fontVariablesClassName } from "@/fonts";
 import {
   getLocaleDirection,
   hasLocale,
@@ -8,6 +9,7 @@ import {
   locales,
 } from "@/i18n/config";
 import { getDictionaryByLocale } from "@/i18n/get-dictionary";
+import { cn } from "@/lib/cn";
 import { toCssVars } from "@/settings/css-vars";
 import { getSettings } from "@/settings/get-settings";
 import "../globals.css";
@@ -63,7 +65,10 @@ export default async function RootLayout({
     <html
       lang={localeMeta[lang].htmlLang}
       dir={dir}
-      className="h-full min-w-0 overflow-x-clip antialiased"
+      className={cn(
+        fontVariablesClassName,
+        "h-full min-w-0 overflow-x-clip antialiased",
+      )}
       style={toCssVars(settings.theme)}
     >
       <body className="flex min-h-full min-w-0 flex-col bg-background text-foreground">

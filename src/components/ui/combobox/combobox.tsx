@@ -13,7 +13,7 @@ import { Icon } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { dropdownPanelVariants } from "@/components/ui/dropdown";
-import { Input } from "@/components/ui/input";
+import { fieldChevronEnd, Input } from "@/components/ui/input";
 import { selectVariants } from "@/components/ui/select";
 import { Text } from "@/components/ui/text";
 import { cn } from "@/lib/cn";
@@ -23,12 +23,6 @@ export type ComboboxItem = {
   label: string;
   disabled?: boolean;
 };
-
-const chevronEnd = {
-  sm: "end-2",
-  md: "end-2 md:end-3",
-  lg: "end-3 md:end-4",
-} as const;
 
 export const comboboxTriggerVariants = selectVariants;
 
@@ -295,7 +289,7 @@ export function Combobox({
           name={open ? "chevron-up" : "chevron-down"}
           className={cn(
             "pointer-events-none absolute top-1/2 size-4 -translate-y-1/2 text-panel-foreground",
-            chevronEnd[resolvedSize],
+            fieldChevronEnd[resolvedSize],
             disabled && "opacity-50",
           )}
         />

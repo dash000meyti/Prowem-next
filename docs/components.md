@@ -48,13 +48,14 @@ import { Button, buttonVariants } from "@/components/ui/button";
 
 `variant`: `filled` | `secondary` | `outline` | `soft` | `ghost` | `subtle` | `link` | `muted`  
 `color`: `primary` (default) | `background` | `foreground` | `accent-1` | `accent-2` | `accent-3` | `accent-4` | `success` | `warning` | `error`  
-`size`: `sm` | `md` | `lg`  
+`size`: `sm` | `md` | `lg` — fixed at all breakpoints: `sm` 32×12×14, `md` 34×14×16, `lg` 40×16×18 (height × horizontal padding × font, px)  
+`font?`: catalog face (default `heeboRegular`; alternate label face `ubuntuMedium`; full catalog available)  
 `radius`: `none` | `sm` | `md` | `lg` | `full` (default `full`)  
 `icon?`: `IconName` from `@/components/icons`  
 `iconPosition?`: `start` (default) | `end`  
 Also: native `button` attributes (`disabled`, `type`, `onClick`, …). `color` tints `filled` / `outline` / `soft` / `ghost` / `subtle` / `link` / `muted`. `outline` and `soft` draw `border-border` inside the box (`shadow-outline-sm`, width `sm`) so they do not add width. `filled` and `outline` hover with a `*-glow` halo (`shadow-glow-*`, including `background` / `foreground`); `:active` has no glow. `secondary` / `soft` / `ghost` / `subtle` use a quieter `shadow-glow-sm-*` halo (18% / 14% mix vs filled’s 35% / 28%) on `:active` and `aria-expanded` (Dropdown / SideMenu stay glowing while open). `soft` rest matches `outline`; hover tints with `color` like `secondary` (`*-hover/20`). `secondary` rest is panel; hover tints with `color` like ghost (`*-hover/20`). `ghost` rest uses the `color` text. `subtle` rest uses `text-panel-foreground` like secondary, then hover tints and recolors like ghost. `link` tints the text on hover and uses `*-hover/20` (or `background` / `foreground` at `/20`) on `:active` and `aria-expanded`. `muted` matches `link` but rest text is `text-panel-foreground` like subtle.
 
-Icon-only (`icon` and no label): equal padding, same height as `size` (`sm`: `size-8`; `md`: `size-9 md:size-10`; `lg`: `size-10 md:size-12`), with CVA compounds that zero `md:px-*`. Icon + text: normal button height, icon `size-4`, `gap-2`.
+Icon-only (`icon` and no label): equal padding, same height as `size` (`sm`: `size-8`; `md`: `size-[34px]`; `lg`: `size-10`), with CVA compounds that zero horizontal padding. Icon + text: normal button height, icon `size-4`, `gap-2`.
 
 `buttonVariants()` is exported for non-button elements (language menu rows). Button and Card share `theme.radius`: `none` | `sm` | `md` | `lg` | `full` (`rounded-none` … `rounded-full`).
 
@@ -87,7 +88,7 @@ Slot `padding`: `none` | `sm` | `md` | `lg` (default `md` = `p-4`) on Header, Co
 
 ### Dropdown
 
-Props: `icon?` (`IconName`), `trigger?` (text or node), `children`, `label`, `variant?` (same as Button, default `soft`), `color?` (same as Button, default `primary`), `align?` (`start` | `end`, default `end`), `className?`.  
+Props: `icon?` (`IconName`), `trigger?` (text or node), `children`, `label`, `variant?` (same as Button, default `soft`), `color?` (same as Button, default `primary`), `size?` (same as Button, default `md`), `align?` (`start` | `end`, default `end`), `className?`.
 Client atom. No copy, no routing. Closed/open, click-outside, and Escape live here. The trigger is a Button: `icon` alone uses icon-only square padding; `trigger` alone keeps normal button height; both render icon + text. The panel is an empty `Card` (`surface="panel"`, `padding="none"`, default `radius`, `role="menu"`). `dropdownPanelVariants()` is position and fade only (`absolute`, `align`, `p-1`, `300ms`). Chrome comes from Card. This is a menu, not a select field — use Select, SelectMenu, or Combobox for choosing a value.
 
 ### SideMenu
@@ -104,15 +105,17 @@ Use as the page/section shell. Horizontal padding is symmetric (`px-*`), which i
 
 ### Heading
 
-`level`: `1` | `2` | `3` | `4` | `5` | `6` (renders `h1`–`h6`; size follows the level)  
+`level`: `1` | `2` | `3` | `4` | `5` | `6` (renders `h1`–`h6`; **size follows the site type scale** for that level — not a size prop)  
+`font?`: catalog face (`bebasNeueRegular` | `heeboRegular` | `heeboBold` | `ubuntuLight` | `ubuntuMedium`; default `bebasNeueRegular`)  
 `tone`: `default` | `muted`  
-No subtitle slot. Pass supporting copy as a sibling `Text`. `headingVariants()` is exported.
+No subtitle slot. Pass supporting copy as a sibling `Text`. Leave the scale with `className` only. `headingVariants()` is exported.
 
 ### Text
 
 `as?`: `p` (default) | `span`  
 `variant`: `body` | `muted` | `caption` | `overline` | `code`  
-No heading sizes — use Heading for those. `variant="code"` is inline; use `Code` `display="block"` for a snippet panel. `textVariants()` is exported.
+`font?`: same catalog as Heading (full set). `body` / `muted` default to `ubuntuLight` and the site body scale (`text-body` + `tracking-body`).  
+No heading sizes — use Heading for those. `variant="code"` is inline mono unless `font` is set; use `Code` `display="block"` for a snippet panel. `textVariants()` is exported.
 
 ### List
 
@@ -132,18 +135,18 @@ Inline is a `code` tag. Block is `pre > code` with `bg-panel`, token border, `p-
 
 ### Label
 
-Native `label`. `size`: `sm` | `md` (default `md`). Pair with `htmlFor`. `labelVariants()` is exported.
+Native `label`. `size`: `sm` | `md` | `lg` (default `md`). Type: `sm` 14px, `md` 16px, `lg` 20px (previous `md`). `font?`: same catalog (default `heeboBold`). Pair with `htmlFor`. `labelVariants()` is exported.
 
 ### Input
 
 Native text field. Native `size` is omitted so the design `size` can use that name.  
-`size`: `sm` | `md` | `lg` (heights match Button: `h-8` / `h-9 md:h-10` / `h-10 md:h-12`)  
+`size`: `sm` | `md` | `lg` — same control height and type as Button (`32/14`, `34/16`, `40/18` px); horizontal padding `12` / `14` / `16`  
 `radius`: `none` | `sm` | `md` | `lg` | `full` (default `md`)  
-Fill is `bg-panel` with `text-panel-foreground`. The `sm` `border` edge is drawn inside the box (`shadow-outline-sm`) so it does not add width — same as Button `outline` / `soft`. Do not use the Tailwind `border` shorthand. `inputVariants()` is exported. Other native input attributes pass through.
+Fill is `bg-panel` with `text-panel-foreground`. Placeholders use Heebo Regular at the body size (shared `fieldBoxClass`). The `sm` `border` edge is drawn inside the box (`shadow-outline-sm`) so it does not add width — same as Button `outline` / `soft`. Do not use the Tailwind `border` shorthand. `inputVariants()` is exported. Other native input attributes pass through.
 
 ### Select
 
-Native `<select>`. Same panel fill and `shadow-outline-sm` edge as Input. Same `size` and `radius` scale (default radius `md`). Native arrow is replaced with a `chevron-down` Icon inset on the logical `end` to match start padding (`appearance-none`). Options are `option` children. Not a custom listbox. Do not replace this with Dropdown (Dropdown is a menu). Use SelectMenu for a Card listbox, Combobox when that list needs in-panel search. `selectVariants()` is exported.
+Native `<select>`. Same panel fill and `shadow-outline-sm` edge as Input. Same `size` height/type scale as Button/Input (default radius `md`); end padding leaves room for the chevron. Native arrow is replaced with a `chevron-down` Icon inset on the logical `end` (`appearance-none`). Options are `option` children. Not a custom listbox. Do not replace this with Dropdown (Dropdown is a menu). Use SelectMenu for a Card listbox, Combobox when that list needs in-panel search. `selectVariants()` is exported.
 
 ### SelectMenu
 
@@ -166,7 +169,7 @@ Native checkbox. `size`: `sm` | `md` | `lg` (default `md`). Token border and `ac
 
 ### Textarea
 
-Native multiline field. Same panel fill and `shadow-outline-sm` edge as Input. Same `size` (type/padding) and `radius`. Padding is on all sides (`p-*`) so the resize handle sits inset by the same amount as the start. `min-h-20` instead of Button height. `className` merges onto the chrome wrapper; native attributes go on the `textarea`. `textareaVariants()` is exported.
+Native multiline field. Same panel fill and `shadow-outline-sm` edge as Input. Same `size` type scale as Button/Input (`14` / `16` / `18`) and matching padding; `radius` shared. Padding is on all sides (`p-*`) so the resize handle sits inset by the same amount as the start. `min-h-20` instead of Button height. `className` merges onto the chrome wrapper; native attributes go on the `textarea`. `textareaVariants()` is exported.
 
 ### Switch
 
@@ -190,7 +193,7 @@ No title slot. Pass the label as children. `badgeVariants()` is exported.
 ### Tabs
 
 Compound client atom: `Tabs`, `TabsList`, `TabsTrigger`, `TabsContent`.  
-`defaultValue?` or controlled `value` + `onValueChange?`. Triggers are Buttons (`subtle` when selected, `ghost` otherwise, `size="sm"`, `radius="md"`). Do not restyle a second tab chrome.
+`defaultValue?` or controlled `value` + `onValueChange?`. Triggers are Buttons (`subtle` when selected, `ghost` otherwise, `size` default `md` matching Button, `radius="md"`). `TabsTrigger` accepts `size?`. Do not restyle a second tab chrome.
 
 ### Alert
 

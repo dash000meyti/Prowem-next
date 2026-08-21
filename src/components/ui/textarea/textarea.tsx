@@ -9,8 +9,8 @@ export const textareaVariants = cva(
     variants: {
       size: {
         sm: "p-2 text-sm",
-        md: "p-2 text-sm md:p-3",
-        lg: "p-3 text-sm md:p-4 md:text-base",
+        md: "p-3 text-base",
+        lg: "p-4 text-lg",
       },
       radius: fieldRadius,
     },
@@ -38,7 +38,7 @@ export function Textarea({
     <div className={cn(textareaVariants({ size, radius }), className)}>
       <textarea
         disabled={disabled}
-        className="block min-h-16 w-full min-w-0 flex-1 resize-y appearance-none bg-transparent text-inherit outline-none"
+        className="block min-h-16 w-full min-w-0 flex-1 resize-y appearance-none bg-transparent text-inherit outline-none placeholder:font-heebo placeholder:font-normal placeholder:text-body placeholder:leading-none placeholder:tracking-normal"
         {...props}
       />
     </div>

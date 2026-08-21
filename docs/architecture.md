@@ -16,10 +16,11 @@ src/
     icon1.png          Favicon 256×256 (from PHP favicon-256.png)
     apple-icon.png     Apple touch icon (from PHP apple-touch-icon.png)
     [lang]/
-      layout.tsx       Product root layout: <html lang dir>, theme CSS vars, SiteHeader
+      layout.tsx       Product root layout: <html lang dir>, theme CSS vars, font vars, SiteHeader
       page.tsx         Locale home (foundation shell)
       not-found.tsx
     dev/               Optional lab routes (/dev). English only. Sibling root <html>.
+  fonts/               Local faces (next/font/local), catalog, files/
   dev/                 Optional lab internals (copy, meta, chrome, playground, gallery)
   components/
     ui/                Atoms. No routes, no copy.
@@ -61,7 +62,7 @@ Copy and settings storage: [content.md](content.md).
 
 1. A request hits `src/proxy.ts`.
 2. If the first path segment is not a supported locale, Proxy redirects to `/{locale}{pathname}`. Locale comes from `Accept-Language`, falling back to `en`.
-3. `src/app/[lang]/layout.tsx` validates `lang`, sets `<html lang dir>`, injects theme CSS variables from `getSettings()`, and renders `SiteHeader` with `navFrom` from `settings.header`.
+3. `src/app/[lang]/layout.tsx` validates `lang`, sets `<html lang dir>`, injects theme CSS variables from `getSettings()`, loads local font CSS variables from `@/fonts`, and renders `SiteHeader` with `navFrom` from `settings.header`.
 4. Pages load copy with `getDictionary()` (`next/root-params` → `lang` → dictionary API).
 5. Templates receive copy and `currentLocale` as props. They compose UI primitives.
 
@@ -70,6 +71,7 @@ Request → proxy.ts → [lang]/layout.tsx → page
                          │
                          ├─ html lang + dir
                          ├─ theme CSS vars (getSettings)
+                         ├─ font CSS vars (@/fonts)
                          ├─ SiteHeader (template)
                          │    ├─ Container (UI)
                          │    ├─ Dropdown language menu (UI) + Icon flags

@@ -71,7 +71,7 @@ Before finishing a task:
 2. New UI lives under `src/components/ui/<name>/` with `index.ts`, exported props type, `className` + `cn()`, `cva` variants if it has variants. New glyphs/flags live under `src/components/icons/` and are registered in `registry.ts`.
 3. New chrome/sections live under `src/components/templates/<name>/` and compose UI.
 4. Every locale JSON still matches `en.json` (`assert-complete.ts`).
-5. Phase 1 does not add Prowem marketing sections, brand fonts, or unused placeholders.
+5. Phase 1 does not add Prowem marketing sections or unused placeholders. Fonts are wired under `src/fonts/` (Phase 2).
 6. Layouts are mobile-first and do not assume a desktop width.
 7. Docs updated only if the contract or inventory changed.
 8. Cursor and Claude surfaces still match (see lockstep table above). If you touched one, you touched the other.

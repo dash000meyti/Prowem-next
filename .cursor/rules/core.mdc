@@ -11,6 +11,6 @@ Agent rules for Cursor and Claude must stay in lockstep. If you change this file
 
 This is Next.js 16. Use `src/proxy.ts`, not `middleware.ts`. No `next-intl`. Product root `<html>` lives in `src/app/[lang]/layout.tsx`. `/dev` is an optional sibling layout in `src/app/dev` (internals in `src/dev`); product code must not import those folders.
 
-Phase 1: no Prowem marketing sections, brand fonts, unused placeholders, or dark mode unless asked.
+Phase 1: no Prowem marketing sections, unused placeholders, or dark mode unless asked. Fonts live under `src/fonts/`.
 
 Never hardcode user-facing copy. Use dictionary props. Theme and header values come from `getSettings()`, not hex in components. Use token classes (`rounded-md`, `border-md`, `border-border`), not `rounded-[…]`. Mobile-first (`xs:` `sm:` `md:` `lg:` `xl:`). Use logical CSS (`ms-`, `pe-`, `text-start`), not `left` / `right`. SVG icons live in `src/components/icons/`, not in `ui/` or `templates/`.

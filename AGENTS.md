@@ -46,7 +46,7 @@ Implement only after the user confirms.
 
 ## Scope
 
-- Build only the current phase. Do not add Prowem marketing sections or brand fonts until the user provides them. The site wordmark is `public/logo.svg` (used in `SiteHeader`).
+- Build only the current phase. Do not add Prowem marketing sections until the user provides them. Brand fonts live under `src/fonts/` (already wired). The site wordmark is `public/logo.svg` (used in `SiteHeader`).
 - Do not reintroduce Next.js starter files, unused assets, or dark mode unless asked.
 - Keep the tree lean: no placeholder components that are not used.
 
@@ -57,6 +57,7 @@ Implement only after the user confirms.
 - UI primitives: `src/components/ui/<name>/`
 - Templates: `src/components/templates/<name>/`
 - Icons: `src/components/icons/` (glyphs + flags; import `@/components/icons`)
+- Fonts: `src/fonts/` (local faces + catalog; layouts apply `fontVariablesClassName`)
 - Static assets: `public/` (site wordmark: `public/logo.svg`; PHP favicon set: `public/favicon/`)
 - Locale config is the single source of truth: `src/i18n/config.ts`
 - Theme / settings values: `src/settings/` (read with `getSettings()`). UI uses token classes (`rounded-md`, `border-md`, `max-w-container-xl`). Header hamburger vs desktop nav uses `header.navFrom`. Do not scatter hex in components. See [docs/content.md](docs/content.md).
@@ -82,7 +83,7 @@ Implement only after the user confirms.
 
 ## Next.js 16 notes
 
-- Product root layout is `src/app/[lang]/layout.tsx` and owns `<html>` and `<body>` for locale routes. `/dev` has a removable sibling layout.
+- Product root layout is `src/app/[lang]/layout.tsx` and owns `<html>` and `<body>` for locale routes. It applies theme CSS vars and local font CSS vars (`@/fonts`). `/dev` has a removable sibling layout.
 - Locale for Server Components: `lang` from `next/root-params`, or `params` on the layout/page.
 - Client Components cannot use `next/root-params`. Pass `currentLocale` as a prop.
 - Use `LayoutProps<'/[lang]'>` and `PageProps<'/[lang]'>` for route types.

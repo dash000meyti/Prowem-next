@@ -3,6 +3,7 @@ import {
   buttonColorValues,
   buttonVariantValues,
   iconPlaygroundValues,
+  sizeValues,
 } from "@/dev/values";
 import type { ComponentMeta } from "./types";
 
@@ -17,6 +18,7 @@ export const dropdownMeta = {
   rules: [
     "The trigger is a Button. icon alone is icon-only; trigger alone keeps normal height; both render icon + text.",
     "The panel is Card (surface panel, padding none). Do not restyle a second panel.",
+    "size matches Button (sm 32 / md 34 / lg 40).",
     "align is start|end (logical), default end.",
     "Pass menu rows as children. Labels come from the parent.",
     "This is a menu (role=menu), not a select field. Use Select, SelectMenu, or Combobox to choose a value.",
@@ -54,6 +56,15 @@ export const dropdownMeta = {
       values: [...buttonColorValues],
       default: "primary",
       description: "Button color for the trigger.",
+      playground: true,
+      group: "Trigger",
+    },
+    {
+      name: "size",
+      type: "enum",
+      values: [...sizeValues],
+      default: "md",
+      description: "Trigger height aligned with Button.",
       playground: true,
       group: "Trigger",
     },

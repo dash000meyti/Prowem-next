@@ -12,6 +12,7 @@ import { Icon } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { dropdownPanelVariants } from "@/components/ui/dropdown";
+import { fieldChevronEnd } from "@/components/ui/input";
 import { selectVariants } from "@/components/ui/select";
 import { cn } from "@/lib/cn";
 
@@ -20,12 +21,6 @@ export type SelectMenuItem = {
   label: string;
   disabled?: boolean;
 };
-
-const chevronEnd = {
-  sm: "end-2",
-  md: "end-2 md:end-3",
-  lg: "end-3 md:end-4",
-} as const;
 
 export const selectMenuTriggerVariants = selectVariants;
 
@@ -228,7 +223,7 @@ export function SelectMenu({
           name={open ? "chevron-up" : "chevron-down"}
           className={cn(
             "pointer-events-none absolute top-1/2 size-4 -translate-y-1/2 text-panel-foreground",
-            chevronEnd[resolvedSize],
+            fieldChevronEnd[resolvedSize],
             disabled && "opacity-50",
           )}
         />

@@ -23,6 +23,7 @@ Even after a SQLite adapter exists:
 - Locale prefixing: [`src/proxy.ts`](../src/proxy.ts)
 - Which variant a component uses by default (Button `radius` defaults to `full`)
 - Breakpoint **widths**: [`src/app/globals.css`](../src/app/globals.css) `@theme --breakpoint-xs` … `--breakpoint-xl` (`2xl` is unset). `header.navFrom` only picks which named token SiteHeader uses (`xs`–`xl`); it does not change the pixel values. Keep those pixels the same as `theme.container` (`xs`–`xl`).
+- Local fonts and the type scale: [`src/fonts/`](../src/fonts/) + type tokens in `globals.css`. Not part of `getSettings()`.
 
 Proxy must resolve a locale synchronously without a database. Do not move `locales` into settings or SQLite without a confirmed architecture change.
 
@@ -53,6 +54,7 @@ Token classes:
 - Radius: `rounded-none` `rounded-sm` `rounded-md` `rounded-lg` `rounded-full`
 - Border width: `border-none` `border-sm` `border-md` `border-lg` (default chrome `border-md`)
 - Container: `max-w-container-xs` `max-w-container-sm` `max-w-container-md` `max-w-container-lg` `max-w-container-xl` (`full` on Container is `max-w-none`)
+- Fonts: `font-bebas-neue` `font-heebo` `font-ubuntu` `font-sans` (body default = Ubuntu); type scale `text-h1`…`text-h6` (+ `md:text-h*-md`), `text-body`, `text-label` / `text-label-md` / `text-label-sm`, `tracking-body`. When adding a new `text-*` size token, register it in `extendTailwindMerge` inside [`src/lib/cn.ts`](../src/lib/cn.ts) so `cn()` does not drop it next to `text-foreground` / other color utilities.
 
 ## Anti-patterns
 

@@ -88,7 +88,9 @@ export const listAsValues = ["ul", "ol"] as const;
 
 export const codeDisplayValues = ["inline", "block"] as const;
 
-export const labelSizeValues = ["sm", "md"] as const;
+export const labelSizeValues = ["sm", "md", "lg"] as const;
+
+export { fontFaceValues } from "@/fonts";
 
 export const fieldSizeValues = ["sm", "md", "lg"] as const;
 

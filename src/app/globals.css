@@ -173,7 +173,46 @@
   --breakpoint-lg: 1200px;
   --breakpoint-xl: 1440px;
   --breakpoint-2xl: initial;
-  --font-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Families: --font-family-* come from next/font/local on <html> */
+  --font-bebas-neue: var(--font-family-bebas-neue), system-ui, sans-serif;
+  --font-heebo: var(--font-family-heebo), system-ui, sans-serif;
+  --font-ubuntu: var(--font-family-ubuntu), system-ui, sans-serif;
+  --font-sans: var(--font-family-ubuntu), system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+  /* Site type scale (not component props — override with className when needed) */
+  --text-h1: 3rem;
+  --text-h1--line-height: 1.1;
+  --text-h1-md: 6.25rem;
+  --text-h1-md--line-height: 1.1;
+  --text-h2: 2.25rem;
+  --text-h2--line-height: 1.1;
+  --text-h2-md: 4.5rem;
+  --text-h2-md--line-height: 1.1;
+  --text-h3: 1.75rem;
+  --text-h3--line-height: 1.1;
+  --text-h3-md: 3rem;
+  --text-h3-md--line-height: 1.1;
+  --text-h4: 1.5rem;
+  --text-h4--line-height: 1.1;
+  --text-h4-md: 2.25rem;
+  --text-h4-md--line-height: 1.1;
+  --text-h5: 1.25rem;
+  --text-h5--line-height: 1.1;
+  --text-h5-md: 1.75rem;
+  --text-h5-md--line-height: 1.1;
+  --text-h6: 1.125rem;
+  --text-h6--line-height: 1.1;
+  --text-h6-md: 1.5rem;
+  --text-h6-md--line-height: 1.1;
+  --text-body: 1rem;
+  --text-body--line-height: 1.5rem;
+  --text-label: 1.25rem;
+  --text-label--line-height: 1;
+  --text-label-md: 1rem;
+  --text-label-md--line-height: 1;
+  --text-label-sm: 0.875rem;
+  --text-label-sm--line-height: 1;
+  --tracking-body: 0.03em;
 }
 
 @utility bg-card-spots {

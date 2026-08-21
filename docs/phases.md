@@ -2,7 +2,7 @@
 
 Work is sequential. Finish the current phase before starting the next. Do not pre-build unused sections.
 
-## Phase 1 — Foundation (current)
+## Phase 1 — Foundation
 
 Done in this repository:
 
@@ -15,15 +15,16 @@ Done in this repository:
 - Card UI atom (compound Header / Content / Footer). Added here because Dropdown’s open panel is a Card
 - Lab UI kit used by `/dev`: Heading, Text, List, Table, Code, Label, Input, Select, SelectMenu, Combobox, Checkbox, Textarea, Switch, Separator, Badge, Tabs, Alert, Tooltip, Popup
 
-Not in this phase: fonts, Prowem page sections. The site wordmark lives in `public/logo.svg` and is used by `SiteHeader`. The PHP favicon set is in `public/favicon/`; Next.js serves the same files from `src/app/` (`favicon.ico`, `icon.svg`, `icon.png`, `icon1.png`, `apple-icon.png`). Brand color values live in `src/settings/default.json`.
+Not in this phase: Prowem page sections. The site wordmark lives in `public/logo.svg` and is used by `SiteHeader`. The PHP favicon set is in `public/favicon/`; Next.js serves the same files from `src/app/` (`favicon.ico`, `icon.svg`, `icon.png`, `icon1.png`, `apple-icon.png`). Brand color values live in `src/settings/default.json`.
 
-## Phase 2 — Design tokens and brand assets
+## Phase 2 — Design tokens and brand assets (in progress)
 
-User supplies:
+Done:
 
-- Fonts
+- Color palette, logo, favicon / app icons
+- Local fonts: Bebas Neue Regular, Heebo Regular/Bold, Ubuntu Light/Medium under [`src/fonts/`](../src/fonts/) (`next/font/local`), wired on product and `/dev` layouts; type scale tokens in `globals.css`; `font` prop on Heading / Text / Label / Button
 
-Color palette, logo, and favicon / app icons are already in. Then wire fonts in the locale layout. The PHP favicon set is in `public/favicon/`; Next.js serves the same files from `src/app/` (`favicon.ico`, `icon.svg`, `icon.png`, `icon1.png`, `apple-icon.png`). The wordmark is `public/logo.svg` (`SiteHeader` home link). Color values are already in `src/settings/default.json`; CSS variable names stay in `src/app/globals.css`. No new marketing sections.
+Still out of scope here: new marketing sections. Color values stay in `src/settings/default.json`; CSS variable names stay in `src/app/globals.css`. The wordmark is `public/logo.svg` (`SiteHeader` home link).
 
 ## Phase 3 — UI primitives for the homepage
 

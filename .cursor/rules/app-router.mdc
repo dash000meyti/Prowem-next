@@ -14,6 +14,7 @@ Product routes sit under `src/app/[lang]/`. URLs are `/en`, `/de`, `/pt`, `/es`,
 <html
   lang={localeMeta[lang].htmlLang}
   dir={getLocaleDirection(lang)}
+  className={cn(fontVariablesClassName, "…")}
   style={toCssVars(settings.theme)}
 >
 ```
@@ -22,4 +23,4 @@ Use `LayoutProps<'/[lang]'>` and `PageProps<'/[lang]'>`. `generateStaticParams` 
 
 Locale prefixing is `src/proxy.ts` (Next.js 16 Proxy), not `middleware.ts`.
 
-Invalid `lang` → `notFound()`. Pass copy into templates as props; do not import JSON in Client Components. Theme CSS vars come from `getSettings()` on `<html>`. Pages and chrome are mobile-first (`min-w-0`, wrap, `xs:`–`xl:` type/spacing). If this summary changes, update `CLAUDE.md` Layout in the same turn.
+Invalid `lang` → `notFound()`. Pass copy into templates as props; do not import JSON in Client Components. Theme CSS vars come from `getSettings()` on `<html>`. Local font CSS vars come from `fontVariablesClassName` (`@/fonts`). Pages and chrome are mobile-first (`min-w-0`, wrap, `xs:`–`xl:` type/spacing). If this summary changes, update `CLAUDE.md` Layout in the same turn.

@@ -7,7 +7,7 @@ import {
   type HTMLAttributes,
   type ReactNode,
 } from "react";
-import { Button } from "@/components/ui/button";
+import { Button, type ButtonProps } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 
 type TabsContextValue = {
@@ -40,6 +40,7 @@ export type TabsTriggerProps = {
   value: string;
   children: ReactNode;
   className?: string;
+  size?: ButtonProps["size"];
 };
 
 export type TabsContentProps = HTMLAttributes<HTMLDivElement> & {
@@ -84,7 +85,12 @@ export function TabsList({ className, ...props }: TabsListProps) {
   );
 }
 
-export function TabsTrigger({ value, children, className }: TabsTriggerProps) {
+export function TabsTrigger({
+  value,
+  children,
+  className,
+  size = "md",
+}: TabsTriggerProps) {
   const tabs = useTabs();
   const selected = tabs.value === value;
 
@@ -94,7 +100,7 @@ export function TabsTrigger({ value, children, className }: TabsTriggerProps) {
       role="tab"
       aria-selected={selected}
       variant={selected ? "subtle" : "ghost"}
-      size="sm"
+      size={size}
       radius="md"
       className={className}
       onClick={() => tabs.setValue(value)}

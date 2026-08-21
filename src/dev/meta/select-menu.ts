@@ -47,7 +47,7 @@ export const selectMenuMeta = {
       type: "enum",
       values: [...fieldSizeValues],
       default: "md",
-      description: "Height aligned with Select / Input.",
+      description: "Height and type aligned with Button (32/14, 34/16, 40/18).",
       playground: true,
       group: "Appearance",
     },

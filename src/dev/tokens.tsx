@@ -3,6 +3,7 @@ import { List } from "@/components/ui/list";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Text } from "@/components/ui/text";
 import { copy } from "@/dev/copy";
+import { fontFaceCatalog, fontFaceLabels, fontFaceValues, type FontFace } from "@/fonts";
 import { getSettings } from "@/settings/get-settings";
 import type { ThemeContainer } from "@/settings/types";
 
@@ -126,6 +127,19 @@ const layoutRows = [
   className: string;
 }>;
 
+const typeScaleRows = [
+  { name: "h1", sample: "text-h1 md:text-h1-md", note: "3rem → 100px · lh 110%" },
+  { name: "h2", sample: "text-h2 md:text-h2-md", note: "2.25rem → 72px · lh 110%" },
+  { name: "h3", sample: "text-h3 md:text-h3-md", note: "1.75rem → 48px · lh 110%" },
+  { name: "h4", sample: "text-h4 md:text-h4-md", note: "1.5rem → 36px · lh 110%" },
+  { name: "h5", sample: "text-h5 md:text-h5-md", note: "1.25rem → 28px · lh 110%" },
+  { name: "h6", sample: "text-h6 md:text-h6-md", note: "1.125rem → 24px · lh 110%" },
+  { name: "body", sample: "text-body tracking-body", note: "16px · lh 24px · tracking 0.03em" },
+  { name: "label", sample: "text-label", note: "20px · lh 100% · Label lg" },
+  { name: "label-md", sample: "text-label-md", note: "16px · lh 100% · Label md default" },
+  { name: "label-sm", sample: "text-label-sm", note: "14px · lh 100% · Label sm" },
+] as const;
+
 const tokenSwatch = "size-20";
 
 function Swatch({ label, className }: { label: string; className: string }) {
@@ -148,6 +162,7 @@ export async function TokenGallery() {
     <Tabs defaultValue="layout">
       <TabsList>
         <TabsTrigger value="layout">{copy.tokensPage.layoutTab}</TabsTrigger>
+        <TabsTrigger value="type">{copy.tokensPage.typeTab}</TabsTrigger>
         <TabsTrigger value="color">{copy.tokensPage.colorTab}</TabsTrigger>
         <TabsTrigger value="radius">{copy.tokensPage.radiusTab}</TabsTrigger>
         <TabsTrigger value="border">{copy.tokensPage.borderTab}</TabsTrigger>
@@ -169,6 +184,42 @@ export async function TokenGallery() {
             </li>
           ))}
         </List>
+      </TabsContent>
+      <TabsContent value="type" className="flex min-w-0 flex-col gap-8">
+        <Text variant="caption">{copy.tokensPage.typeIntro}</Text>
+        <div className="flex min-w-0 flex-col gap-4">
+          <Heading level={3} tone="muted">
+            faces
+          </Heading>
+          <List marker="none" gap="sm">
+            {fontFaceValues.map((key) => (
+              <li key={key} className="flex min-w-0 flex-col gap-1">
+                <Text as="span" variant="caption">
+                  {key} · {fontFaceLabels[key]} · weight{" "}
+                  {fontFaceCatalog[key].weight}
+                </Text>
+                <Text font={key as FontFace}>{fontFaceLabels[key]}</Text>
+              </li>
+            ))}
+          </List>
+        </div>
+        <div className="flex min-w-0 flex-col gap-4">
+          <Heading level={3} tone="muted">
+            type scale
+          </Heading>
+          <List marker="none" gap="sm">
+            {typeScaleRows.map((row) => (
+              <li key={row.name} className="flex min-w-0 flex-col gap-1">
+                <Text as="span" variant="caption">
+                  {row.name}: {row.note}
+                </Text>
+                <p className={`min-w-0 text-start text-foreground ${row.sample}`}>
+                  {row.name}
+                </p>
+              </li>
+            ))}
+          </List>
+        </div>
       </TabsContent>
       <TabsContent value="color" className="flex min-w-0 flex-col gap-8">
         <div className="flex min-w-0 flex-col gap-2">

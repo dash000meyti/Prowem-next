@@ -5,6 +5,7 @@ import {
   radiusValues,
   sizeValues,
 } from "@/dev/values";
+import { fontFaceLabels, fontFaceValues } from "@/fonts";
 import type { ComponentMeta } from "./types";
 
 export const buttonMeta = {
@@ -14,9 +15,10 @@ export const buttonMeta = {
   file: "src/components/ui/button/button.tsx",
   importStatement: 'import { Button, buttonVariants } from "@/components/ui/button";',
   description:
-    "Native button with variants, colors, sizes, token radius, and a logical start/end icon.",
+    "Native button with variants, colors, sizes, token radius, catalog font, and a logical start/end icon.",
   rules: [
     "Pass the label as children. Do not hardcode copy inside Button.",
+    "Default font is Heebo Regular; Ubuntu Medium is the alternate label face.",
     "Use icon and iconPosition start|end — never left/right icon props.",
     "Icon-only (icon and no label) uses equal padding and the same height as size.",
     "Reuse buttonVariants() on Link or other tags when you need the same chrome without a button element.",
@@ -54,7 +56,16 @@ export const buttonMeta = {
       type: "enum",
       values: [...sizeValues],
       default: "md",
-      description: "Control height and padding.",
+      description: "Fixed height / padding / type: sm 32/12/14, md 34/14/16, lg 40/16/18 (px).",
+      playground: true,
+      group: "Appearance",
+    },
+    {
+      name: "font",
+      type: "enum",
+      values: [...fontFaceValues],
+      default: "heeboRegular",
+      description: `Catalog face. Default Heebo Regular; alternate Ubuntu Medium. ${fontFaceValues.map((key) => `${key}=${fontFaceLabels[key]}`).join("; ")}.`,
       playground: true,
       group: "Appearance",
     },

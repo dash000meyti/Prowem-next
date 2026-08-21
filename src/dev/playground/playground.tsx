@@ -9,7 +9,6 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Heading } from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
@@ -108,7 +107,11 @@ function Control({
         <Select
           id={id}
           size="sm"
-          className="w-24 max-w-full shrink-0"
+          className={
+            prop.name === "font"
+              ? "w-44 max-w-full shrink-0"
+              : "w-24 max-w-full shrink-0"
+          }
           value={String(value ?? "")}
           onChange={(event) => onChange(event.target.value)}
         >
@@ -192,9 +195,9 @@ export function Playground({
         variant="divider"
         className="flex-row items-center justify-between gap-3"
       >
-        <Heading level={3} className="text-base font-semibold">
+        <Text as="span" font="heeboBold" className="text-base text-foreground">
           {copy.playground}
-        </Heading>
+        </Text>
         <div className="flex min-w-0 shrink-0 items-center gap-2">
           <Tooltip content={copy.dirToggle} side="bottom">
             <Button
@@ -237,7 +240,7 @@ export function Playground({
         padding="none"
         dir={dir}
         className={cn(
-          "min-h-48 min-w-0 overflow-auto p-6",
+          "flex min-h-48 min-w-0 flex-col items-start justify-start overflow-auto p-6",
           hatch ? labHatchClass : "bg-background",
         )}
       >

@@ -56,8 +56,11 @@ export const copy = {
     colorTab: "Color",
     radiusTab: "Radius",
     borderTab: "Border",
+    typeTab: "Type",
     layoutIntro:
       "Prefix widths live in globals.css. Container max-widths live in theme.container. Keep the pixel values the same. full is Container only.",
+    typeIntro:
+      "Local faces in src/fonts. Type scale tokens (text-h1…text-h6, text-body, text-label) live in globals.css. font prop picks catalog faces; size is not a prop.",
   },
   iconsPage: {
     title: "Icons",

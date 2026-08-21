@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { DevShell } from "@/dev/chrome/shell";
 import { copy } from "@/dev/copy";
+import { fontVariablesClassName } from "@/fonts";
+import { cn } from "@/lib/cn";
 import { toCssVars } from "@/settings/css-vars";
 import { getSettings } from "@/settings/get-settings";
 import "../globals.css";
@@ -27,7 +29,10 @@ export default async function DevLayout({
     <html
       lang="en"
       dir="ltr"
-      className="h-full min-w-0 overflow-x-clip antialiased"
+      className={cn(
+        fontVariablesClassName,
+        "h-full min-w-0 overflow-x-clip antialiased",
+      )}
       style={toCssVars(settings.theme)}
     >
       <body className="flex min-h-full min-w-0 flex-col bg-background text-foreground">

@@ -89,6 +89,7 @@ export function PlaygroundBySlug({
               color={values.color as ButtonColor}
               size={values.size as ButtonProps["size"]}
               radius={values.radius as ButtonProps["radius"]}
+              font={values.font as ButtonProps["font"]}
               icon={iconName(values.icon)}
               iconPosition={values.iconPosition as ButtonProps["iconPosition"]}
               disabled={Boolean(values.disabled)}
@@ -173,7 +174,7 @@ export function PlaygroundBySlug({
                 </Card>
                 <Card
                   {...cardProps}
-                  className={`${cardPreview} items-center justify-center`}
+                  className={`${cardPreview} items-start justify-start`}
                 >
                   <p className="text-sm">{String(values.content)}</p>
                 </Card>
@@ -192,6 +193,7 @@ export function PlaygroundBySlug({
               icon={iconName(values.icon)}
               variant={values.variant as DropdownProps["variant"]}
               color={values.color as ButtonColor}
+              size={values.size as DropdownProps["size"]}
               align={values.align as DropdownProps["align"]}
               label={String(values.label)}
             >
@@ -266,6 +268,7 @@ export function PlaygroundBySlug({
             <Heading
               level={Number(values.level) as HeadingLevel}
               tone={values.tone as HeadingProps["tone"]}
+              font={values.font as HeadingProps["font"]}
             >
               {String(values.children)}
             </Heading>
@@ -280,6 +283,7 @@ export function PlaygroundBySlug({
             <Text
               variant={values.variant as TextProps["variant"]}
               as={values.as as TextProps["as"]}
+              font={values.font as TextProps["font"]}
             >
               {String(values.children)}
             </Text>
@@ -348,7 +352,10 @@ export function PlaygroundBySlug({
         <Playground
           meta={meta}
           render={(values: PlaygroundValues) => (
-            <Label size={values.size as LabelProps["size"]}>
+            <Label
+              size={values.size as LabelProps["size"]}
+              font={values.font as LabelProps["font"]}
+            >
               {String(values.children)}
             </Label>
           )}
