@@ -173,10 +173,11 @@ Native multiline field. Same panel fill and `shadow-outline-sm` edge as Input. S
 
 ### Switch
 
-Client toggle (`role="switch"`). `checked?` + `onCheckedChange?`, or `defaultChecked` for uncontrolled.  
+Client toggle (`role="switch"`). `checked?` + `onCheckedChange?`, or `defaultChecked` for uncontrolled. Track has fixed sm inset outline (`shadow-outline-sm`, border token). Thumb has no border.  
 `color`: same as Button (tints the on track)  
-`size`: `sm` | `md` | `lg` (default `md`)  
-The thumb uses `ms-auto` when on so start/end follow `dir`. `switchVariants()` is exported.
+`size`: `sm` | `md` | `lg` (default `lg`) — track height `20` / `28` / `34` px (`lg` matches Button default `md` at 34px)  
+`radius`: `none` | `xs` | `sm` | `md` | `lg` | `xl` | `full` (default `full`) — track and thumb  
+Thumb fill when on: `{color}-glow` (same as track `color`); `background` → `foreground`, `foreground` → `background`. When off: `bg-border`. The thumb uses `ms-auto` when on so start/end follow `dir`. `switchVariants()` and `switchThumbVariants()` are exported.
 
 ### Separator
 

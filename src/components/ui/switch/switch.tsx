@@ -1,8 +1,9 @@
 "use client";
 
 import { cva, type VariantProps } from "class-variance-authority";
-import { useState, type ButtonHTMLAttributes } from "react";
+import { useState, type ButtonHTMLAttributes, type CSSProperties } from "react";
 import { buttonColors, type ButtonColor } from "@/components/ui/button";
+import { fieldRadius } from "@/components/ui/input";
 import { cn } from "@/lib/cn";
 
 const onByColor: Record<ButtonColor, string> = {
@@ -22,16 +23,34 @@ const colorVariants = Object.fromEntries(
   buttonColors.map((color) => [color, ""]),
 ) as Record<ButtonColor, string>;
 
+const thumbOnByColor: Record<ButtonColor, string> = {
+  background: "bg-foreground",
+  foreground: "bg-background",
+  primary: "bg-primary-glow",
+  "accent-1": "bg-accent-1-glow",
+  "accent-2": "bg-accent-2-glow",
+  "accent-3": "bg-accent-3-glow",
+  "accent-4": "bg-accent-4-glow",
+  success: "bg-success-glow",
+  warning: "bg-warning-glow",
+  error: "bg-error-glow",
+};
+
+/** 2× p-1 — thumb is square with equal inset (track outline is inset, no extra box size). */
+const switchChromeInset = "0.5rem";
+
 export const switchVariants = cva(
-  "inline-flex shrink-0 items-center border-md border-border p-0.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex shrink-0 items-center p-1 shadow-outline-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       color: colorVariants,
+      /** Track heights: sm 20px; md 28px; lg 34px (= Button md). Width = 2× height − chrome inset. */
       size: {
-        sm: "h-5 w-9 rounded-full",
-        md: "h-6 w-11 rounded-full",
-        lg: "h-7 w-12 rounded-full",
+        sm: "h-5 w-[calc(2.5rem-var(--switch-chrome-inset))]",
+        md: "h-7 w-[calc(3.5rem-var(--switch-chrome-inset))]",
+        lg: "h-[2.125rem] w-[calc(4.25rem-var(--switch-chrome-inset))]",
       },
+      radius: fieldRadius,
       checked: {
         true: "",
         false: "bg-panel",
@@ -39,7 +58,8 @@ export const switchVariants = cva(
     },
     defaultVariants: {
       color: "primary",
-      size: "md",
+      size: "lg",
+      radius: "full",
       checked: false,
     },
     compoundVariants: [
@@ -52,11 +72,31 @@ export const switchVariants = cva(
   },
 );
 
-const thumbBySize = {
-  sm: "size-3.5",
-  md: "size-4",
-  lg: "size-5",
-} as const;
+export const switchThumbVariants = cva(
+  "block aspect-square h-full w-auto shrink-0",
+  {
+    variants: {
+      color: colorVariants,
+      radius: fieldRadius,
+      checked: {
+        true: "",
+        false: "bg-border",
+      },
+    },
+    defaultVariants: {
+      color: "primary",
+      radius: "full",
+      checked: false,
+    },
+    compoundVariants: [
+      ...buttonColors.map((color) => ({
+        checked: true as const,
+        color,
+        class: thumbOnByColor[color],
+      })),
+    ],
+  },
+);
 
 export type SwitchProps = Omit<
   ButtonHTMLAttributes<HTMLButtonElement>,
@@ -71,18 +111,22 @@ export type SwitchProps = Omit<
 export function Switch({
   className,
   color,
-  size = "md",
+  size = "lg",
+  radius,
   checked,
   defaultChecked = false,
   disabled,
   onCheckedChange,
   onClick,
+  style,
   ...props
 }: SwitchProps) {
   const isControlled = checked !== undefined;
   const [uncontrolled, setUncontrolled] = useState(defaultChecked);
   const resolved = Boolean(isControlled ? checked : uncontrolled);
-  const thumbSize = thumbBySize[size ?? "md"];
+  const resolvedSize = size ?? "lg";
+  const resolvedRadius = radius ?? "full";
+  const resolvedColor = color ?? "primary";
 
   return (
     <button
@@ -90,7 +134,21 @@ export function Switch({
       role="switch"
       aria-checked={resolved}
       disabled={disabled}
-      className={cn(switchVariants({ color, size, checked: resolved }), className)}
+      style={
+        {
+          ...style,
+          "--switch-chrome-inset": switchChromeInset,
+        } as CSSProperties
+      }
+      className={cn(
+        switchVariants({
+          color: resolvedColor,
+          size: resolvedSize,
+          radius: resolvedRadius,
+          checked: resolved,
+        }),
+        className,
+      )}
       onClick={(event) => {
         onClick?.(event);
         if (event.defaultPrevented || disabled) {
@@ -106,8 +164,11 @@ export function Switch({
     >
       <span
         className={cn(
-          "block rounded-full bg-background shadow-sm",
-          thumbSize,
+          switchThumbVariants({
+            color: resolvedColor,
+            radius: resolvedRadius,
+            checked: resolved,
+          }),
           resolved && "ms-auto",
         )}
       />

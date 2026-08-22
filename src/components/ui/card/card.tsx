@@ -452,6 +452,31 @@ const headerUnderlineWidth = {
   "75": "before:w-3/4",
 } as const;
 
+const headerPaddingUnderlineStart = {
+  none: "before:start-0",
+  sm: "before:start-2",
+  md: "before:start-4",
+  lg: "before:start-6",
+} as const;
+
+const cardHeaderUnderlineCompounds = buttonColors.flatMap((underline) => [
+  ...(["sm", "md", "lg"] as const).map((underlineSize) => ({
+    underline,
+    underlineSize,
+    class: headerUnderlineSize[underlineSize],
+  })),
+  ...(["fix", "25", "50", "75"] as const).map((underlineWidth) => ({
+    underline,
+    underlineWidth,
+    class: headerUnderlineWidth[underlineWidth],
+  })),
+  ...(["none", "sm", "md", "lg"] as const).map((padding) => ({
+    underline,
+    padding,
+    class: headerPaddingUnderlineStart[padding],
+  })),
+]);
+
 export const cardHeaderVariants = cva(
   "flex min-w-0 shrink-0 flex-col gap-1.5 text-start",
   {
@@ -462,17 +487,21 @@ export const cardHeaderVariants = cva(
         border: "card-edge-bottom",
         divider: "card-edge-bottom bg-panel-hover/50",
       },
-      padding: {
-        none: cn(cardPadding.none, "before:start-0"),
-        sm: cn(cardPadding.sm, "before:start-2"),
-        md: cn(cardPadding.md, "before:start-4"),
-        lg: cn(cardPadding.lg, "before:start-6"),
-      },
+      padding: cardPadding,
       underline: headerUnderline,
-      underlineSize: headerUnderlineSize,
-      underlineWidth: headerUnderlineWidth,
+      underlineSize: {
+        sm: "",
+        md: "",
+        lg: "",
+      },
+      underlineWidth: {
+        fix: "",
+        "25": "",
+        "50": "",
+        "75": "",
+      },
     },
-    compoundVariants: cardBorderEdgeCompounds,
+    compoundVariants: [...cardBorderEdgeCompounds, ...cardHeaderUnderlineCompounds],
     defaultVariants: {
       variant: "none",
       padding: "md",

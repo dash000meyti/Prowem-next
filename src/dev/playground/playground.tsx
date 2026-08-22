@@ -106,7 +106,6 @@ function Control({
         </Label>
         <Select
           id={id}
-          size="sm"
           className={
             prop.name === "font"
               ? "w-44 max-w-full shrink-0"
@@ -149,7 +148,6 @@ function Control({
         <Input
           id={id}
           type="number"
-          size="sm"
           className="w-16 max-w-full shrink-0"
           value={Number(value ?? 0)}
           onChange={(event) => onChange(Number(event.target.value))}
@@ -165,7 +163,6 @@ function Control({
       </Label>
       <Input
         id={id}
-        size="sm"
         className="w-24 max-w-full shrink-0"
         value={String(value ?? "")}
         onChange={(event) => onChange(event.target.value)}
@@ -183,7 +180,8 @@ export function Playground({
 }) {
   const [values, setValues] = useState(() => initialValues(meta));
   const [dir, setDir] = useState<PreviewDir>("ltr");
-  const [hatch, setHatch] = useState(true);
+  /** Switch off = hatch preview; on = plain background. */
+  const [plainPreview, setPlainPreview] = useState(false);
   const controlGroups = useMemo(
     () => groupControls(meta.props, values),
     [meta.props, values],
@@ -193,17 +191,27 @@ export function Playground({
     <Card padding="none">
       <CardHeader
         variant="divider"
-        className="flex-row items-center justify-between gap-3"
+        className="!flex-row w-full items-center gap-3"
       >
-        <Text as="span" font="heeboBold" className="text-base text-foreground">
+        <Text
+          as="span"
+          font="heeboBold"
+          className="min-w-0 shrink-0 text-start text-base text-foreground"
+        >
           {copy.playground}
         </Text>
-        <div className="flex min-w-0 shrink-0 items-center gap-2">
+        <div className="ms-auto flex shrink-0 items-center gap-2">
+          <Tooltip content={copy.hatchToggle} side="bottom">
+            <Switch
+              checked={plainPreview}
+              onCheckedChange={setPlainPreview}
+              aria-label={copy.hatchToggle}
+            />
+          </Tooltip>
           <Tooltip content={copy.dirToggle} side="bottom">
             <Button
               type="button"
               variant="soft"
-              size="sm"
               onClick={() => setDir((current) => (current === "ltr" ? "rtl" : "ltr"))}
               aria-label={copy.dirToggle}
               aria-pressed={dir === "rtl"}
@@ -211,23 +219,14 @@ export function Playground({
               {dir === "rtl" ? copy.dirRtl : copy.dirLtr}
             </Button>
           </Tooltip>
-          <Tooltip content={copy.hatchToggle} side="bottom">
-            <Switch
-              checked={hatch}
-              onCheckedChange={setHatch}
-              size="sm"
-              aria-label={copy.hatchToggle}
-            />
-          </Tooltip>
           <Tooltip content={copy.resetToggle} side="bottom">
             <Button
               type="button"
               variant="soft"
-              size="sm"
               onClick={() => {
                 setValues(initialValues(meta));
                 setDir("ltr");
-                setHatch(true);
+                setPlainPreview(false);
               }}
               aria-label={copy.resetToggle}
             >
@@ -241,7 +240,7 @@ export function Playground({
         dir={dir}
         className={cn(
           "flex min-h-48 min-w-0 flex-col items-start justify-start overflow-auto p-6",
-          hatch ? labHatchClass : "bg-background",
+          plainPreview ? "bg-background" : labHatchClass,
         )}
       >
         {render(values)}

@@ -1,4 +1,4 @@
-import { buttonColorValues, fieldSizeValues } from "@/dev/values";
+import { buttonColorValues, fieldSizeValues, radiusValues } from "@/dev/values";
 import type { ComponentMeta } from "./types";
 
 export const switchMeta = {
@@ -8,7 +8,7 @@ export const switchMeta = {
   file: "src/components/ui/switch/switch.tsx",
   importStatement: 'import { Switch, switchVariants } from "@/components/ui/switch";',
   description:
-    "Client toggle. role=switch. Thumb uses ms-auto when on so start/end follow dir. Color tokens tint the on track.",
+    "Client toggle. role=switch. Track has fixed sm inset outline (border token). Thumb when on: color glow; background track → foreground thumb, foreground track → background thumb. When off: border token fill.",
   rules: [
     "Use checked + onCheckedChange, or defaultChecked for uncontrolled.",
     "Pass the accessible name with aria-label or a Label. Do not hardcode copy inside Switch.",
@@ -36,8 +36,17 @@ export const switchMeta = {
       name: "size",
       type: "enum",
       values: [...fieldSizeValues],
-      default: "md",
+      default: "lg",
       description: "Track size.",
+      playground: true,
+      group: "Appearance",
+    },
+    {
+      name: "radius",
+      type: "enum",
+      values: [...radiusValues],
+      default: "full",
+      description: "Corner radius on track and thumb (theme.radius).",
       playground: true,
       group: "Appearance",
     },

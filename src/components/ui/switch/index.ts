@@ -1,1 +1,6 @@
-export { Switch, switchVariants, type SwitchProps } from "./switch";
+export {
+  Switch,
+  switchThumbVariants,
+  switchVariants,
+  type SwitchProps,
+} from "./switch";

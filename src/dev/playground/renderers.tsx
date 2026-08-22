@@ -524,6 +524,7 @@ export function PlaygroundBySlug({
               checked={Boolean(values.checked)}
               color={values.color as ButtonColor}
               size={values.size as SwitchProps["size"]}
+              radius={values.radius as SwitchProps["radius"]}
               disabled={Boolean(values.disabled)}
               aria-label={copy.demo.label}
               onCheckedChange={() => undefined}
