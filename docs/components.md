@@ -126,7 +126,7 @@ Children are `li` nodes. No ListItem atom. `listVariants()` is exported.
 
 ### Table
 
-Compound atom: `Table`, `TableHeader`, `TableBody`, `TableRow`, `TableHead`, `TableCell`. No caption. Root wraps the table with overflow clip, `radius` (default `md`), and `border-md border-border`. Header uses `bg-panel`. Body rows get a top edge. `tableWrapVariants()`, `tableVariants()`, and slot helpers are exported.
+Compound atom: `Table`, `TableHeader`, `TableBody`, `TableRow`, `TableHead`, `TableCell`. No caption. Root wraps the table with overflow clip, `radius` (default `md`), and `border-md border-border`. Header uses `bg-panel-hover` with `text-panel-foreground`. Body rows alternate `background` / `panel` with matching foreground tokens. Body rows get a top edge. `tableWrapVariants()`, `tableVariants()`, and slot helpers are exported.
 
 ### Code
 

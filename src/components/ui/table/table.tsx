@@ -17,17 +17,21 @@ export const tableWrapVariants = cva(
 
 export const tableVariants = cva("w-full min-w-0 text-start text-sm");
 
-export const tableHeaderVariants = cva("bg-panel text-foreground/70");
+export const tableHeaderVariants = cva(
+  "bg-panel-hover text-panel-foreground",
+);
 
 export const tableBodyVariants = cva(
-  "[&>tr]:border-t [&>tr]:border-md [&>tr]:border-border",
+  "[&>tr:nth-child(odd)]:bg-background [&>tr:nth-child(odd)]:text-foreground [&>tr:nth-child(even)]:bg-panel [&>tr:nth-child(even)]:text-panel-foreground [&>tr]:border-t [&>tr]:border-md [&>tr]:border-border",
 );
 
 export const tableRowVariants = cva("");
 
-export const tableHeadVariants = cva("px-3 py-2 text-start font-medium");
+export const tableHeadVariants = cva(
+  "px-3 py-2 text-start font-medium text-inherit",
+);
 
-export const tableCellVariants = cva("px-3 py-2 text-start");
+export const tableCellVariants = cva("px-3 py-2 text-start text-inherit");
 
 export type TableProps = HTMLAttributes<HTMLTableElement> &
   VariantProps<typeof tableVariants> &

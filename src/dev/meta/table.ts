@@ -9,7 +9,7 @@ export const tableMeta = {
   importStatement:
     'import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";',
   description:
-    "Compound table: wrap, header, body, row, head, cell. No caption. Root clips overflow and uses token radius and border.",
+    "Compound table: wrap, header, body, row, head, cell. No caption. Root clips overflow and uses token radius and border. Header is panel-hover; body rows alternate background and panel.",
   rules: [
     "Compose TableHeader / TableBody / TableRow / TableHead / TableCell. Do not restyle a second table.",
     "Pass cell copy as children. Do not hardcode strings inside Table.",
