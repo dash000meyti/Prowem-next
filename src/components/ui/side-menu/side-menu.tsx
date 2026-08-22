@@ -72,6 +72,7 @@ export type SideMenuVariant =
   | "secondary"
   | "outline"
   | "soft"
+  | "tinted"
   | "link"
   | "muted";
 

@@ -5,6 +5,7 @@ export const buttonVariantValues = [
   "secondary",
   "outline",
   "soft",
+  "tinted",
   "ghost",
   "subtle",
   "link",
@@ -40,7 +41,10 @@ export const cardUnderlineSizeValues = ["sm", "md", "lg"] as const;
 
 export const cardUnderlineWidthValues = ["fix", "25", "50", "75"] as const;
 
-export const cardBorderColorValues = ["border", ...buttonColors] as const;
+export const cardBorderColorValues = [
+  "border",
+  ...buttonColors.flatMap((color) => [color, `${color}Active`] as const),
+] as const;
 
 export const iconPlaygroundValues = [
   "",
@@ -62,6 +66,7 @@ export const sideMenuVariantValues = [
   "secondary",
   "outline",
   "soft",
+  "tinted",
   "link",
   "muted",
 ] as const;

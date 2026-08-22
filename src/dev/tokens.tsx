@@ -109,10 +109,10 @@ const radiusSwatches = [
 ] as const;
 
 const borderSwatches = [
-  { label: "none", className: "border-none" },
-  { label: "sm", className: "border-sm" },
-  { label: "md", className: "border-md" },
-  { label: "lg", className: "border-lg" },
+  { label: "none", className: "border-none", note: "0" },
+  { label: "sm", className: "border-sm", note: "1px" },
+  { label: "md", className: "border-md", note: "2px" },
+  { label: "lg", className: "border-lg", note: "3px" },
 ] as const;
 
 const layoutRows = [
@@ -283,7 +283,7 @@ export async function TokenGallery() {
                 className={`border bg-panel border-border ${tokenSwatch} ${swatch.className}`}
               />
               <Text as="span" variant="caption">
-                {swatch.label}
+                {swatch.label} · {swatch.note}
               </Text>
             </div>
           ))}

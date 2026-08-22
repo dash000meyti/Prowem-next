@@ -28,7 +28,7 @@ export const alertMeta = {
       type: "enum",
       values: [...cardBorderColorValues],
       default: "border",
-      description: "Card borderColor.",
+      description: "Card borderColor: {color} = 20%, {color}Active = full.",
       playground: true,
       group: "Appearance",
     },

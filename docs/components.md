@@ -46,14 +46,14 @@ import { Button, buttonVariants } from "@/components/ui/button";
 
 ### Button
 
-`variant`: `filled` | `secondary` | `outline` | `soft` | `ghost` | `subtle` | `link` | `muted`  
+`variant`: `filled` | `secondary` | `outline` | `soft` | `tinted` | `ghost` | `subtle` | `link` | `muted`  
 `color`: `primary` (default) | `background` | `foreground` | `accent-1` | `accent-2` | `accent-3` | `accent-4` | `success` | `warning` | `error`  
 `size`: `sm` | `md` | `lg` — fixed at all breakpoints: `sm` 32×12×14, `md` 34×14×16, `lg` 40×16×18 (height × horizontal padding × font, px)  
 `font?`: catalog face (default `heeboRegular`; alternate label face `ubuntuMedium`; full catalog available)  
 `radius`: `none` | `sm` | `md` | `lg` | `full` (default `full`)  
 `icon?`: `IconName` from `@/components/icons`  
 `iconPosition?`: `start` (default) | `end`  
-Also: native `button` attributes (`disabled`, `type`, `onClick`, …). `color` tints `filled` / `outline` / `soft` / `ghost` / `subtle` / `link` / `muted`. `outline` and `soft` draw `border-border` inside the box (`shadow-outline-sm`, width `sm`) so they do not add width. `filled` and `outline` hover with a `*-glow` halo (`shadow-glow-*`, including `background` / `foreground`); `:active` has no glow. `secondary` / `soft` / `ghost` / `subtle` use a quieter `shadow-glow-sm-*` halo (18% / 14% mix vs filled’s 35% / 28%) on `:active` and `aria-expanded` (Dropdown / SideMenu stay glowing while open). `soft` rest matches `outline`; hover tints with `color` like `secondary` (`*-hover/20`). `secondary` rest is panel; hover tints with `color` like ghost (`*-hover/20`). `ghost` rest uses the `color` text. `subtle` rest uses `text-panel-foreground` like secondary, then hover tints and recolors like ghost. `link` tints the text on hover and uses `*-hover/20` (or `background` / `foreground` at `/20`) on `:active` and `aria-expanded`. `muted` matches `link` but rest text is `text-panel-foreground` like subtle.
+Also: native `button` attributes (`disabled`, `type`, `onClick`, …). `color` tints `filled` / `outline` / `soft` / `tinted` / `ghost` / `subtle` / `link` / `muted`. `outline` and `soft` draw `border-border` inside the box (`shadow-outline-sm`, width `sm`) so they do not add width. `tinted` matches `soft` (text, hover tint, quiet glow on `:active` / `aria-expanded`) but the inset border uses the `color` token (`shadow-outline-sm-*`) instead of `border-border`. `filled` and `outline` hover with a `*-glow` halo (`shadow-glow-*`, including `background` / `foreground`); `:active` has no glow. `secondary` / `soft` / `tinted` / `ghost` / `subtle` use a quieter `shadow-glow-sm-*` halo (18% / 14% mix vs filled’s 35% / 28%) on `:active` and `aria-expanded` (Dropdown / SideMenu stay glowing while open). `soft` rest matches `outline`; hover tints with `color` like `secondary` (`*-hover/20`). `secondary` rest is panel; hover tints with `color` like ghost (`*-hover/20`). `ghost` rest uses the `color` text. `subtle` rest uses `text-panel-foreground` like secondary, then hover tints and recolors like ghost. `link` tints the text on hover and uses `*-hover/20` (or `background` / `foreground` at `/20`) on `:active` and `aria-expanded`. `muted` matches `link` but rest text is `text-panel-foreground` like subtle.
 
 Icon-only (`icon` and no label): equal padding, same height as `size` (`sm`: `size-8`; `md`: `size-[34px]`; `lg`: `size-10`), with CVA compounds that zero horizontal padding. Icon + text: normal button height, icon `size-4`, `gap-2`.
 
@@ -72,7 +72,7 @@ Root `Card`:
 - `padding`: `none` | `sm` | `md` | `lg` (default `none`)
 - `radius`: `none` | `sm` | `md` | `lg` | `full` (default `md`)
 - `border`: `none` | `sm` | `md` | `lg` (default `sm`)
-- `borderColor`: `border` (default) | same as Button (`primary`, `background`, `foreground`, `accent-1`…`4`, `success`, `warning`, `error`)
+- `borderColor`: `border` (default) | action colors at 20% (`primary`, `background`, `foreground`, `accent-1`…`4`, `success`, `warning`, `error`) | same colors at full opacity with an `Active` suffix (`primaryActive`, `accent-1Active`, …)
 - Also native `div` attributes and `className?`
 
 `surface` is only the fill: `panel` uses `--panel`; `glass` is the stuck-header mix (`panel` at 72% when unlit, 42% when any light is on) plus `backdrop-blur-sm`. Lights are independent ellipse glows (18% mix) on `bg-card-spots`. `lightStart` / `lightEnd` follow `dir` (not `left` / `right`). `borderLight*` overlays a fade on the existing box border (`card-border-lights` pseudo, same `--card-border-width`, follows `radius`); solid `borderColor` stays. The border-light stop props control where that fade starts, peaks, and ends on each edge; omitted props fall back to `10` / `50` / `90`. Old names map as: `light` → `lightBottom="primary"`; `glass-light` → `surface="glass"` + `lightBottom="primary"`; `light-dual` → `lightBottom="primary"` + `lightTop="foreground"`; `glass-light-dual` → the same lights on `glass`. Root has `overflow-hidden` so slot fills and gradients clip to radius. Root paints its box border from `--card-border-width` and `--card-border-color` (same vars Header/Footer edges inherit). Do not use the Tailwind `border` shorthand with `border-sm|md|lg` — that shorthand also sets width to 1px and wins over the token.
@@ -81,7 +81,7 @@ Root `Card`:
 
 `CardHeader` `underline`: `none` (default) | same colors as lights. Bar on the lowest edge of the header (`::before`). Logical `start` inset matches the slot padding (`none` → `start-0`, `md` → `start-4`). Stacks with `variant` `border` / `divider` (those keep the full-width `::after` edge). `PopupHeader` / `SideMenuHeader` inherit these props.
 
-- `underlineSize`: `sm` | `md` (default) | `lg` — height from `theme.borderWidth` (`1px` / `2px` / `4px`)
+- `underlineSize`: `sm` | `md` (default) | `lg` — height from `theme.borderWidth` (`1px` / `2px` / `3px`)
 - `underlineWidth`: `fix` (default, `50px`) | `25` (`25%`) | `50` (`50%`) | `75` (`75%`)
 
 Slot `padding`: `none` | `sm` | `md` | `lg` (default `md` = `p-4`) on Header, Content, and Footer. Header and Footer take their content height (`shrink-0`). `CardContent` fills the leftover space (`flex-1 min-h-0`).
@@ -94,7 +94,7 @@ Client atom. No copy, no routing. Closed/open, click-outside, and Escape live he
 ### SideMenu
 
 Compound atom: `SideMenu`, `SideMenuHeader`, `SideMenuContent`, `SideMenuFooter`. `sideMenuPanelVariants()` is exported.  
-Props on the root: `icon?` (`IconName`), `trigger?` (text or node), `children`, `label`, `closeLabel`, `variant?` (`filled` | `secondary` | `outline` | `soft` | `link` | `muted`, default `outline`), `color?` (same as Button, default `primary`), `side?` (`start` | `end`, default `end`), `className?`. No `footer` prop — pin actions with `SideMenuFooter`.  
+Props on the root: `icon?` (`IconName`), `trigger?` (text or node), `children`, `label`, `closeLabel`, `variant?` (`filled` | `secondary` | `outline` | `soft` | `tinted` | `link` | `muted`, default `outline`), `color?` (same as Button, default `primary`), `side?` (`start` | `end`, default `end`), `className?`. No `footer` prop — pin actions with `SideMenuFooter`.  
 Client atom. No copy, no routing. Overlay, Escape, and the close control live here (close is rendered by `SideMenuHeader`). The trigger is a Button like Dropdown. The panel is a `Card` (`surface="glass"`, `lightBottom="primary"`, `lightTop="foreground"`, `padding="none"`, `radius="none"`) `fixed` from `start` or `end` (logical, RTL-safe), `w-80 max-w-full`. Header / Content / Footer are Card slots: Header default `variant="border"` and includes the close button; Content fills leftover space; Footer default `variant="border"`. Overlay uses `bg-background/72` plus `backdrop-blur-xs` (half of Card glass `backdrop-blur-sm`). Overlay and panel fade/slide in `300ms` (`duration-300`). Portal to `document.body` so sticky headers do not clip it.
 
 ### Container

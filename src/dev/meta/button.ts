@@ -22,7 +22,8 @@ export const buttonMeta = {
     "Use icon and iconPosition start|end — never left/right icon props.",
     "Icon-only (icon and no label) uses equal padding and the same height as size.",
     "Reuse buttonVariants() on Link or other tags when you need the same chrome without a button element.",
-    "Color tints filled, outline, soft, ghost, subtle, link, and muted. Tokens only — no hex.",
+    "Color tints filled, outline, soft, tinted, ghost, subtle, link, and muted. Tokens only — no hex.",
+    "tinted matches soft but the inset border uses the color token (shadow-outline-sm-*), not border-border.",
   ],
   props: [
     {

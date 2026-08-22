@@ -103,6 +103,7 @@ export type PopupVariant =
   | "secondary"
   | "outline"
   | "soft"
+  | "tinted"
   | "link"
   | "muted";
 

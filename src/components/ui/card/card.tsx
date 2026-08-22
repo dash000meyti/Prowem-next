@@ -145,37 +145,33 @@ const cardRadiusVars = {
   full: "var(--theme-radius-full)",
 } as const;
 
-const cardBorderColors = {
-  border: "var(--border)",
-  background: "var(--background)",
-  foreground: "var(--foreground)",
-  primary: "var(--primary)",
-  "accent-1": "var(--accent-1)",
-  "accent-2": "var(--accent-2)",
-  "accent-3": "var(--accent-3)",
-  "accent-4": "var(--accent-4)",
-  success: "var(--success)",
-  warning: "var(--warning)",
-  error: "var(--error)",
-} as const;
+type CardBorderColorActive = `${ButtonColor}Active`;
+export type CardBorderColor = "border" | ButtonColor | CardBorderColorActive;
 
-const borderColorVariants = {
-  border: "border-border",
-  background: "border-background",
-  foreground: "border-foreground",
-  primary: "border-primary",
-  "accent-1": "border-accent-1",
-  "accent-2": "border-accent-2",
-  "accent-3": "border-accent-3",
-  "accent-4": "border-accent-4",
-  success: "border-success",
-  warning: "border-warning",
-  error: "border-error",
-} as const;
+function mutedCardBorderColor(color: ButtonColor): string {
+  return `color-mix(in srgb, var(${cssVarByColor[color]}) 20%, transparent)`;
+}
+
+function buildCardBorderColors(): Record<CardBorderColor, string> {
+  const colors = { border: "var(--border)" } as Record<CardBorderColor, string>;
+
+  for (const color of buttonColors) {
+    colors[color] = mutedCardBorderColor(color);
+    colors[`${color}Active`] = `var(${cssVarByColor[color]})`;
+  }
+
+  return colors;
+}
+
+const cardBorderColors = buildCardBorderColors();
+
+const borderColorVariants = Object.fromEntries(
+  Object.keys(cardBorderColors).map((key) => [key, ""]),
+) as Record<CardBorderColor, "">;
 
 function borderVars(
   border: keyof typeof cardBorderWidth | null | undefined,
-  borderColor: keyof typeof cardBorderColors | null | undefined,
+  borderColor: CardBorderColor | null | undefined,
   radius: keyof typeof cardRadiusVars | null | undefined,
   borderLightTop: string | null | undefined,
   borderLightBottom: string | null | undefined,

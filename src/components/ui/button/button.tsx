@@ -123,6 +123,19 @@ const softByColor: Record<ButtonColor, string> = {
   error: `text-error hover:bg-error-hover/20 ${pressGlowByColor.error}`,
 };
 
+const tintedOutlineSmByColor: Record<ButtonColor, string> = {
+  background: "shadow-outline-sm-background",
+  foreground: "shadow-outline-sm-foreground",
+  primary: "shadow-outline-sm-primary",
+  "accent-1": "shadow-outline-sm-accent-1",
+  "accent-2": "shadow-outline-sm-accent-2",
+  "accent-3": "shadow-outline-sm-accent-3",
+  "accent-4": "shadow-outline-sm-accent-4",
+  success: "shadow-outline-sm-success",
+  warning: "shadow-outline-sm-warning",
+  error: "shadow-outline-sm-error",
+};
+
 const pressTintByColor: Record<ButtonColor, string> = {
   background: "active:bg-background/20 aria-expanded:bg-background/20",
   foreground: "active:bg-foreground/20 aria-expanded:bg-foreground/20",
@@ -175,6 +188,7 @@ export const buttonVariants = cva(
         secondary: "bg-panel text-panel-foreground",
         outline: "bg-transparent shadow-outline-sm",
         soft: "bg-transparent shadow-outline-sm",
+        tinted: "bg-transparent",
         ghost: "bg-transparent",
         subtle: "bg-transparent",
         link: "bg-transparent underline-offset-4 hover:underline",
@@ -240,6 +254,11 @@ export const buttonVariants = cva(
         variant: "soft" as const,
         color,
         class: softByColor[color],
+      })),
+      ...buttonColors.map((color) => ({
+        variant: "tinted" as const,
+        color,
+        class: `${softByColor[color]} ${tintedOutlineSmByColor[color]}`,
       })),
       ...buttonColors.map((color) => ({
         variant: "ghost" as const,

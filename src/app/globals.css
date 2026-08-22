@@ -56,7 +56,7 @@
   --theme-border-width-none: 0;
   --theme-border-width-sm: 1px;
   --theme-border-width-md: 2px;
-  --theme-border-width-lg: 4px;
+  --theme-border-width-lg: 3px;
   --container-xs: 480px;
   --container-sm: 720px;
   --container-md: 980px;
@@ -141,6 +141,16 @@
   --border-width-lg: var(--theme-border-width-lg);
   --shadow-outline: inset 0 0 0 var(--theme-border-width-md) var(--border);
   --shadow-outline-sm: inset 0 0 0 var(--theme-border-width-sm) var(--border);
+  --shadow-outline-sm-background: inset 0 0 0 var(--theme-border-width-sm) var(--background);
+  --shadow-outline-sm-foreground: inset 0 0 0 var(--theme-border-width-sm) var(--foreground);
+  --shadow-outline-sm-primary: inset 0 0 0 var(--theme-border-width-sm) var(--primary);
+  --shadow-outline-sm-accent-1: inset 0 0 0 var(--theme-border-width-sm) var(--accent-1);
+  --shadow-outline-sm-accent-2: inset 0 0 0 var(--theme-border-width-sm) var(--accent-2);
+  --shadow-outline-sm-accent-3: inset 0 0 0 var(--theme-border-width-sm) var(--accent-3);
+  --shadow-outline-sm-accent-4: inset 0 0 0 var(--theme-border-width-sm) var(--accent-4);
+  --shadow-outline-sm-success: inset 0 0 0 var(--theme-border-width-sm) var(--success);
+  --shadow-outline-sm-warning: inset 0 0 0 var(--theme-border-width-sm) var(--warning);
+  --shadow-outline-sm-error: inset 0 0 0 var(--theme-border-width-sm) var(--error);
   --shadow-glow-background: 0 0 8px color-mix(in srgb, var(--background) 35%, transparent), 0 0 24px color-mix(in srgb, var(--background) 28%, transparent);
   --shadow-glow-foreground: 0 0 8px color-mix(in srgb, var(--foreground) 35%, transparent), 0 0 24px color-mix(in srgb, var(--foreground) 28%, transparent);
   --shadow-glow-primary: 0 0 8px color-mix(in srgb, var(--primary-glow) 35%, transparent), 0 0 24px color-mix(in srgb, var(--primary-glow) 28%, transparent);
