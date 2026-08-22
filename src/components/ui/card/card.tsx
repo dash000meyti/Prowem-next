@@ -155,6 +155,36 @@ function mutedCardBorderColor(color: ButtonColor): string {
   return `color-mix(in srgb, var(${cssVarByColor[color]}) 20%, transparent)`;
 }
 
+export type CardBackgroundColor = "none" | "border" | ButtonColor;
+
+function mutedCardBackgroundColor(
+  color: Exclude<CardBackgroundColor, "none">,
+): string {
+  const token =
+    color === "border" ? "var(--border)" : `var(${cssVarByColor[color]})`;
+  return `color-mix(in srgb, ${token} 10%, transparent)`;
+}
+
+export function resolveCardBackgroundColor(
+  backgroundColor: CardBackgroundColor = "none",
+): string {
+  if (backgroundColor === "none") {
+    return "transparent";
+  }
+
+  return mutedCardBackgroundColor(backgroundColor);
+}
+
+function backgroundColorVars(
+  backgroundColor: CardBackgroundColor | null | undefined,
+): CSSProperties {
+  return {
+    "--card-background-tint": resolveCardBackgroundColor(
+      backgroundColor ?? "none",
+    ),
+  } as CSSProperties;
+}
+
 function buildCardBorderColors(): Record<CardBorderColor, string> {
   const colors = { border: "var(--border)" } as Record<CardBorderColor, string>;
 
@@ -177,6 +207,16 @@ export function resolveCardBorderColor(
 const borderColorVariants = Object.fromEntries(
   Object.keys(cardBorderColors).map((key) => [key, ""]),
 ) as Record<CardBorderColor, "">;
+
+const cardBackgroundColorValues = [
+  "none",
+  "border",
+  ...buttonColors,
+] as const satisfies readonly CardBackgroundColor[];
+
+const backgroundColorVariants = Object.fromEntries(
+  cardBackgroundColorValues.map((key) => [key, ""]),
+) as Record<CardBackgroundColor, "">;
 
 function borderVars(
   border: keyof typeof cardBorderWidth | null | undefined,
@@ -292,6 +332,7 @@ export const cardVariants = cva(
         lg: "",
       },
       borderColor: borderColorVariants,
+      backgroundColor: backgroundColorVariants,
     },
     defaultVariants: {
       surface: "panel",
@@ -307,6 +348,7 @@ export const cardVariants = cva(
       radius: "lg",
       border: "sm",
       borderColor: "border",
+      backgroundColor: "none",
     },
   },
 );
@@ -359,6 +401,7 @@ export function Card({
   radius,
   border,
   borderColor,
+  backgroundColor,
   style,
   ...props
 }: CardProps) {
@@ -379,6 +422,7 @@ export function Card({
           radius,
           border,
           borderColor,
+          backgroundColor,
         }),
         hasBorderLights(
           border,
@@ -415,6 +459,7 @@ export function Card({
         borderWidth: "var(--card-border-width)",
         borderColor: "var(--card-border-color)",
         ...lightVars(surface, lightBottom, lightTop, lightStart, lightEnd),
+        ...backgroundColorVars(backgroundColor),
         ...style,
       }}
       {...props}

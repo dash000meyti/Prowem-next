@@ -72,6 +72,7 @@
   --card-spot-start-at: -10% 50%;
   --card-spot-end-at: 110% 50%;
   --card-base: var(--panel);
+  --card-background-tint: transparent;
   --card-border-width: var(--theme-border-width-md);
   --card-border-color: var(--border);
   --card-radius: var(--theme-radius-lg);
@@ -231,6 +232,7 @@
 
 @utility bg-card-spots {
   background-image:
+    linear-gradient(var(--card-background-tint), var(--card-background-tint)),
     radial-gradient(
       ellipse 55% 45% at 50% 110%,
       var(--card-spot-bottom) 0%,

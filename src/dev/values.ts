@@ -50,6 +50,12 @@ export const cardBorderColorValues = [
   ...buttonColors.flatMap((color) => [color, `${color}Active`] as const),
 ] as const;
 
+export const cardBackgroundColorValues = [
+  "none",
+  "border",
+  ...buttonColors,
+] as const;
+
 export const iconPlaygroundValues = [
   "",
   "close",

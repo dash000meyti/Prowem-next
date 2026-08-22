@@ -9,6 +9,7 @@ import { copy } from "@/dev/copy";
 import { cardLabPreview, GalleryHeading } from "@/dev/gallery/shared";
 import {
   borderValues,
+  cardBackgroundColorValues,
   cardBorderColorValues,
   cardLightValues,
   cardSlotVariantValues,
@@ -53,7 +54,7 @@ export function CardGallery() {
       <div className="flex min-w-0 flex-col gap-2">
         <GalleryHeading
           label="compound"
-          defaults="surface panel, lights none, padding none, radius lg, border sm, borderColor border"
+          defaults="surface panel, lights none, padding none, radius lg, border sm, borderColor border, backgroundColor none"
         />
         <Card className={`max-w-sm ${cardLabPreview}`}>
           <CardHeader variant="divider">{copy.demo.cardTitle}</CardHeader>
@@ -347,6 +348,39 @@ export function CardGallery() {
               <CardFooter variant="divider">
                 <p className="text-sm">Footer</p>
               </CardFooter>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex min-w-0 flex-col gap-2">
+        <GalleryHeading label="backgroundColor" defaults="none" />
+        <div className="flex min-w-0 flex-wrap items-stretch gap-2">
+          {cardBackgroundColorValues.map((backgroundColor) => (
+            <Card
+              key={backgroundColor}
+              backgroundColor={backgroundColor}
+              padding="md"
+              className={cardLabPreview}
+            >
+              <p className="text-sm">{backgroundColor}</p>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex min-w-0 flex-col gap-2">
+        <GalleryHeading label="backgroundColor × glass" defaults="surface glass" />
+        <div className="flex min-w-0 flex-wrap items-stretch gap-2">
+          {cardBackgroundColorValues.filter((c) => c !== "none").map((backgroundColor) => (
+            <Card
+              key={backgroundColor}
+              surface="glass"
+              backgroundColor={backgroundColor}
+              padding="md"
+              className={cardLabPreview}
+            >
+              <p className="text-sm">{backgroundColor}</p>
             </Card>
           ))}
         </div>

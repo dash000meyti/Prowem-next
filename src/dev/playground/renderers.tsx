@@ -146,6 +146,8 @@ export function PlaygroundBySlug({
               radius: values.radius as CardProps["radius"],
               border: values.border as CardProps["border"],
               borderColor: values.borderColor as CardProps["borderColor"],
+              backgroundColor:
+                values.backgroundColor as CardProps["backgroundColor"],
             };
 
             return (

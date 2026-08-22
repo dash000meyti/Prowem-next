@@ -1,4 +1,5 @@
 import {
+  cardBackgroundColorValues,
   cardBorderColorValues,
   cardLightValues,
   cardSlotVariantValues,
@@ -25,7 +26,7 @@ export const cardMeta = {
     "surface is only the fill (panel or glass). Lights are independent ellipse glows.",
     "borderLight* paints a fade on that box-border edge and follows radius. Needs border ≠ none.",
     "lightStart / lightEnd and borderLightStart / borderLightEnd follow dir — not left/right.",
-    "borderColor: border (neutral), {color} (20% mix), or {color}Active (full). Header/Footer variant border|divider inherit the parent Card border width and borderColor. border insets the line by slot padding; divider stays full width.",
+    "borderColor: border (neutral), {color} (20% mix), or {color}Active (full). backgroundColor: none (default) | border | {color} — 10% opacity overlay on the existing surface (spots + base unchanged). Header/Footer variant border|divider inherit the parent Card border width and borderColor. border insets the line by slot padding; divider stays full width.",
     "CardHeader underline is a token-height bar at the header bottom (underlineSize sm/md/lg = border width 1/2/3px; underlineWidth fix 50px or 25/50/75%). Start inset matches padding. It stacks with variant border/divider (underline is ::before; the edge is ::after).",
     "CardContent fills leftover space (flex-1 min-h-0). Header and Footer stay shrink-0.",
   ],
@@ -269,6 +270,16 @@ export const cardMeta = {
       default: "border",
       description:
         "Border color token. border = neutral. primary etc. = 20% mix. primaryActive etc. = full color.",
+      playground: true,
+      group: "Layout",
+    },
+    {
+      name: "backgroundColor",
+      type: "enum",
+      values: [...cardBackgroundColorValues],
+      default: "none",
+      description:
+        "Surface tint overlay. none = off. border or action colors = 10% opacity wash on top of panel/glass and lights.",
       playground: true,
       group: "Layout",
     },
