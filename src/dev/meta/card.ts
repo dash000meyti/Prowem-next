@@ -248,7 +248,7 @@ export const cardMeta = {
       name: "radius",
       type: "enum",
       values: [...radiusValues],
-      default: "md",
+      default: "lg",
       description: "Corner radius token.",
       playground: true,
       group: "Layout",

@@ -102,9 +102,11 @@ const actionSwatches = [
 
 const radiusSwatches = [
   { label: "none", className: "rounded-none" },
+  { label: "xs", className: "rounded-xs" },
   { label: "sm", className: "rounded-sm" },
   { label: "md", className: "rounded-md" },
   { label: "lg", className: "rounded-lg" },
+  { label: "xl", className: "rounded-xl" },
   { label: "full", className: "rounded-full" },
 ] as const;
 

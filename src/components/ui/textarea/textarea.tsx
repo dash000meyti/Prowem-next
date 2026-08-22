@@ -16,7 +16,7 @@ export const textareaVariants = cva(
     },
     defaultVariants: {
       size: "md",
-      radius: "md",
+      radius: "sm",
     },
   },
 );

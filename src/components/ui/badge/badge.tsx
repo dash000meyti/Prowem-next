@@ -1,6 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { HTMLAttributes } from "react";
 import { buttonColors, type ButtonColor } from "@/components/ui/button";
+import { fieldRadius } from "@/components/ui/input";
 import { cn } from "@/lib/cn";
 
 const filledByColor: Record<ButtonColor, string> = {
@@ -74,13 +75,7 @@ export const badgeVariants = cva(
         sm: "px-2 py-0.5 text-xs",
         md: "px-2.5 py-0.5 text-sm",
       },
-      radius: {
-        none: "rounded-none",
-        sm: "rounded-sm",
-        md: "rounded-md",
-        lg: "rounded-lg",
-        full: "rounded-full",
-      },
+      radius: fieldRadius,
     },
     defaultVariants: {
       variant: "filled",

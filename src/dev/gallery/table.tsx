@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/table";
 import { copy } from "@/dev/copy";
 import { GalleryHeading } from "@/dev/gallery/shared";
+import { radiusValues } from "@/dev/values";
 
 export function TableGallery() {
   return (
@@ -38,6 +39,29 @@ export function TableGallery() {
           </TableRow>
         </TableBody>
       </Table>
+      <div className="flex min-w-0 flex-col gap-2">
+        <GalleryHeading label="radius" defaults="md" />
+        <div className="flex min-w-0 flex-col gap-3">
+          {radiusValues.map((radius) => (
+            <Table key={radius} radius={radius}>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>{copy.prop}</TableHead>
+                  <TableHead>{copy.type}</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell className="font-mono text-xs">radius</TableCell>
+                  <TableCell className="font-mono text-xs text-foreground/70">
+                    {radius}
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

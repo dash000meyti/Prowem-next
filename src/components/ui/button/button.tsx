@@ -1,6 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { Icon, type IconName } from "@/components/icons";
+import { fieldRadius } from "@/components/ui/input";
 import { fontFaceVariants, type FontFace } from "@/fonts";
 import { cn } from "@/lib/cn";
 
@@ -204,13 +205,7 @@ export const buttonVariants = cva(
         true: "shrink-0 gap-0",
         false: "",
       },
-      radius: {
-        none: "rounded-none",
-        sm: "rounded-sm",
-        md: "rounded-md",
-        lg: "rounded-lg",
-        full: "rounded-full",
-      },
+      radius: fieldRadius,
     },
     defaultVariants: {
       variant: "filled",

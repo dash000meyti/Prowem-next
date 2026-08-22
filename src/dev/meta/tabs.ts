@@ -1,3 +1,11 @@
+import {
+  buttonColorValues,
+  cardBorderColorValues,
+  cardUnderlineSizeValues,
+  radiusValues,
+  tabsSurfaceValues,
+  tabsVariantValues,
+} from "@/dev/values";
 import type { ComponentMeta } from "./types";
 
 export const tabsMeta = {
@@ -8,9 +16,11 @@ export const tabsMeta = {
   importStatement:
     'import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";',
   description:
-    "Client tabs. Triggers are Buttons (subtle when selected, ghost otherwise). Controlled value or defaultValue.",
+    "Client tabs. variant segmented (panel chrome, filled/subtle triggers) or underline (baseline + active indicator).",
   rules: [
-    "TabsTrigger is a Button (default size md, same heights as Button). Do not restyle a second tab chrome.",
+    "TabsList is w-full. Each TabsTrigger shares width equally (flex-1 basis-0).",
+    "variant segmented (default): surface none|panel (default panel), Card borderColor, radius on triggers (default sm) with outer radius + p-1.",
+    "variant underline: gap-1 px-1 pt-1 pb-0 (like segmented inset, no bottom). Triggers rounded-t per radius, flat bottom. List top outer radius = radius + p-1.",
     "Pass trigger and panel copy as children. Do not hardcode strings inside Tabs.",
     "Use defaultValue or value + onValueChange.",
   ],
@@ -23,6 +33,60 @@ export const tabsMeta = {
       description: "Uncontrolled selected tab.",
       playground: true,
       group: "Demo",
+    },
+    {
+      name: "variant",
+      type: "enum",
+      values: [...tabsVariantValues],
+      default: "segmented",
+      description: "segmented = button chrome; underline = baseline indicator.",
+      playground: true,
+      group: "TabsList",
+    },
+    {
+      name: "surface",
+      type: "enum",
+      values: [...tabsSurfaceValues],
+      default: "panel",
+      description: "TabsList background (default panel for both variants).",
+      playground: true,
+      group: "TabsList",
+    },
+    {
+      name: "borderColor",
+      type: "enum",
+      values: [...cardBorderColorValues],
+      default: "border",
+      description: "TabsList border color (same tokens as Card).",
+      playground: true,
+      group: "TabsList",
+    },
+    {
+      name: "color",
+      type: "enum",
+      values: [...buttonColorValues],
+      default: "primary",
+      description: "Button color for triggers.",
+      playground: true,
+      group: "TabsList",
+    },
+    {
+      name: "radius",
+      type: "enum",
+      values: [...radiusValues],
+      default: "sm",
+      description: "Trigger radius (segmented); top corners of list (underline).",
+      playground: true,
+      group: "TabsList",
+    },
+    {
+      name: "underlineSize",
+      type: "enum",
+      values: [...cardUnderlineSizeValues],
+      default: "md",
+      description: "Active underline height (underline variant; same as CardHeader).",
+      playground: true,
+      group: "TabsList",
     },
     {
       name: "className",

@@ -16,7 +16,7 @@ export const selectVariants = cva(cn(fieldBoxClass, "peer"), {
   },
   defaultVariants: {
     size: "md",
-    radius: "md",
+    radius: "sm",
   },
 });
 

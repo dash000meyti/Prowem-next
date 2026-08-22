@@ -8,9 +8,11 @@ export const fieldBoxClass =
 
 export const fieldRadius = {
   none: "rounded-none",
+  xs: "rounded-xs",
   sm: "rounded-sm",
   md: "rounded-md",
   lg: "rounded-lg",
+  xl: "rounded-xl",
   full: "rounded-full",
 } as const;
 
@@ -44,7 +46,7 @@ export const inputVariants = cva(fieldBoxClass, {
   },
   defaultVariants: {
     size: "md",
-    radius: "md",
+    radius: "sm",
   },
 });
 

@@ -45,7 +45,7 @@ export const textareaMeta = {
       name: "radius",
       type: "enum",
       values: [...radiusValues],
-      default: "md",
+      default: "sm",
       description: "Token radius.",
       playground: true,
       group: "Appearance",

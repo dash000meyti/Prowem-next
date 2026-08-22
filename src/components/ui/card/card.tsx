@@ -1,6 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { CSSProperties, HTMLAttributes } from "react";
 import { buttonColors, type ButtonColor } from "@/components/ui/button";
+import { fieldRadius } from "@/components/ui/input";
 import { cn } from "@/lib/cn";
 
 const cardPadding = {
@@ -139,9 +140,11 @@ const cardBorderWidth = {
 
 const cardRadiusVars = {
   none: "var(--theme-radius-none)",
+  xs: "var(--theme-radius-xs)",
   sm: "var(--theme-radius-sm)",
   md: "var(--theme-radius-md)",
   lg: "var(--theme-radius-lg)",
+  xl: "var(--theme-radius-xl)",
   full: "var(--theme-radius-full)",
 } as const;
 
@@ -164,6 +167,12 @@ function buildCardBorderColors(): Record<CardBorderColor, string> {
 }
 
 const cardBorderColors = buildCardBorderColors();
+
+export function resolveCardBorderColor(
+  borderColor: CardBorderColor = "border",
+): string {
+  return cardBorderColors[borderColor];
+}
 
 const borderColorVariants = Object.fromEntries(
   Object.keys(cardBorderColors).map((key) => [key, ""]),
@@ -199,7 +208,7 @@ function borderVars(
   return {
     "--card-border-width": cardBorderWidth[border ?? "sm"],
     "--card-border-color": cardBorderColors[borderColor ?? "border"],
-    "--card-radius": cardRadiusVars[radius ?? "md"],
+    "--card-radius": cardRadiusVars[radius ?? "lg"],
     "--card-border-light-top-image": topLit
       ? borderLightImage(
           borderLightTop,
@@ -275,13 +284,7 @@ export const cardVariants = cva(
       borderLightStart: lightVariants,
       borderLightEnd: lightVariants,
       padding: cardPadding,
-      radius: {
-        none: "rounded-none",
-        sm: "rounded-sm",
-        md: "rounded-md",
-        lg: "rounded-lg",
-        full: "rounded-full",
-      },
+      radius: fieldRadius,
       border: {
         none: "",
         sm: "",
@@ -301,7 +304,7 @@ export const cardVariants = cva(
       borderLightStart: "none",
       borderLightEnd: "none",
       padding: "none",
-      radius: "md",
+      radius: "lg",
       border: "sm",
       borderColor: "border",
     },

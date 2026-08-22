@@ -8,7 +8,7 @@ export const inputMeta = {
   file: "src/components/ui/input/input.tsx",
   importStatement: 'import { Input, inputVariants } from "@/components/ui/input";',
   description:
-    "Native text field. Heights match Button (sm / md / lg). Radius tokens default to md. Fill is panel. The sm border is shadow-outline-sm (inside the box, border color). Native size is omitted so the design size can use that name.",
+    "Native text field. Heights match Button (sm / md / lg). Radius tokens default to sm. Fill is panel. The sm border is shadow-outline-sm (inside the box, border color). Native size is omitted so the design size can use that name.",
   rules: [
     "Pass placeholder and value from the parent. Do not hardcode copy inside Input.",
     "Placeholders use Heebo Regular at the body size via shared field chrome.",
@@ -46,7 +46,7 @@ export const inputMeta = {
       name: "radius",
       type: "enum",
       values: [...radiusValues],
-      default: "md",
+      default: "sm",
       description: "Token radius.",
       playground: true,
       group: "Appearance",

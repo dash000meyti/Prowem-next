@@ -12,7 +12,7 @@ export const selectMeta = {
   rules: [
     "Keep this native. Do not replace it with Dropdown (that atom is a menu) or with SelectMenu unless the product needs a custom listbox.",
     "Pass option children from the parent. Labels come from the parent.",
-    "Heights match Button / Input (sm / md / lg). Default radius is md.",
+    "Heights match Button / Input (sm / md / lg). Default radius is sm.",
     "Tokens only: bg-panel and shadow-outline-sm. The chevron is Icon chevron-down.",
   ],
   props: [
@@ -38,7 +38,7 @@ export const selectMeta = {
       name: "radius",
       type: "enum",
       values: [...radiusValues],
-      default: "md",
+      default: "sm",
       description: "Token radius.",
       playground: true,
       group: "Appearance",

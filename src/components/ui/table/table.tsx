@@ -1,9 +1,18 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { HTMLAttributes, TdHTMLAttributes, ThHTMLAttributes } from "react";
+import { fieldRadius } from "@/components/ui/input";
 import { cn } from "@/lib/cn";
 
 export const tableWrapVariants = cva(
-  "min-w-0 overflow-x-auto rounded-md border-md border-border",
+  "min-w-0 overflow-x-auto border-md border-border",
+  {
+    variants: {
+      radius: fieldRadius,
+    },
+    defaultVariants: {
+      radius: "md",
+    },
+  },
 );
 
 export const tableVariants = cva("w-full min-w-0 text-start text-sm");
@@ -21,7 +30,8 @@ export const tableHeadVariants = cva("px-3 py-2 text-start font-medium");
 export const tableCellVariants = cva("px-3 py-2 text-start");
 
 export type TableProps = HTMLAttributes<HTMLTableElement> &
-  VariantProps<typeof tableVariants>;
+  VariantProps<typeof tableVariants> &
+  VariantProps<typeof tableWrapVariants>;
 
 export type TableHeaderProps = HTMLAttributes<HTMLTableSectionElement> &
   VariantProps<typeof tableHeaderVariants>;
@@ -38,9 +48,9 @@ export type TableHeadProps = ThHTMLAttributes<HTMLTableCellElement> &
 export type TableCellProps = TdHTMLAttributes<HTMLTableCellElement> &
   VariantProps<typeof tableCellVariants>;
 
-export function Table({ className, ...props }: TableProps) {
+export function Table({ className, radius, ...props }: TableProps) {
   return (
-    <div className={tableWrapVariants()}>
+    <div className={tableWrapVariants({ radius })}>
       <table className={cn(tableVariants(), className)} {...props} />
     </div>
   );

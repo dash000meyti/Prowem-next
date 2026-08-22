@@ -26,7 +26,7 @@ export function SelectGallery() {
         </div>
       </div>
       <div className="flex min-w-0 flex-col gap-2">
-        <GalleryHeading label="radius" defaults="md" />
+        <GalleryHeading label="radius" defaults="sm" />
         <div className="flex min-w-0 max-w-sm flex-col gap-2">
           {radiusValues.map((radius) => (
             <Select key={radius} radius={radius} defaultValue="one">

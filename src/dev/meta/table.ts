@@ -1,3 +1,4 @@
+import { radiusValues } from "@/dev/values";
 import type { ComponentMeta } from "./types";
 
 export const tableMeta = {
@@ -15,6 +16,15 @@ export const tableMeta = {
     "Use className on cells for mono or muted type.",
   ],
   props: [
+    {
+      name: "radius",
+      type: "enum",
+      values: [...radiusValues],
+      default: "md",
+      description: "Corner radius on the overflow wrap (theme.radius).",
+      playground: true,
+      group: "Appearance",
+    },
     {
       name: "className",
       type: "string",

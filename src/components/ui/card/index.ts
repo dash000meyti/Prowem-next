@@ -7,6 +7,7 @@ export {
   cardFooterVariants,
   cardHeaderVariants,
   cardVariants,
+  resolveCardBorderColor,
   type CardBorderColor,
   type CardContentProps,
   type CardFooterProps,

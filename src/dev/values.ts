@@ -14,7 +14,7 @@ export const buttonVariantValues = [
 
 export const buttonColorValues = buttonColors;
 
-export const radiusValues = ["none", "sm", "md", "lg", "full"] as const;
+export const radiusValues = ["none", "xs", "sm", "md", "lg", "xl", "full"] as const;
 
 export const sizeValues = ["sm", "md", "lg"] as const;
 
@@ -40,6 +40,10 @@ export const cardLightValues = ["none", ...buttonColors] as const;
 export const cardUnderlineSizeValues = ["sm", "md", "lg"] as const;
 
 export const cardUnderlineWidthValues = ["fix", "25", "50", "75"] as const;
+
+export const tabsSurfaceValues = ["none", "panel"] as const;
+
+export const tabsVariantValues = ["segmented", "underline"] as const;
 
 export const cardBorderColorValues = [
   "border",

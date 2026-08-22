@@ -51,7 +51,7 @@ The locale layout injects CSS variables from `getSettings()`. [`src/app/globals.
 Token classes:
 
 - Color: `bg-primary`, `text-primary-foreground`, `hover:bg-primary-hover`, `bg-primary-glow`, `bg-primary-shadow`, `bg-background`, `text-foreground`, `bg-panel`, `text-panel-foreground`, `hover:bg-panel-hover`, `border-border`, `bg-accent-1` … `bg-accent-4` (each with `-foreground`, `-hover`, `-glow`, `-shadow`), `bg-success`, `bg-warning`, `bg-error` (same suffixes)
-- Radius: `rounded-none` `rounded-sm` `rounded-md` `rounded-lg` `rounded-full`
+- Radius: `rounded-none` `rounded-xs` `rounded-sm` `rounded-md` `rounded-lg` `rounded-xl` `rounded-full`
 - Border width: `border-none` `border-sm` `border-md` `border-lg` (default chrome `border-md`)
 - Container: `max-w-container-xs` `max-w-container-sm` `max-w-container-md` `max-w-container-lg` `max-w-container-xl` (`full` on Container is `max-w-none`)
 - Fonts: `font-bebas-neue` `font-heebo` `font-ubuntu` `font-sans` (body default = Ubuntu); type scale `text-h1`…`text-h6` (+ `md:text-h*-md`), `text-body`, `text-label` / `text-label-md` / `text-label-sm`, `tracking-body`. When adding a new `text-*` size token, register it in `extendTailwindMerge` inside [`src/lib/cn.ts`](../src/lib/cn.ts) so `cn()` does not drop it next to `text-foreground` / other color utilities.

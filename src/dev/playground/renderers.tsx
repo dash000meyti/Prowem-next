@@ -49,8 +49,15 @@ import {
   TableHead,
   TableHeader,
   TableRow,
+  type TableProps,
 } from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  type TabsListProps,
+} from "@/components/ui/tabs";
 import { Text, type TextProps } from "@/components/ui/text";
 import { Textarea, type TextareaProps } from "@/components/ui/textarea";
 import { Tooltip, type TooltipProps } from "@/components/ui/tooltip";
@@ -310,8 +317,8 @@ export function PlaygroundBySlug({
       return (
         <Playground
           meta={meta}
-          render={() => (
-            <Table>
+          render={(values: PlaygroundValues) => (
+            <Table radius={values.radius as TableProps["radius"]}>
               <TableHeader>
                 <TableRow>
                   <TableHead>{copy.prop}</TableHead>
@@ -530,7 +537,14 @@ export function PlaygroundBySlug({
           meta={meta}
           render={(values: PlaygroundValues) => (
             <Tabs key={String(values.defaultValue)} defaultValue={String(values.defaultValue)}>
-              <TabsList>
+              <TabsList
+                variant={values.variant as TabsListProps["variant"]}
+                surface={values.surface as TabsListProps["surface"]}
+                borderColor={values.borderColor as TabsListProps["borderColor"]}
+                color={values.color as TabsListProps["color"]}
+                radius={values.radius as TabsListProps["radius"]}
+                underlineSize={values.underlineSize as TabsListProps["underlineSize"]}
+              >
                 <TabsTrigger value="one">{copy.demo.tabOne}</TabsTrigger>
                 <TabsTrigger value="two">{copy.demo.tabTwo}</TabsTrigger>
               </TabsList>

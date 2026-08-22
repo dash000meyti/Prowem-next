@@ -49,9 +49,11 @@
   --error-glow: #ff99aa;
   --error-shadow: #991f33;
   --theme-radius-none: 0;
+  --theme-radius-xs: 0.25rem;
   --theme-radius-sm: 0.5rem;
-  --theme-radius-md: 0.875rem;
-  --theme-radius-lg: 1.5rem;
+  --theme-radius-md: 0.75rem;
+  --theme-radius-lg: 1rem;
+  --theme-radius-xl: 1.5rem;
   --theme-radius-full: 9999px;
   --theme-border-width-none: 0;
   --theme-border-width-sm: 1px;
@@ -72,7 +74,7 @@
   --card-base: var(--panel);
   --card-border-width: var(--theme-border-width-md);
   --card-border-color: var(--border);
-  --card-radius: var(--theme-radius-md);
+  --card-radius: var(--theme-radius-lg);
   --card-border-light-top-image: none;
   --card-border-light-bottom-image: none;
   --card-border-light-start-image: none;
@@ -131,9 +133,11 @@
   --color-error-glow: var(--error-glow);
   --color-error-shadow: var(--error-shadow);
   --radius-none: var(--theme-radius-none);
+  --radius-xs: var(--theme-radius-xs);
   --radius-sm: var(--theme-radius-sm);
   --radius-md: var(--theme-radius-md);
   --radius-lg: var(--theme-radius-lg);
+  --radius-xl: var(--theme-radius-xl);
   --radius-full: var(--theme-radius-full);
   --border-width-none: var(--theme-border-width-none);
   --border-width-sm: var(--theme-border-width-sm);

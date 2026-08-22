@@ -53,7 +53,7 @@ export function CardGallery() {
       <div className="flex min-w-0 flex-col gap-2">
         <GalleryHeading
           label="compound"
-          defaults="surface panel, lights none, padding none, radius md, border sm, borderColor border"
+          defaults="surface panel, lights none, padding none, radius lg, border sm, borderColor border"
         />
         <Card className={`max-w-sm ${cardLabPreview}`}>
           <CardHeader variant="divider">{copy.demo.cardTitle}</CardHeader>
@@ -314,7 +314,7 @@ export function CardGallery() {
       </div>
 
       <div className="flex min-w-0 flex-col gap-2">
-        <GalleryHeading label="radius" defaults="md" />
+        <GalleryHeading label="radius" defaults="lg" />
         <div className="flex min-w-0 flex-wrap items-stretch gap-2">
           {radiusValues.map((radius) => (
             <Card key={radius} radius={radius} padding="md" className={cardLabPreview}>
